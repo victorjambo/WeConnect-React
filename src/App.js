@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import Businesses from './Business/Businesses.jsx'
 import { Link } from 'react-router-dom';
 
 class App extends Component {
   
   render() {
     return (
-      
+      <div>
         <header className="intro-header" style={{backgroundImage: "url('/images/intro.jpg')"}}>
           <div className="container">
             <div className="row">
@@ -35,6 +36,8 @@ class App extends Component {
             </div>
           </div>
         </header>
+        <Businesses />
+      </div>
     
     );
   }
