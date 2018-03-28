@@ -6,10 +6,7 @@ class ItemBusiness extends Component {
   constructor(props) {
     super(props);
     this.business = props.business;
-    this.handleRemoveBusiness = this.handleRemoveBusiness.bind(this)
   }
-
-  handleRemoveBusiness(id){}
 
   render(props) {
     return(
