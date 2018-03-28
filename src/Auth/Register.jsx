@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
+import { Link } from 'react-router-dom';
 
 class Register extends Component {
     constructor(props) {
@@ -49,34 +50,25 @@ class Register extends Component {
 
     render() {
         return(
-          <div>
-            <h2>Register User</h2>
-            <div className="formWrapper">
+            <div className="container push">
 
-                <input
-                name="username"
-                type="text"
-                placeholder="Username..."
-                value={this.state.username}
-                onChange={this.logChange}/>
-
-                <input
-                name="email"
-                type="text"
-                placeholder="Email..."
-                value={this.state.email}
-                onChange={this.logChange}/>
-
-                <input
-                name="password"
-                type="password"
-                placeholder="Password..."
-                value={this.state.password}
-                onChange={this.logChange}/>
-
-                <button className="btn" onClick={this.postRegister}>Register user</button>
+              <div className="registration signup">
+                <form id="signup" method="post" action="">
+                  <h1>User Registration</h1>
+                  <input type="text" placeholder="Full Name" autoFocus="autofocus" className="input pass" onChange={this.logChange}/>
+                  <input name="username" type="text" placeholder="Username" className="input pass" onChange={this.logChange} value={this.state.username}/>
+                  <input name="email" type="email" placeholder="Email Address" className="input pass" onChange={this.logChange} value={this.state.email}/>
+                  <input name="password" type="password" placeholder="Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
+                  <input name="confirmpassword" type="password" placeholder="Confirm Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
+                  <input type="submit" value="Sign up" className="submit-btn" onClick={this.postRegister}/>
+                </form>
+                <div className="text-center">
+                    already have an account? <Link to="/">login</Link>
+                </div>
+              </div>
+              
             </div>
-          </div>
+            
         );
     }
 }
