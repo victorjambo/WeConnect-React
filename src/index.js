@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Register from './Auth/Register.jsx';
+import Login from './Auth/Login.jsx';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
@@ -24,15 +25,16 @@ ReactDOM.render(
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav navbar-right">
                 <li><Link to="/">Home</Link></li>
-                <li className="dropdown"><Link to="/signup">Register</Link></li>
-                <li><Link to="/">login</Link></li>
+                <li className="dropdown"><Link to="/auth/signup">Register</Link></li>
+                <li><Link to="/auth/login">login</Link></li>
               </ul>
             </div>
           </div>
       </nav>
 	    			
       <Route exact path="/" component={App} />
-      <Route path="/signup" component={Register} />
+      <Route path="/auth/signup" component={Register} />
+      <Route path="/auth/login" component={Login} />
     </div>
   </BrowserRouter>,
   document.getElementById('root'));

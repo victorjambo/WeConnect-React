@@ -50,7 +50,7 @@ ul {
 ******/
 
 .input-group-btn > .btn.btn-default {
-  background-image: url('%PUBLIC_URL%/images/icon-search-white.svg');
+  background-image: url('/images/icon-search-white.svg');
   background-repeat: no-repeat;
   background-position: center center;
   background-color: #5070e3;
@@ -389,7 +389,7 @@ a.btn.btn-default > span {
 }
 
 .login {
-  height: 320px;
+  height: 350px;
 }
 
 .signup {

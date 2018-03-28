@@ -11,11 +11,12 @@ class Register extends Component {
             email: '',
             password: ''
         }
-        this.postRegister = this.postRegister.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.logChange = this.logChange.bind(this)
     }
 
-    postRegister() {
+    handleSubmit(e) {
+        e.preventDefault();
         var data = {
             username: this.state.username,
             email: this.state.email,
@@ -54,17 +55,17 @@ class Register extends Component {
             <div className="container push">
 
               <div className="registration signup">
-                <form id="signup" method="post" action="">
+                <form id="signup" onSubmit={this.handleSubmit}>
                   <h1>User Registration</h1>
                   <input type="text" placeholder="Full Name" autoFocus="autofocus" className="input pass" onChange={this.logChange}/>
                   <input name="username" type="text" placeholder="Username" className="input pass" onChange={this.logChange} value={this.state.username}/>
                   <input name="email" type="email" placeholder="Email Address" className="input pass" onChange={this.logChange} value={this.state.email}/>
                   <input name="password" type="password" placeholder="Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
                   <input name="confirmpassword" type="password" placeholder="Confirm Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
-                  <input type="submit" value="Sign up" className="submit-btn" onClick={this.postRegister}/>
+                  <input type="submit" value="Sign up" className="submit-btn"/>
                 </form>
                 <div className="text-center">
-                    already have an account? <Link to="/">login</Link>
+                    already have an account? <Link to="/auth/login">login</Link>
                 </div>
               </div>
               
