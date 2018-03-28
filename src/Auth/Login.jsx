@@ -5,7 +5,6 @@ import request from 'superagent';
 class Login extends Component {
   constructor(props) {
     super(props);
-    document.title = "Notes App";
     this.state = {
       username: '',
       password: '',
