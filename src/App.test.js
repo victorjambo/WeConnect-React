@@ -14,7 +14,7 @@ import SearchForm from './Business/SearchForm';
 
 configure({ adapter: new Adapter() });
 
-it('renders without crashing', () => {
+it('<BrowserRouter />', () => {
   const div = document.createElement('root');
   ReactDOM.render(
     <BrowserRouter>
@@ -28,11 +28,12 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-describe('<Hero />', () =>  {
-  it('renders search bar', () => {
+describe('<App />', () =>  {
+  it('test ui elements render children', () => {
     const app = shallow(<App />);
+    expect(app.contains(<Businesses />)).to.equal(true);
+
     const form = shallow(<SearchForm />);
     expect(form.find('form').length).to.equal(1);
-    expect(app.contains(<Businesses />)).to.equal(true);
   });
 });
