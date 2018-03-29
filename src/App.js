@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Businesses from './Business/Businesses.jsx'
 import { Link } from 'react-router-dom';
 
