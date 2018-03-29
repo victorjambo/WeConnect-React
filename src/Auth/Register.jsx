@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import validateInput from './validations/Register.js';
 
 class Register extends Component {
@@ -13,7 +13,8 @@ class Register extends Component {
         password: '',
         confirm_password: '',
         errors: {},
-        isLoading: false
+        isLoading: false,
+        fireRedirect: false
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,17 +50,10 @@ class Register extends Component {
           .send({ username: data.username, fullname: data.fullname, password: data.password, email: data.email })
           .end((err, res) => {
             if(res.status === 200) {
-              console.log(res.body.success);
-              this.setState({
-                username: '',
-                fullname: '',
-                email: '',
-                password: ''
-              });
+              this.setState({ fireRedirect: true });
             }
-            else{
+            else {
               this.setState({ errors: err.response.body, isLoading: false });
-              console.log(err.response.body.warning);
             }
           });
       }
@@ -72,6 +66,8 @@ class Register extends Component {
     }
 
     render() {
+      const { from } = this.props.location.state || '/';
+      const fireRedirect = this.state.fireRedirect;
         return(
             <div className="container push">
 
@@ -97,6 +93,7 @@ class Register extends Component {
                   
                   <input type="submit" value="Sign up" className="submit-btn"/>
                 </form>
+                { fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
                 <div className="text-center">
                     already have an account? <Link to="/auth/login">login</Link>
                 </div>

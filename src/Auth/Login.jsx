@@ -10,7 +10,8 @@ class Login extends Component {
       username: '',
       password: '',
       errors: {},
-      isLoading: false
+      isLoading: false,
+      fireRedirect: false
     };
     
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,9 +46,10 @@ class Login extends Component {
         .send({ username: data.username, password: data.password })
         .end((err, res) => {
           if(res.status === 200) {
-            console.log(res.body.token);
+            // console.log(res.body.token);
+            this.setState({ fireRedirect: true });
           }
-          else{
+          else {
             this.setState({ errors: err.response.body, isLoading: false });
           }
         });
@@ -61,6 +63,8 @@ class Login extends Component {
   }
 
   render() {
+    const { from } = this.props.location.state || '/';
+    const fireRedirect = this.state.fireRedirect;
     return(
       <div className="container push">
         <div className="registration login">
@@ -88,6 +92,7 @@ class Login extends Component {
 
             <input type="submit" value="login" className="submit-btn" disabled={this.state.isLoading}/>
           </form>
+          { fireRedirect && (<Redirect to={from || '/'}/>) }
           <div className="text-center">
             Don't have an account? <Link to="/auth/signup">Sign Up</Link><br />
             <Link to="/">Forgot password</Link>
