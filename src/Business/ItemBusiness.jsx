@@ -26,7 +26,7 @@ class ItemBusiness extends Component {
 }
 
 ItemBusiness.propTypes = {
-  business: PropTypes.string
-}
+  business: PropTypes.object
+};
 
 export default ItemBusiness;

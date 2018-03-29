@@ -15,15 +15,17 @@ class Businesses extends Component {
     this.getBusinesses();
   }
   
-  getBusinesses() {
+  async getBusinesses() {
     var url = 'https://weconnect-victorjambo.c9users.io/api/v2/businesses/';
-    request
+    await request
       .get(url)
       .set('Content-Type', 'application/json')
       .then((response) => {
-        this.setState({
-          businesses: response.body.businesses
-        });
+        if(response.status === 200) {
+          this.setState({
+            businesses: response.body.businesses
+          });
+        }
       });
   }
   
@@ -35,7 +37,7 @@ class Businesses extends Component {
           {
             this.state.businesses.map((business) => {
               return(
-                <ItemBusiness business={business}/>
+                <ItemBusiness business={business} key={business.id}/>
               );
             })
           }
