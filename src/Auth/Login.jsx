@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/Login.js';
 
@@ -46,7 +46,7 @@ class Login extends Component {
         .send({ username: data.username, password: data.password })
         .end((err, res) => {
           if(res.status === 200) {
-            // console.log(res.body.token);
+            window.localStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
           }
           else {
