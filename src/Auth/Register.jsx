@@ -1,47 +1,68 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import { Link } from 'react-router-dom';
+import validateInput from './validations/Register.js';
 
 class Register extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            fullname: '',
-            email: '',
-            password: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.logChange = this.logChange.bind(this)
+      super(props);
+      this.state = {
+        username: '',
+        fullname: '',
+        email: '',
+        password: '',
+        confirm_password: '',
+        errors: {},
+        isLoading: false
+      };
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.logChange = this.logChange.bind(this);
+    }
+
+    isValid() {
+      const { errors, isValid } = validateInput(this.state);
+  
+      if (!isValid) {
+        this.setState({ errors });
+      }
+  
+      return isValid;
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+      e.preventDefault();
+      if (this.isValid()) {
+        this.setState({ errors: {}, isLoading: true });
         var data = {
             username: this.state.username,
+            fullname: this.state.fullname,
             email: this.state.email,
             password: this.state.password
-        }
-        var url = 'https://weconnect-victorjambo.c9users.io/api/v2/auth/register'
+        };
+
+        var url = 'https://weconnect-victorjambo.c9users.io/api/v2/auth/register';
 
         request
           .post(url)
           .set('Content-Type', 'application/json')
-          .send({ username: data.username, password: data.password, email: data.email })
+          .send({ username: data.username, fullname: data.fullname, password: data.password, email: data.email })
           .end((err, res) => {
-            if(res.body.success) {
-                this.props.updateUserState(res.body.success)
+            if(res.status === 200) {
+              console.log(res.body.success);
+              this.setState({
+                username: '',
+                fullname: '',
+                email: '',
+                password: ''
+              });
             }
             else{
-                console.log(err.response.body.warning);
+              this.setState({ errors: err.response.body, isLoading: false });
+              console.log(err.response.body.warning);
             }
           });
-        
-        this.setState({
-            username: '',
-            email: '',
-            password: ''
-        })
+      }
     }
     
     logChange(e) {
@@ -57,11 +78,23 @@ class Register extends Component {
               <div className="registration signup">
                 <form id="signup" onSubmit={this.handleSubmit}>
                   <h1>User Registration</h1>
-                  <input type="text" placeholder="Full Name" autoFocus="autofocus" className="input pass" onChange={this.logChange}/>
+                  { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+                  
+                  <input name="fullname" type="text" placeholder="Full Name" autoFocus="autofocus" className="input pass" onChange={this.logChange} value={this.state.fullname}/>
+                  {this.state.errors.fullname && <span className="help-block">{this.state.errors.fullname}</span>}
+                  
                   <input name="username" type="text" placeholder="Username" className="input pass" onChange={this.logChange} value={this.state.username}/>
+                  {this.state.errors.username && <span className="help-block">{this.state.errors.username}</span>}
+                  
                   <input name="email" type="email" placeholder="Email Address" className="input pass" onChange={this.logChange} value={this.state.email}/>
+                  {this.state.errors.email && <span className="help-block">{this.state.errors.email}</span>}
+                  
                   <input name="password" type="password" placeholder="Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
-                  <input name="confirmpassword" type="password" placeholder="Confirm Password" className="input pass" onChange={this.logChange} value={this.state.password}/>
+                  {this.state.errors.password && <span className="help-block">{this.state.errors.password}</span>}
+                  
+                  <input name="confirm_password" type="password" placeholder="Confirm Password" className="input pass" onChange={this.logChange} value={this.state.confirm_password}/>
+                  {this.state.errors.confirm_password && <span className="help-block">{this.state.errors.confirm_password}</span>}
+                  
                   <input type="submit" value="Sign up" className="submit-btn"/>
                 </form>
                 <div className="text-center">
