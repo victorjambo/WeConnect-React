@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/Login.js';
+import Auth from './Auth.js';
+import { BASE_URL } from '../utils/url.js';
 
 class Login extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class Login extends Component {
         password: this.state.password
       };
 
-      var url = 'https://weconnect-victorjambo.c9users.io/api/v2/auth/login';
+      var url = `${BASE_URL}/api/v2/auth/login`;
   
       request
         .post(url)
@@ -46,6 +48,7 @@ class Login extends Component {
         .send({ username: data.username, password: data.password })
         .end((err, res) => {
           if(res.status === 200) {
+            Auth.authenticate();
             window.localStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
           }

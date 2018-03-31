@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
+import { BASE_URL } from '../utils/url.js';
 
 class Businesses extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Businesses extends Component {
   }
   
   async getBusinesses() {
-    var url = 'https://weconnect-victorjambo.c9users.io/api/v2/businesses/';
+    var url = `${BASE_URL}/api/v2/businesses/`;
     await request
       .get(url)
       .set('Content-Type', 'application/json')

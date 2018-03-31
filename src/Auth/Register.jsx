@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
 import validateInput from './validations/Register.js';
+import { BASE_URL } from '../utils/url.js';
 
 class Register extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class Register extends Component {
             password: this.state.password
         };
 
-        var url = 'https://weconnect-victorjambo.c9users.io/api/v2/auth/register';
+        var url = `${BASE_URL}/api/v2/auth/register`;
 
         request
           .post(url)
