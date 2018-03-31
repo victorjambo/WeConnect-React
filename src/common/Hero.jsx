@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SearchForm from '../Business/SearchForm.jsx'
+import SearchForm from '../Business/SearchForm.jsx';
 
 class Hero extends Component {
   render() {
