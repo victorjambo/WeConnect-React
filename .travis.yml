@@ -6,3 +6,5 @@ install:
   - npm install
 script:
   - CI=true npm test
+after_success:
+  - coveralls
