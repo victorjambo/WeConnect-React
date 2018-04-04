@@ -81,7 +81,7 @@ input.form-control {
   width: 100%;
   z-index: 3;
   font-family: 'Roboto';
-  color: black;
+  color: white;
 }
 
 .navbar-custom div {
@@ -89,7 +89,7 @@ input.form-control {
 }
 
 .navbar-custom .navbar-brand {
-  color: black;
+  color: white;
   font-weight: 800;
   font-family: 'Roboto';
 }
@@ -98,21 +98,32 @@ input.form-control {
   font-size: 12px;
   font-family: 'Roboto';
 }
-.navbar-custom .nav li a {
+.navbar-custom .nav .Nav-list-link a {
   font-size: 15px;
   font-weight: 800;
   letter-spacing: 1px;
   font-family: 'Roboto';
-  color: black;
+  color: white;
 }
 
-.navbar-custom .nav li a:hover {
+.navbar-custom .nav .dropdown .dropdown-toggle {
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+  padding: 20px;
+}
+
+.navbar-custom .nav .dropdown a:hover {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.navbar-custom .nav .Nav-list-link a:hover {
   background: rgba(0, 0, 0, 0.4);
 }
 
 .navbar-brand, .navbar-right  {
-  margin-left: 0px!important;
-  margin-right: 0px!important;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -128,11 +139,11 @@ input.form-control {
   .navbar-custom .navbar-brand:focus {
     color: black; /*** change this ****/
   }
-  .navbar-custom .nav li a {
+  .navbar-custom .nav .Nav-list-link a {
     padding: 20px;
   }
-  .navbar-custom .nav li a:hover,
-  .navbar-custom .nav li a:focus {
+  .navbar-custom .nav .Nav-list-link a:hover,
+  .navbar-custom .nav .Nav-list-link a:focus {
     color: rgba(255, 255, 255, 0.8);
   }
   .navbar-custom .nav li ul.dropdown-menu a {
@@ -162,11 +173,11 @@ input.form-control {
   .navbar-custom.is-fixed .navbar-brand:focus {
     color: #0085A1;
   }
-  .navbar-custom.is-fixed .nav li a {
+  .navbar-custom.is-fixed .nav .Nav-list-link a {
     color: #333333;
   }
-  .navbar-custom.is-fixed .nav li a:hover,
-  .navbar-custom.is-fixed .nav li a:focus {
+  .navbar-custom.is-fixed .nav .Nav-list-link a:hover,
+  .navbar-custom.is-fixed .nav .Nav-list-link a:focus {
     color: #0085A1;
   }
   .navbar-custom.is-visible {
@@ -180,8 +191,8 @@ input.form-control {
 }
 
 .navbar-override {
-  background: rgba(0, 0, 0, 0.27058823529411763)!important;
-  color: white!important;
+  background: rgba(0, 0, 0, 0.27058823529411763);
+  color: white;
 }
 
 .link-bucket {
