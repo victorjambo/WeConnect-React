@@ -8,8 +8,7 @@ import NavigationBar from './common/NavigationBar.jsx';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 import PrivateRoute from './Auth/PrivateRoute.jsx';
-
-const Protected = () => <h3>Protected</h3>;
+import Protected from './Protected.jsx';
 
 ReactDOM.render(
 	<BrowserRouter>
