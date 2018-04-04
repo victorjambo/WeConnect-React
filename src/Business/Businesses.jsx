@@ -12,7 +12,7 @@ class Businesses extends Component {
     this.getBusinesses = this.getBusinesses.bind(this);
   }
   
-  componentWillMount() {
+  componentDidMount() {
     this.getBusinesses();
   }
   
@@ -22,7 +22,7 @@ class Businesses extends Component {
       .get(url)
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if(response.status === 200) {
+        if(response.status === 200 && this.refs.refBusiness) {
           this.setState({
             businesses: response.body.businesses
           });
@@ -33,7 +33,7 @@ class Businesses extends Component {
   render() {
     return(
       <div className="container">
-        <div className="row bucket">
+        <div className="row bucket" ref="refBusiness">
           <h2>Business Partners</h2><br/>
           {
             this.state.businesses.map((business) => {
