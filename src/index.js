@@ -9,6 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 import PrivateRoute from './Auth/PrivateRoute.jsx';
 import Protected from './Protected.jsx';
+import Business from './Business/Business';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route path="/auth/signup" component={Register} />
       <Route path="/auth/login" component={Login} />
+      <Route path="/business/:id" component={Business} />
       <PrivateRoute path="/protected" component={Protected} />
     </div>
   </BrowserRouter>,

@@ -17,7 +17,7 @@ class ItemBusiness extends Component {
           </Link>
           <div className="cell-body">
             <h2>{this.business.name}</h2>
-            <Link className="btn btn-default" to="/">View Profile</Link>
+            <Link className="btn btn-default" to={"/business/"+this.business.id}>View Profile</Link>
           </div>
         </div>
       </div>
