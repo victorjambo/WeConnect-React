@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/Login.js';
@@ -81,8 +82,9 @@ class Login extends Component {
             placeholder="Username"
             className="input pass"
             value={this.state.username}
-            onChange={this.logChange}/>
-            {this.state.errors.username && <span className="help-block">{this.state.errors.username}</span>}
+            onChange={this.logChange}
+            />
+            {this.state.errors.username && <div className="invalid-feedback">{this.state.errors.username}</div>}
 
             <input name="password"
             type="password"
@@ -90,8 +92,9 @@ class Login extends Component {
             error={this.state.errors.password}
             className="input pass"
             value={this.state.password}
-            onChange={this.logChange}/>
-            {this.state.errors.password && <span className="help-block">{this.state.errors.password}</span>}
+            onChange={this.logChange}
+            />
+            {this.state.errors.password && <div className="invalid-feedback">{this.state.errors.password}</div>}
 
             <input type="submit" value="login" className="submit-btn" disabled={this.state.isLoading}/>
           </form>
