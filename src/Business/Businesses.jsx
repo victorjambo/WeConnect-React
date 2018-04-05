@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
 import { BASE_URL } from '../utils/url.js';
+import './css/Businesses.css';
 
 class Businesses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesses: []
+      businesses: [],
+      isLoading: false
     };
     this.getBusinesses = this.getBusinesses.bind(this);
   }
@@ -17,6 +19,7 @@ class Businesses extends Component {
   }
   
   async getBusinesses() {
+    this.setState({ isLoading: true});
     var url = `${BASE_URL}/api/v2/businesses/`;
     await request
       .get(url)
@@ -24,7 +27,8 @@ class Businesses extends Component {
       .then((response) => {
         if(response.status === 200 && this.refs.refBusiness) {
           this.setState({
-            businesses: response.body.businesses
+            businesses: response.body.businesses,
+            isLoading: false
           });
         }
       });
@@ -35,6 +39,7 @@ class Businesses extends Component {
       <div className="container">
         <div className="row bucket" ref="refBusiness">
           <h2>Business Partners</h2><br/>
+          { this.state.isLoading && <h1>Loading <i className="fa fa-spinner fa-spin" /></h1>}
           {
             this.state.businesses.map((business) => {
               return(

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './css/SearchForm.css';
 
 class SearchForm extends Component {
   render() {

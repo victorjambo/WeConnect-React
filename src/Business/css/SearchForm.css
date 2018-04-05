@@ -1,0 +1,24 @@
+/*****
+*
+* Search button
+*
+******/
+
+.input-group-btn > .btn.btn-default {
+  background-image: url('/images/icon-search-white.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #5070e3;
+  border-color: transparent;
+  height: 55px;
+  width: 60px;
+}
+
+.input-group-btn > .btn.btn-default:hover {
+  background-color: rgba(80, 112, 227, 0.7490196078431373);
+}
+
+input.form-control {
+  border-color: transparent;
+  height: 55px;
+}

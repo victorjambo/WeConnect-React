@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 import { Redirect } from 'react-router-dom';
+import './css/NavigationBar.css';
 
 class NavigationBar extends Component {
   constructor(props){
@@ -39,7 +40,7 @@ class NavigationBar extends Component {
             <ul className="nav navbar-nav navbar-right">
               { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
                 <Link to="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
+                  <i data-count="2" className="glyphicon glyphicon-bell notification-icon"></i>
                 </Link>
                 <ul className="dropdown-menu">
                   <li><Link to="/">Notification 1</Link></li>

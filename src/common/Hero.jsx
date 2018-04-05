@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import SearchForm from '../Business/SearchForm.jsx';
+import './css/Hero.css';
+import Auth from '../Auth/Auth';
 
 class Hero extends Component {
   render() {
@@ -14,10 +16,11 @@ class Hero extends Component {
                 <div className="container" id="link-bucket">
                   <div className="row">
                     <div className="col-md-6">
-                      <Link className="link-bucket" to="/">Add business</Link>
+                      <Link className="link-bucket" to="/">Register your business</Link>
                     </div>
                     <div className="col-md-6">
-                      <Link className="link-bucket" to="/">Join us</Link>
+                      { Auth.isAuthenticated && <Link className="link-bucket" to="/">View your businesses</Link> }
+                      { !Auth.isAuthenticated && <Link className="link-bucket" to="/auth/signup">Join us</Link> }
                     </div>
                   </div>
                 </div>     
