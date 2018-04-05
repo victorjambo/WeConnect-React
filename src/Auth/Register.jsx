@@ -118,8 +118,11 @@ class Register extends Component {
                   onChange={this.logChange}
                   value={this.state.confirm_password}/>
                   {this.state.errors.confirm_password && <div className="invalid-feedback">{this.state.errors.confirm_password}</div>}
-                  
-                  <input type="submit" value="Sign up" className="submit-btn"/>
+
+                  <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
+                    signup&nbsp;
+                    { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
+                  </button>
                 </form>
                 { fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
                 <div className="text-center">

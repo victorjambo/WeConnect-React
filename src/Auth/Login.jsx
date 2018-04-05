@@ -96,7 +96,10 @@ class Login extends Component {
             />
             {this.state.errors.password && <div className="invalid-feedback">{this.state.errors.password}</div>}
 
-            <input type="submit" value="login" className="submit-btn" disabled={this.state.isLoading}/>
+            <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
+              login&nbsp;
+              { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
+            </button>
           </form>
           { fireRedirect && (<Redirect to={from || '/'}/>) }
           <div className="text-center">
