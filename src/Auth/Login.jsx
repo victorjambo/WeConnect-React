@@ -16,11 +16,11 @@ class Login extends Component {
       isLoading: false,
       fireRedirect: false
     };
-    
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.logChange = this.logChange.bind(this);
   }
-  
+
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -30,19 +30,19 @@ class Login extends Component {
 
     return isValid;
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-    
-      var data = {
+
+      let data = {
         username: this.state.username,
         password: this.state.password
       };
 
-      var url = `${BASE_URL}/api/v2/auth/login`;
-  
+      let url = `${BASE_URL}/api/v2/auth/login`;
+
       request
         .post(url)
         .set('Content-Type', 'application/json')
@@ -74,7 +74,7 @@ class Login extends Component {
         <div className="registration login">
           <form onSubmit={this.handleSubmit}>
             <h1>Login</h1>
-            
+
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
             <input type="text"
@@ -89,7 +89,6 @@ class Login extends Component {
             <input name="password"
             type="password"
             placeholder="Password"
-            error={this.state.errors.password}
             className="input pass"
             value={this.state.password}
             onChange={this.logChange}
