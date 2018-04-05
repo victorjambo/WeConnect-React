@@ -12,12 +12,12 @@ class ItemBusiness extends Component {
     return(
       <div className="col-lg-4 col-md-4 col-sm-6">
         <div className="my-box bg-white">
-          <Link to="/">
+          <Link to={`/business/${this.business.id}`}>
             <img className="img-responsive shadow" src={this.business.logo} alt={this.business.name}/>
           </Link>
           <div className="cell-body">
             <h2>{this.business.name}</h2>
-            <Link className="btn btn-default" to={"/business/"+this.business.id}>View Profile</Link>
+            <Link className="btn btn-default" to={`/business/${this.business.id}`}>View Profile</Link>
           </div>
         </div>
       </div>

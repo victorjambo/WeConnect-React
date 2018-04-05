@@ -11,16 +11,15 @@ class Businesses extends Component {
       businesses: [],
       isLoading: false
     };
-    this.getBusinesses = this.getBusinesses.bind(this);
   }
-  
+
   componentDidMount() {
     this.getBusinesses();
   }
-  
+
   async getBusinesses() {
     this.setState({ isLoading: true});
-    var url = `${BASE_URL}/api/v2/businesses/`;
+    let url = `${BASE_URL}/api/v2/businesses/`;
     await request
       .get(url)
       .set('Content-Type', 'application/json')
@@ -33,7 +32,7 @@ class Businesses extends Component {
         }
       });
   }
-  
+
   render() {
     return(
       <div className="container">
@@ -49,7 +48,7 @@ class Businesses extends Component {
           }
 
         </div>
-      </div> 
+      </div>
     );
   }
 }
