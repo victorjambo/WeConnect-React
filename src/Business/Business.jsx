@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import { BASE_URL } from '../utils/url.js';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './css/Businesses.css';
+import Auth from '../Auth/Auth';
 
 class Business extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      business: {}
+      business: {},
+      fireRedirect: false,
+      errors: {},
+      isLoading: false
     };
+    
+    this.deleteBusiness = this.deleteBusiness.bind(this);
   }
 
   componentDidMount() {
@@ -30,20 +36,49 @@ class Business extends Component {
         }
       });
   }
+  
+  deleteBusiness(e) {
+    e.preventDefault();
+    
+    this.setState({ isLoading: true });
+    
+    let paramId = this.props.match.params.id;
+    let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
+    let token = window.localStorage.getItem('token');
+    
+    request
+      .del(url)
+      .type('application/json')
+      .set({'x-access-token': token})
+      .end((err, res) => {
+        if(res.status === 200) {
+          console.log(res);
+          this.setState({ fireRedirect: true });
+        }
+        else {
+          this.setState({ errors: err.response.body, isLoading: false });
+        }
+      });
+  }
 
   render() {
     const business = this.state.business;
+    const fireRedirect = this.state.fireRedirect;
     return(
       <div className="container push-profile" ref="refBusiness">
          <div className="row">
             <div className="col-xs-12">
                <div className="col-md-4 col-sm-6 col-xs-12 ">
                   <div className="float-left">
-                     <img src={business.logo} alt="" className="img-responsive shadow" />
+                    <img src={business.logo} alt="" className="img-responsive shadow" />
                   </div>
                   <div className="push">
-                     <Link to="/" className="btn btn-warning">Edit</Link>&nbsp;
-                     <Link to="/" className="btn btn-danger">Delete Business</Link>
+                    { Auth.isAuthenticated && <Link to="/" className="btn btn-warning">Edit</Link> }&nbsp;
+                    { Auth.isAuthenticated && <Link to="" onClick={this.deleteBusiness} className="btn btn-danger">
+                      Delete Business 
+                      { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
+                    </Link> }
+                    { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
                   </div>
                </div>
                <div className="col-md-8 col-sm-6 col-xs-12">
@@ -100,7 +135,7 @@ class Business extends Component {
                            </div>
                            <div className="form-group">
                               <button type="submit" className="btn btn-primary">
-                              <i className="fa fa-btn fa-pencil"></i> Submit
+                                <i className="fa fa-btn fa-pencil"></i> Submit
                               </button>
                            </div>
                         </form>
@@ -109,6 +144,7 @@ class Business extends Component {
                </div>
             </div>
          </div>
+        { fireRedirect && (<Redirect to="/" />) }
       </div>
     );
   }
