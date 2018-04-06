@@ -3,8 +3,9 @@ import './css/Businesses.css';
 import Form from './Form';
 import { Link } from 'react-router-dom';
 
-class NewBusiness extends Component {
+class EditBusiness extends Component {
   render() {
+    let paramId = this.props.match.params.id;
     return(
       <div className="container push-profile">
         <div className="row bucket">
@@ -25,8 +26,8 @@ class NewBusiness extends Component {
             </ul>
           </div>
           <div className="col-lg-9">
-            <h1>Register new business</h1>
-            <Form />
+            <h1>Update business</h1>
+            <Form paramId={paramId} />
           </div>
         </div>
       </div>
@@ -35,4 +36,4 @@ class NewBusiness extends Component {
   }
 }
 
-export default NewBusiness;
+export default EditBusiness;

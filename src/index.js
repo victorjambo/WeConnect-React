@@ -11,6 +11,7 @@ import PrivateRoute from './Auth/PrivateRoute.jsx';
 import Protected from './Protected.jsx';
 import Business from './Business/Business';
 import NewBusiness from './Business/NewBusiness';
+import EditBusiness from './Business/EditBusiness';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Route path="/auth/signup" component={Register} />
       <Route path="/auth/login" component={Login} />
       <Route path="/business/:id" exact component={Business} />
+      <Route path="/business/:id/edit" exact component={EditBusiness} />
 			<PrivateRoute path="/businesses/new" exact component={NewBusiness} />
       <PrivateRoute path="/protected" component={Protected} />
     </div>

@@ -16,6 +16,7 @@ class Business extends Component {
     };
     
     this.deleteBusiness = this.deleteBusiness.bind(this);
+    this.paramId = this.props.match.params.id;
   }
 
   componentDidMount() {
@@ -42,8 +43,7 @@ class Business extends Component {
     
     this.setState({ isLoading: true });
     
-    let paramId = this.props.match.params.id;
-    let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
+    let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
     let token = window.localStorage.getItem('token');
     
     request
@@ -73,11 +73,11 @@ class Business extends Component {
                     <img src={business.logo} alt="" className="img-responsive shadow" />
                   </div>
                   <div className="push">
-                    { Auth.isAuthenticated && <Link to="/" className="btn btn-warning">Edit</Link> }&nbsp;
-                    { Auth.isAuthenticated && <Link to="" onClick={this.deleteBusiness} className="btn btn-danger">
+                    { Auth.isAuthenticated && <Link to={`/business/${this.paramId}/edit`} className="btn btn-warning">Edit</Link> }&nbsp;
+                    { Auth.isAuthenticated && <button onClick={this.deleteBusiness} className="btn btn-danger">
                       Delete Business 
                       { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
-                    </Link> }
+                    </button> }
                     { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
                   </div>
                </div>
