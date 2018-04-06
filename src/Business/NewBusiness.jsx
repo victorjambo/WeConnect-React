@@ -50,11 +50,9 @@ class NewBusiness extends Component {
         logo: data.logo
       })
       .then((res) => {
-        console.log(res);
         this.setState({ fireRedirect: true });
       })
       .catch((err) => {
-        console.log(err);
         this.setState({ errors: err, isLoading: false });
       });
   }
