@@ -13,14 +13,14 @@ class NavigationBar extends Component {
 
     this.logout = this.logout.bind(this);
   }
-  
+
   logout() {
     Auth.signout();
-    window.localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.setState({ fireRedirect: true });
     this.forceUpdate();
   }
-  
+
   render() {
     const fireRedirect = this.state.fireRedirect;
     return (

@@ -50,7 +50,7 @@ class Login extends Component {
         .end((err, res) => {
           if(res.status === 200) {
             Auth.authenticate();
-            window.localStorage.setItem('token', res.body.token);
+            sessionStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
           }
           else {

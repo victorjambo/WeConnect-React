@@ -26,11 +26,11 @@ class Form extends Component {
     this.postForm = this.postForm.bind(this);
     this.putForm = this.putForm.bind(this);
   }
-  
+
   componentDidMount() {
     this.getBusiness();
   }
-  
+
   getBusiness() {
     let paramId = this.props.paramId;
     let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
@@ -51,7 +51,7 @@ class Form extends Component {
       .catch((err) => {
         this.setState({ errors: err, isLoading: false });
       });
-    
+
   }
 
   handleSubmit(e) {
@@ -65,9 +65,9 @@ class Form extends Component {
       location: this.state.location,
       logo: this.state.logo
     };
-    
-    let token = window.localStorage.getItem('token');
-    
+
+    let token = sessionStorage.getItem('token');
+
     if(this.props.paramId) {
       let url = `${BASE_URL}/api/v2/businesses/${this.props.paramId}`;
       this.putForm(data, url, token);
@@ -77,7 +77,7 @@ class Form extends Component {
       this.postForm(data, url, token);
     }
   }
-  
+
   postForm(data, url, token) {
     request
       .post(url)
@@ -97,7 +97,7 @@ class Form extends Component {
         this.setState({ errors: err, isLoading: false });
       });
   }
-  
+
   putForm(data, url, token) {
     request
       .put(url)

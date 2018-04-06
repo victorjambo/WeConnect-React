@@ -14,7 +14,7 @@ class Business extends Component {
       errors: {},
       isLoading: false
     };
-    
+
     this.deleteBusiness = this.deleteBusiness.bind(this);
     this.paramId = this.props.match.params.id;
   }
@@ -37,15 +37,15 @@ class Business extends Component {
         }
       });
   }
-  
+
   deleteBusiness(e) {
     e.preventDefault();
-    
+
     this.setState({ isLoading: true });
-    
+
     let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
-    let token = window.localStorage.getItem('token');
-    
+    let token = sessionStorage.getItem('token');
+
     request
       .del(url)
       .type('application/json')
@@ -75,7 +75,7 @@ class Business extends Component {
                   <div className="push">
                     { Auth.isAuthenticated && <Link to={`/business/${this.paramId}/edit`} className="btn btn-warning">Edit</Link> }&nbsp;
                     { Auth.isAuthenticated && <button onClick={this.deleteBusiness} className="btn btn-danger">
-                      Delete Business 
+                      Delete Business
                       { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
                     </button> }
                     { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
