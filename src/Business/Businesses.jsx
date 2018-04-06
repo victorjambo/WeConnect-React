@@ -19,7 +19,7 @@ class Businesses extends Component {
 
   async getBusinesses() {
     this.setState({ isLoading: true});
-    let url = `${BASE_URL}/api/v2/businesses/`;
+    let url = `${BASE_URL}/api/v2/businesses/?limit=30`;
     await request
       .get(url)
       .set('Content-Type', 'application/json')

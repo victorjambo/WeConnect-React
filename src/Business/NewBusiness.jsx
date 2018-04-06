@@ -8,11 +8,11 @@ class NewBusiness extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'superagent',
-      bio: 'sdkmckd kdcksmkd',
-      category: 'Techology',
-      location: 'Nairobi',
-      logo: 'https://www.robinwieruch.de/img/posts/local-storage-react/banner_1024.jpg',
+      name: '',
+      bio: '',
+      category: '',
+      location: '',
+      logo: '',
       isLoading: false,
       fireRedirect: false,
       errors: {},
@@ -35,13 +35,13 @@ class NewBusiness extends Component {
       logo: this.state.logo
     };
 
-    var url = `${BASE_URL}/api/v2/businesses`;
-    var token = window.localStorage.getItem('token');
+    let url = `${BASE_URL}/api/v2/businesses/`;
+    let token = window.localStorage.getItem('token');
 
     request
       .post(url)
       .type('application/json')
-      .set('x-access-token', token)
+      .set({'x-access-token': token})
       .send({
         name: data.name,
         bio: data.bio,
@@ -49,16 +49,15 @@ class NewBusiness extends Component {
         location: data.location,
         logo: data.logo
       })
-      .then((err, res) => {
-        if(res.status === 201) {
-          this.setState({ fireRedirect: true });
-        }
-        else {
-          this.setState({ errors: err.response.body, isLoading: false });
-        }
+      .then((res) => {
+        console.log(res);
+        this.setState({ fireRedirect: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ errors: err, isLoading: false });
       });
-
-  };
+  }
 
   logChange(e) {
     this.setState({

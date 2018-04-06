@@ -20,7 +20,7 @@ ReactDOM.render(
       <Route path="/auth/signup" component={Register} />
       <Route path="/auth/login" component={Login} />
       <Route path="/business/:id" exact component={Business} />
-			<Route path="/businesses/new" exact component={NewBusiness} />
+			<PrivateRoute path="/businesses/new" exact component={NewBusiness} />
       <PrivateRoute path="/protected" component={Protected} />
     </div>
   </BrowserRouter>,
