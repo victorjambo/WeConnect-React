@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Register from './Auth/Register';
-import Hero from './common/Hero';
-import Login from './Auth/Login';
 import { configure, shallow, mount } from 'enzyme';
-import NavigationBar from './common/NavigationBar';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import Businesses from './Business/Businesses';
-import SearchForm from './Business/SearchForm';
-import ItemBusiness from './Business/ItemBusiness';
 import sinon, { spy } from 'sinon';
+import Register from '../Auth/Register';
+import Hero from '../common/Hero';
+import Login from '../Auth/Login';
+import App from '../App';
+import NavigationBar from '../common/NavigationBar';
+import Businesses from '../Business/Businesses';
+import SearchForm from '../Business/SearchForm';
+import ItemBusiness from '../Business/ItemBusiness';
 
 configure({ adapter: new Adapter() });
 
@@ -45,7 +45,7 @@ describe('<SearchForm />', () =>  {
     const form = shallow(<SearchForm />);
     expect(form.find('form').length).to.equal(1);
   });
-  
+
   it('simulates click events', () => {
     const wrapper = shallow(<SearchForm />);
     expect(wrapper.find('.btn-default').length).to.equal(1);
@@ -60,20 +60,5 @@ describe('<Hero />', () =>  {
 
   it('Test if Hero can Render <SearchForm />', () => {
     expect(hero.contains(<SearchForm />)).to.be.true;
-  });
-});
-
-describe('<Businesses />', () =>  {
-  it('Test Render Businesses', () => {
-    const business = {name: '', logo: ''};
-    const item = shallow(<BrowserRouter><ItemBusiness business={business} /></BrowserRouter>);
-    item.render();
-    expect(item.contains('.my-box')).to.equal(false);
-  });
-  
-  it('Test calls componentDidMount', () => {
-    spy(Businesses.prototype, 'componentDidMount');
-    mount(<Businesses />);
-    expect(Businesses.prototype.componentDidMount.calledOnce).to.equal(true);
   });
 });
