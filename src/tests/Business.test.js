@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { configure, shallow, mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import sinon, { spy } from 'sinon';
 import Businesses from '../Business/Businesses';
 import Business from '../Business/Business';
 import ItemBusiness from '../Business/ItemBusiness';
@@ -90,7 +89,7 @@ describe('<EditBusiness />', () => {
 
   it('Renders EditBusiness without crashing', () => {
     const div = document.createElement('edit-business');
-    ReactDOM.render(<BrowserRouter><EditBusiness match={match} /></BrowserRouter>, div);
+    ReactDOM.render(<MemoryRouter><EditBusiness match={match} /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
@@ -98,7 +97,7 @@ describe('<EditBusiness />', () => {
 describe('<NewBusiness />', () => {
   it('Test Render NewBusiness without crashing', () => {
     const div = document.createElement('new-business');
-    ReactDOM.render(<BrowserRouter><NewBusiness /></BrowserRouter>, div);
+    ReactDOM.render(<MemoryRouter><NewBusiness /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });

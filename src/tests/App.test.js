@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import sinon, { spy } from 'sinon';
 import Register from '../Auth/Register';
 import Hero from '../common/Hero';
 import Login from '../Auth/Login';
@@ -12,7 +11,6 @@ import App from '../App';
 import NavigationBar from '../common/NavigationBar';
 import Businesses from '../Business/Businesses';
 import SearchForm from '../Business/SearchForm';
-import ItemBusiness from '../Business/ItemBusiness';
 
 configure({ adapter: new Adapter() });
 
