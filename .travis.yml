@@ -6,6 +6,3 @@ install:
   - npm install
 script:
   - npm test -- --coverage
-  
-after_success:
-  - coveralls
