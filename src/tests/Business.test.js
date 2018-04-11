@@ -10,6 +10,7 @@ import ItemBusiness from '../Business/ItemBusiness';
 import EditBusiness from '../Business/EditBusiness';
 import NewBusiness from '../Business/NewBusiness';
 import SearchForm from '../Business/SearchForm';
+import Form from '../Business/Form';
 
 configure({ adapter: new Adapter() });
 
@@ -53,7 +54,7 @@ describe('<ItemBusiness />', () => {
 describe('<Business />', () => {
   let match, business;
   beforeEach(() => {
-    match = { params: '1' };
+    match = { params: { id: 23 }, isExact: false, path: "/", url: "/" };
     business = {
       name: 'NNeka',
       logo: 'url_here',
@@ -66,7 +67,7 @@ describe('<Business />', () => {
 
   it('Renders Business without crashing', () => {
     const div = document.createElement('business');
-    ReactDOM.render(<Business match={match} />, div);
+    ReactDOM.render(<MemoryRouter><Business required={true} match={match} /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
@@ -76,7 +77,7 @@ describe('<Business />', () => {
 describe('<EditBusiness />', () => {
   let match, business;
   beforeEach(() => {
-    match = { params: '1' };
+    match = { params: { id: '23' }, isExact: false, path: "/", url: "/" };
     business = {
       name: 'NNeka',
       logo: 'url_here',
@@ -88,17 +89,17 @@ describe('<EditBusiness />', () => {
   });
 
   it('Renders EditBusiness without crashing', () => {
-    const div = document.createElement('edit-business');
-    ReactDOM.render(<MemoryRouter><EditBusiness match={match} /></MemoryRouter>, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const wrapper = shallow(<EditBusiness match={match}/>);
+    expect(wrapper.find('.container').length).to.equal(1);
+    expect(wrapper.contains(<Form paramId={'23'} />)).to.be.true;
   });
 });
 
 describe('<NewBusiness />', () => {
   it('Test Render NewBusiness without crashing', () => {
-    const div = document.createElement('new-business');
-    ReactDOM.render(<MemoryRouter><NewBusiness /></MemoryRouter>, div);
-    ReactDOM.unmountComponentAtNode(div);
+    const wrapper = shallow(<NewBusiness />);
+    expect(wrapper.find('.container').length).to.equal(1);
+    expect(wrapper.contains(<Form />)).to.be.true;
   });
 });
 

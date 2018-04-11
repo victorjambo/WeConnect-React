@@ -54,9 +54,9 @@ class NavigationBar extends Component {
                   <li><Link to="/">Notification 5</Link></li>
                 </ul>
               </li> }
-              { Auth.isAuthenticated && <li className="Nav-list-link"><Link to="" onClick={this.logout}>logout</Link></li> }
+              { Auth.isAuthenticated && <li className="Nav-list-link logout"><Link to="" onClick={this.logout}>logout</Link></li> }
               { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/signup">signup</Link></li> }
-              { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/login">login</Link></li> }
+              { !Auth.isAuthenticated && <li className="Nav-list-link login"><Link to="/auth/login">login</Link></li> }
               { fireRedirect && (<Redirect to="/" />) }
             </ul>
           </div>
