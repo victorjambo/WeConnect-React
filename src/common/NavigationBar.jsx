@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Auth from '../Auth/Auth';
+import Auth from '../Components/Auth/Auth';
 import { Redirect } from 'react-router-dom';
 import './css/NavigationBar.css';
 

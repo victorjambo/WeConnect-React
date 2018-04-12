@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SearchForm from '../Business/SearchForm.jsx';
+import SearchForm from '../Components/Business/SearchForm.jsx';
 import './css/Hero.css';
-import Auth from '../Auth/Auth';
+import Auth from '../Components/Auth/Auth';
 
 class Hero extends Component {
   render() {
     return (
-      <header className="intro-header" style={{backgroundImage: "url('/images/intro.jpg')"}}>
+      <header className="intro-header" style={{backgroundImage: "url('/images/landingpage.jpg')"}}>
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

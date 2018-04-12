@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/Login.js';
 import Auth from './Auth.js';
-import { BASE_URL } from '../utils/url.js';
+import { BASE_URL } from '../../utils/url.js';
 
 class Login extends Component {
   constructor(props) {

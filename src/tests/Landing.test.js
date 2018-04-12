@@ -6,11 +6,10 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import Hero from '../common/Hero';
 import Landing from '../Landing/Landing';
-import Businesses from '../Business/Businesses';
-import SearchForm from '../Business/SearchForm';
+import Businesses from '../Components/Business/Businesses';
+import SearchForm from '../Components/Business/SearchForm';
 import NavigationBar from '../common/NavigationBar';
-import Auth from '../Auth/Auth.js';
-import sinon from 'sinon';
+import Auth from '../Components/Auth/Auth.js';
 
 configure({ adapter: new Adapter() });
 

@@ -7,12 +7,12 @@
 .intro-header {
   background-color: #777777;
   background: no-repeat center center;
-  height: 500px;
+  height: 365px;
   margin-bottom: 70px;
   
 
   /**parallax feature**/
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

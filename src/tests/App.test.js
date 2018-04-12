@@ -5,7 +5,7 @@ import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import App from '../App';
-import PageNotFound from '../PageNotFound/PageNotFound.jsx';
+import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
 import Landing from '../Landing/Landing';
 import NavigationBar from '../common/NavigationBar.jsx';
 

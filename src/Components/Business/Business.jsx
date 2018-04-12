@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import { BASE_URL } from '../utils/url.js';
+import { BASE_URL } from '../../utils/url.js';
 import { Link, Redirect } from 'react-router-dom';
 import './css/Businesses.css';
 import Auth from '../Auth/Auth';

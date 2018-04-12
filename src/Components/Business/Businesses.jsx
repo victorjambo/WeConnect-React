@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
-import { BASE_URL } from '../utils/url.js';
+import { BASE_URL } from '../../utils/url.js';
 import './css/Businesses.css';
 
 class Businesses extends Component {

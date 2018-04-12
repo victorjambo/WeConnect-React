@@ -3,7 +3,7 @@ import './Forms.css';
 import request from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
 import validateInput from './validations/Register.js';
-import { BASE_URL } from '../utils/url.js';
+import { BASE_URL } from '../../utils/url.js';
 
 class Register extends Component {
     constructor(props) {

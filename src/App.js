@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './Auth/PrivateRoute.jsx';
-import PageNotFound from './PageNotFound/PageNotFound.jsx';
-import Business from './Business/Business';
-import NewBusiness from './Business/NewBusiness';
-import EditBusiness from './Business/EditBusiness';
-import Register from './Auth/Register.jsx';
-import Login from './Auth/Login.jsx';
+import PrivateRoute from './Components/Auth/PrivateRoute.jsx';
+import PageNotFound from './Components/PageNotFound/PageNotFound.jsx';
+import Business from './Components/Business/Business';
+import NewBusiness from './Components/Business/NewBusiness';
+import EditBusiness from './Components/Business/EditBusiness';
+import Register from './Components/Auth/Register.jsx';
+import Login from './Components/Auth/Login.jsx';
 import NavigationBar from './common/NavigationBar.jsx';
 import Landing from './Landing/Landing';
 

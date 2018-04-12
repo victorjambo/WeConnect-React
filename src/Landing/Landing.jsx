@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Businesses from '../Business/Businesses.jsx';
+import Businesses from '../Components/Business/Businesses.jsx';
 import Hero from '../common/Hero.jsx';
 
 class Landing extends Component {
