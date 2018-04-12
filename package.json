@@ -32,12 +32,10 @@
     "nyc": "^11.6.0",
     "unit-coverage": "^4.0.3"
   },
-  "nyc.exclude": {
-    "nyc": {
-      "exclude": [
-        "src/registerServiceWorker.js",
-        "src/index.js"
-      ]
-    }
+  "nyc": {
+    "exclude": [
+      "src/registerServiceWorker.js",
+      "src/index.js"
+    ]
   }
 }
