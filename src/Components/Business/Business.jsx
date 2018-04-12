@@ -35,6 +35,9 @@ class Business extends Component {
             business: response.body.business
           });
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 

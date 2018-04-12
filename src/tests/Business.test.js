@@ -4,13 +4,13 @@ import { MemoryRouter } from 'react-router-dom';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import Businesses from '../Business/Businesses';
-import Business from '../Business/Business';
-import ItemBusiness from '../Business/ItemBusiness';
-import EditBusiness from '../Business/EditBusiness';
-import NewBusiness from '../Business/NewBusiness';
-import SearchForm from '../Business/SearchForm';
-import Form from '../Business/Form';
+import Businesses from '../Components/Business/Businesses';
+import Business from '../Components/Business/Business';
+import ItemBusiness from '../Components/Business/ItemBusiness';
+import EditBusiness from '../Components/Business/EditBusiness';
+import NewBusiness from '../Components/Business/NewBusiness';
+import SearchForm from '../Components/Business/SearchForm';
+import Form from '../Components/Business/Form';
 
 configure({ adapter: new Adapter() });
 

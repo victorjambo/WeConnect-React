@@ -50,13 +50,16 @@ class Register extends Component {
           .post(url)
           .set('Content-Type', 'application/json')
           .send({ username: data.username, fullname: data.fullname, password: data.password, email: data.email })
-          .end((err, res) => {
+          .end(res => {
             if(res.status === 200) {
               this.setState({ fireRedirect: true });
             }
             else {
-              this.setState({ errors: err.response.body, isLoading: false });
+              this.setState({ errors: res.response.body, isLoading: false });
             }
+          })
+          .catch(err => {
+            console.log(err);
           });
       }
     }

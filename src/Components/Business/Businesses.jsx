@@ -30,6 +30,9 @@ class Businesses extends Component {
             isLoading: false
           });
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 

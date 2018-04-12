@@ -5,11 +5,11 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Register from '../Auth/Register';
-import Login from '../Auth/Login';
-import { default as validateLogin } from '../Auth/validations/Login';
-import { default as validateRegister } from '../Auth/validations/Register';
-import PrivateRoute from '../Auth/PrivateRoute';
+import Register from '../Components/Auth/Register';
+import Login from '../Components/Auth/Login';
+import { default as validateLogin } from '../Components/Auth/validations/Login';
+import { default as validateRegister } from '../Components/Auth/validations/Register';
+import PrivateRoute from '../Components/Auth/PrivateRoute';
 
 configure({ adapter: new Adapter() });
 

@@ -47,15 +47,18 @@ class Login extends Component {
         .post(url)
         .set('Content-Type', 'application/json')
         .send({ username: data.username, password: data.password })
-        .end((err, res) => {
+        .then(res => {
           if(res.status === 200) {
             Auth.authenticate();
             sessionStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
           }
           else {
-            this.setState({ errors: err.response.body, isLoading: false });
+            this.setState({ errors: res.response.body, isLoading: false });
           }
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   }
