@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route} from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Register from '../Auth/Register';
 import Login from '../Auth/Login';
+import { default as validateLogin } from '../Auth/validations/Login';
+import { default as validateRegister } from '../Auth/validations/Register';
+import PrivateRoute from '../Auth/PrivateRoute';
 
 configure({ adapter: new Adapter() });
 
@@ -43,6 +46,20 @@ describe('<Login />', () => {
     
     handleSubmit.restore();
   });
+  
+  it('logChange function', () => {
+    let logChange = sinon.stub(Login.prototype, 'logChange').returns(true);
+    let wrapper = mount(
+      <MemoryRouter>
+        <Login location={location} />
+      </MemoryRouter>);
+      
+    wrapper.find('input').first().simulate('change', { preventDefault() {} });
+    
+    expect(logChange.called).to.be.true;
+    
+    logChange.restore();
+  });
 });
 
 describe('<Register />', () => {
@@ -73,12 +90,53 @@ describe('<Register />', () => {
     
     handleSubmit.restore();
   });
+  
+  it('logChange function', () => {
+    let logChange = sinon.stub(Register.prototype, 'logChange').returns(true);
+    let wrapper = mount(
+      <MemoryRouter>
+        <Register location={location} />
+      </MemoryRouter>);
+      
+    wrapper.find('input').first().simulate('change', { preventDefault() {} });
+    
+    expect(logChange.called).to.be.true;
+    
+    logChange.restore();
+  });
 });
 
+describe('Validations', () => {
+  let text = 'This field is required';
+  it('Validates Login', () => {
+    let data = {username: '', password: ''};
+    let output = validateLogin(data);
+    
+    for(var error in output.errors) {
+      expect(output.errors[error]).to.equal(text);
+    }
+  });
+  
+  it('Validates Register', () => {
+    let data = {
+      username: '',
+      password: '',
+      fullname: '',
+      email: '',
+      confirm_password: ''
+    };
+    let output = validateRegister(data);
+    
+    for(var error in output.errors) {
+      expect(output.errors[error]).to.equal(text);
+    }
+  });
+});
 
-/*****
-* https://medium.com/airbnb-engineering/enzyme-javascript-testing-utilities-for-react-a417e5e5090f
-* https://github.com/airbnb/enzyme/issues/435
-* https://gist.github.com/alfonsomunozpomer/de992a9710724eb248be3842029801c8
-* https://medium.com/@sangboaklee
-*/
+describe('PrivateRoute', () => {
+  it('PrivateRoute', () => {
+    let mockObject = { component: Register, ...[]};
+    let route = <Route />;
+    expect(PrivateRoute(mockObject).type).to.equal(route.type);
+  });
+});

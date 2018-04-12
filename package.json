@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "cov": "npm test -- --coverage"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -30,5 +31,13 @@
     "sinon": "^4.5.0",
     "nyc": "^11.6.0",
     "unit-coverage": "^4.0.3"
+  },
+  "nyc.exclude": {
+    "nyc": {
+      "exclude": [
+        "src/registerServiceWorker.js",
+        "src/index.js"
+      ]
+    }
   }
 }
