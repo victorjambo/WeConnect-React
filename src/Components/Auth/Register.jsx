@@ -129,7 +129,7 @@ class Register extends Component {
                 </form>
                 { fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
                 <div className="text-center">
-                    already have an account? <Link to="/auth/login">login</Link>
+                  already have an account? <Link to="/auth/login">login</Link>
                 </div>
               </div>
               

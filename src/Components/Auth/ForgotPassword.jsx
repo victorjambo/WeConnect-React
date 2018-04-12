@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
-import validateInput from './validations/Login.js';
-import Auth from './Auth.js';
+import validateInput from './validations/ForgotPassword.js';
 import { BASE_URL } from '../../utils/url.js';
 
-class Login extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      email: '',
       errors: {},
       isLoading: false,
       fireRedirect: false
@@ -37,20 +35,17 @@ class Login extends Component {
       this.setState({ errors: {}, isLoading: true });
 
       let data = {
-        username: this.state.username,
-        password: this.state.password
+        email: this.state.email
       };
 
-      let url = `${BASE_URL}/api/v2/auth/login`;
+      let url = `${BASE_URL}/api/v2/auth/forgot-password`;
 
       request
         .post(url)
         .set('Content-Type', 'application/json')
-        .send({ username: data.username, password: data.password })
+        .send({ email: data.email })
         .then(res => {
           if(res.status === 200) {
-            Auth.authenticate();
-            sessionStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
           }
           else {
@@ -58,7 +53,7 @@ class Login extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
+          this.setState({ errors: err, isLoading: false });
         });
     }
   }
@@ -76,37 +71,28 @@ class Login extends Component {
       <div className="container push">
         <div className="registration login">
           <form onSubmit={this.handleSubmit}>
-            <h1>Login</h1>
+            <h1>Forgot Password</h1>
 
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
             <input type="text"
-            name="username"
-            placeholder="Username"
+            name="email"
+            placeholder="Email"
             className="input pass"
-            value={this.state.username}
+            value={this.state.email}
             onChange={this.logChange}
             />
-            {this.state.errors.username && <div className="invalid-feedback">{this.state.errors.username}</div>}
-
-            <input name="password"
-            type="password"
-            placeholder="Password"
-            className="input pass"
-            value={this.state.password}
-            onChange={this.logChange}
-            />
-            {this.state.errors.password && <div className="invalid-feedback">{this.state.errors.password}</div>}
+            {this.state.errors.email && <div className="invalid-feedback">{this.state.errors.email}</div>}
 
             <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
-              login&nbsp;
+              Send&nbsp;
               { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
             </button>
           </form>
           { fireRedirect && (<Redirect to={from || '/'}/>) }
           <div className="text-center">
-            Don't have an account? <Link to="/auth/signup">Sign Up</Link><br />
-            <Link to="/auth/forgot-password">Forgot password</Link>
+            Don't have an account? <Link to="/auth/signup">Sign Up</Link><br /><br />
+            Already have an account? <Link to="/auth/login">login</Link>
           </div>
         </div>
       </div>
@@ -114,4 +100,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ForgotPassword;
