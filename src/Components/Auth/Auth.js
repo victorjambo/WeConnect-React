@@ -1,14 +1,14 @@
 import decode from 'jwt-decode';
 
 function isTokenValid() {
-  let token = sessionStorage.getItem('token');
+  let token = window.sessionStorage.getItem('token');
   if(!token) {
     return false;
   }
   try {
     let { exp } = decode(token);
     if (exp < new Date().getTime() / 1000) {
-      sessionStorage.removeItem('token');
+      window.sessionStorage.removeItem('token');
       return false;
     }
   } catch (e) {

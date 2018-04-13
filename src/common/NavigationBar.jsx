@@ -16,7 +16,7 @@ class NavigationBar extends Component {
 
   logout() {
     Auth.signout();
-    sessionStorage.removeItem('token');
+    window.sessionStorage.removeItem('token');
     this.setState({ fireRedirect: true });
     this.forceUpdate();
   }

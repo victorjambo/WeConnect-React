@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 
 class ItemBusiness extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class ItemBusiness extends Component {
       <div className="col-lg-4 col-md-4 col-sm-6">
         <div className="my-box bg-white">
           <Link to={`/business/${this.business.id}`}>
-            <img className="img-responsive shadow" src={this.business.logo} alt={this.business.name}/>
+            <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={this.business.logo} />
           </Link>
           <div className="cell-body">
             <h2>{this.business.name}</h2>

@@ -30,7 +30,7 @@ describe('<App />', () =>  {
     expect(wrapper.find(NavigationBar)).to.have.length(1);
     expect(wrapper.find('Switch')).to.have.length(1);
     expect(wrapper.find('Route')).to.have.length(6);
-    expect(wrapper.find('PrivateRoute')).to.have.length(1);
+    expect(wrapper.find('PrivateRoute')).to.have.length(3);
   });
 });
 

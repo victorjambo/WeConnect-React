@@ -10,10 +10,12 @@ class SearchForm extends Component {
   
   handleSubmit(e){
     e.preventDefault();
-    let token = sessionStorage.getItem('token');
+    let token = window.sessionStorage.getItem('token');
     const { exp } = decode(token);
     console.log(new Date().getTime() / 1000);
     console.log(exp);
+    const formData = new FormData();
+    console.log(formData);
   }
 
   render() {

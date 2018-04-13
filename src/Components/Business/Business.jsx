@@ -6,6 +6,7 @@ import './css/Business.css';
 import Auth from '../Auth/Auth';
 import PageNotFound from '../../Components/PageNotFound/PageNotFound';
 import { DotLoader } from 'react-spinners';
+import { Image } from 'cloudinary-react';
 
 class Business extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Business extends Component {
     this.setState({ isLoading: true });
 
     let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
-    let token = sessionStorage.getItem('token');
+    let token = window.sessionStorage.getItem('token');
 
     request
       .del(url)
@@ -94,7 +95,7 @@ class Business extends Component {
               <div className="col-xs-12">
                  <div className="col-md-4 col-sm-6 col-xs-12 ">
                     <div className="float-left">
-                      <img src={business.logo} alt="" className="img-responsive shadow" />
+                      <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={business.logo} />
                     </div>
                     <div className="push">
                       { Auth.isAuthenticated && <Link to={`/business/${this.paramId}/edit`} className="btn btn-warning">Edit</Link> }&nbsp;
