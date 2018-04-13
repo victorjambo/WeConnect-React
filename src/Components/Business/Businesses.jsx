@@ -3,6 +3,7 @@ import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
 import { BASE_URL } from '../../utils/url.js';
 import './css/Businesses.css';
+import { SyncLoader } from 'react-spinners';
 
 class Businesses extends Component {
   constructor(props) {
@@ -41,7 +42,14 @@ class Businesses extends Component {
       <div className="container">
         <div className="row bucket" ref="refBusiness">
           <h2>Business Partners</h2><br/>
-          { this.state.isLoading && <h1>Loading <i className="fa fa-spinner fa-spin" /></h1>}
+          {
+            <div className="spinners-loader">
+              <SyncLoader
+                color={'#123abc'} 
+                loading={this.state.isLoading}
+              />
+            </div>
+          }
           {
             this.state.businesses.map((business) => {
               return(
