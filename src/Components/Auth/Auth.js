@@ -1,7 +1,12 @@
 import decode from 'jwt-decode';
 
 function isTokenValid() {
-  let token = window.sessionStorage.getItem('token');
+  let token = null;
+  try {
+    token = window.sessionStorage.getItem('token');
+  } catch (e) {
+    return false;
+  }
   if(!token) {
     return false;
   }
