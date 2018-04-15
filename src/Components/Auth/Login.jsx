@@ -36,17 +36,14 @@ class Login extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      let data = {
-        username: this.state.username,
-        password: this.state.password
-      };
+      const { username, password} = this.state;
 
       let url = `${BASE_URL}/api/v2/auth/login`;
 
       request
         .post(url)
         .set('Content-Type', 'application/json')
-        .send({ username: data.username, password: data.password })
+        .send({ username: username, password: password })
         .then(res => {
           if(res.status === 200) {
             Auth.authenticate();

@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 
-function isTokenValid() {
+const isTokenValid = () => {
   let token = null;
   try {
     token = window.sessionStorage.getItem('token');
@@ -20,7 +20,7 @@ function isTokenValid() {
     return false;
   }
   return true;
-}
+};
 
 const Auth = {
   isAuthenticated: isTokenValid(),

@@ -8,7 +8,7 @@ class NewBusiness extends Component {
     return(
       <div className="container push-profile">
         <div className="row bucket">
-          <div className="col-lg-3">
+          <div className="col-lg-3 hidden-sm">
             <ul className="list-group">
               <li className="list-group-item">
                 <Link to="/">My Profile</Link>

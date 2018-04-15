@@ -18,7 +18,7 @@ class Businesses extends Component {
     this.getBusinesses();
   }
 
-  async getBusinesses() {
+  getBusinesses = async () => {
     this.setState({ isLoading: true});
     let url = `${BASE_URL}/api/v2/businesses/?limit=30`;
     await request

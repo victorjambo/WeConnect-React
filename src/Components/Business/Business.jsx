@@ -27,7 +27,7 @@ class Business extends Component {
     this.getBusiness();
   }
 
-  async getBusiness() {
+  getBusiness = async () => {
     this.setState({ isLoading: true });
     let paramId = this.props.match.params.id;
     let url = `${BASE_URL}/api/v2/businesses/${paramId}`;

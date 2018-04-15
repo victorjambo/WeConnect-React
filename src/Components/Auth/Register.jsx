@@ -37,20 +37,20 @@ class Register extends Component {
       e.preventDefault();
       if (this.isValid()) {
         this.setState({ errors: {}, isLoading: true });
-        var data = {
-            username: this.state.username,
-            fullname: this.state.fullname,
-            email: this.state.email,
-            password: this.state.password
-        };
+        const { username, fullname, email, password } = this.state;
 
         var url = `${BASE_URL}/api/v2/auth/register`;
 
         request
           .post(url)
           .set('Content-Type', 'application/json')
-          .send({ username: data.username, fullname: data.fullname, password: data.password, email: data.email })
-          .end(res => {
+          .send({ 
+            username: username,
+            fullname: fullname,
+            password: password,
+            email: email
+          })
+          .then(res => {
             if(res.status === 200) {
               this.setState({ fireRedirect: true });
             }

@@ -34,16 +34,14 @@ class ForgotPassword extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      let data = {
-        email: this.state.email
-      };
+      const { email } = this.state;
 
       let url = `${BASE_URL}/api/v2/auth/forgot-password`;
 
       request
         .post(url)
         .set('Content-Type', 'application/json')
-        .send({ email: data.email })
+        .send({ email: email })
         .then(res => {
           if(res.status === 200) {
             this.setState({ fireRedirect: true });
