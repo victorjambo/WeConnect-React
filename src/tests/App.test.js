@@ -29,8 +29,8 @@ describe('<App />', () =>  {
     const wrapper = shallow(<App />);
     expect(wrapper.find(NavigationBar)).to.have.length(1);
     expect(wrapper.find('Switch')).to.have.length(1);
-    expect(wrapper.find('Route')).to.have.length(6);
-    expect(wrapper.find('PrivateRoute')).to.have.length(3);
+    expect(wrapper.find('Route').length).to.be.above(6);
+    expect(wrapper.find('PrivateRoute').length).to.be.above(3);
   });
 });
 
