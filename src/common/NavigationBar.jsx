@@ -39,7 +39,7 @@ class NavigationBar extends Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav navbar-right">
               { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
-                <Link to="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <i data-count="2" className="glyphicon glyphicon-bell notification-icon"></i>
                 </Link>
                 <ul className="dropdown-menu">
@@ -51,10 +51,20 @@ class NavigationBar extends Component {
                   <li role="separator" className="divider"></li>
                   <li><Link to="/">Notification 4</Link></li>
                   <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 5</Link></li>
+                  <li><Link to="/" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>
                 </ul>
               </li> }
-              { Auth.isAuthenticated && <li className="Nav-list-link logout"><Link to="" onClick={this.logout}>logout</Link></li> }
+              { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
+                <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user" />
+                </Link>
+                <ul className="dropdown-menu">
+                  <li><Link to="/">My Profile</Link></li>
+                  <li><Link to="/">My Businesses</Link></li>
+                  <li role="separator" className="divider"></li>
+                  <li><Link to="" onClick={this.logout}><span class="glyphicon glyphicon-log-out"/>logout</Link></li>
+                </ul>
+              </li> }
               { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/signup">signup</Link></li> }
               { !Auth.isAuthenticated && <li className="Nav-list-link login"><Link to="/auth/login">login</Link></li> }
               { fireRedirect && (<Redirect to="/" />) }

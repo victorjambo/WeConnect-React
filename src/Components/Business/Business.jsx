@@ -9,7 +9,7 @@ import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
 
-const cloudinaryCore = new cloudinary.Cloudinary({cloud_name: 'demo'});
+const cloudinaryCore = new cloudinary.Cloudinary({cloud_name: 'dhic9kypo'});
 
 class Business extends Component {
   constructor(props) {

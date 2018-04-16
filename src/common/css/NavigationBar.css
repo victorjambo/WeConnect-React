@@ -48,8 +48,10 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
-.navbar-custom .nav .Nav-list-link a:hover {
+.navbar-custom .nav li .nav-link:hover,
+.navbar-custom .nav li .nav-link:active {
   background: rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
 .navbar-brand, .navbar-right  {
@@ -66,8 +68,7 @@
     padding: 20px;
     font-size: 21px;
   }
-  .navbar-custom .navbar-brand:hover,
-  .navbar-custom .navbar-brand:focus {
+  .navbar-custom .navbar-brand:hover {
     color: #abb6d2
   }
   .navbar-custom .nav .Nav-list-link a {

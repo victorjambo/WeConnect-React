@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/Businesses.css';
 import Form from './Form';
-import { Link } from 'react-router-dom';
+import Sidebar from '../../common/Sidebar';
 
 class NewBusiness extends Component {
   render() {
@@ -9,20 +9,7 @@ class NewBusiness extends Component {
       <div className="container push-profile">
         <div className="row bucket">
           <div className="col-lg-3 hidden-sm">
-            <ul className="list-group">
-              <li className="list-group-item">
-                <Link to="/">My Profile</Link>
-              </li>
-              <li className="list-group-item">
-                <Link to="/">All Business</Link>
-              </li>
-              <li className="list-group-item">
-                <Link to="/">Filter businesses</Link>
-              </li>
-              <li className="list-group-item">
-                <Link to="/">Show business</Link>
-              </li>
-            </ul>
+            <Sidebar />
           </div>
           <div className="col-lg-9">
             <h1>Register new business</h1>
