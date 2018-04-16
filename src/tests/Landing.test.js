@@ -55,7 +55,7 @@ describe('<NavigationBar />', () =>  {
     Auth.authenticate();
     const wrapper = mount(<MemoryRouter><NavigationBar /></MemoryRouter>);
     expect(wrapper.find('.navbar')).to.have.length(1);
-    expect(wrapper.find('.logout')).to.have.length(1);
+    expect(wrapper.find('.dropdown-notifications')).to.have.length(1);
   });
   
   it('Contains Un-Authenticated links', () => {

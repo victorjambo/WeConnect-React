@@ -54,15 +54,15 @@ class NavigationBar extends Component {
                   <li><Link to="/" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>
                 </ul>
               </li> }
-              { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
+              { Auth.isAuthenticated && <li className="dropdown userdashboard">
                 <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span class="glyphicon glyphicon-user" />
+                  <span className="glyphicon glyphicon-user" />
                 </Link>
                 <ul className="dropdown-menu">
                   <li><Link to="/">My Profile</Link></li>
                   <li><Link to="/">My Businesses</Link></li>
                   <li role="separator" className="divider"></li>
-                  <li><Link to="" onClick={this.logout}><span class="glyphicon glyphicon-log-out"/>logout</Link></li>
+                  <li><Link to="" onClick={this.logout}><span className="glyphicon glyphicon-log-out"/>logout</Link></li>
                 </ul>
               </li> }
               { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/signup">signup</Link></li> }
