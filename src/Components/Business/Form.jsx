@@ -120,7 +120,6 @@ class Form extends Component {
       .then((res) => {
         if(res.status === 200) {
           this.setState({ fireRedirect: true });
-          console.log('>>>>>>>>>>.');
         }
         else {
           this.setState({ errors: res.response.body, isLoading: false });
@@ -153,7 +152,7 @@ class Form extends Component {
         }
       })
       .catch((err) => {
-        this.setState({ errors: err, isLoading: false });
+        this.setState({ errors: err.response.body, isLoading: false });
       });
   }
   
@@ -177,6 +176,9 @@ class Form extends Component {
       <div className="row">
         <div className="col-lg-9">
           <form onSubmit={this.handleSubmit}>
+
+            { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+
             <div className="form-group">
               <label htmlFor="name">Business Name</label>
               <input

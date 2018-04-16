@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
 import { BASE_URL } from '../../utils/url.js';
-import './css/Businesses.css';
+// import './css/Businesses.css';
 import { SyncLoader } from 'react-spinners';
+import Masonry from 'react-masonry-component';
 
 class Businesses extends Component {
   constructor(props) {
@@ -42,6 +43,17 @@ class Businesses extends Component {
       <div className="container">
         <div className="row bucket" ref="refBusiness">
           <h2>Business Partners</h2><br/>
+
+          <Masonry >
+            {
+              this.state.businesses.map((business) => {
+                return(
+                  <ItemBusiness business={business} key={business.id}/>
+                );
+              })
+            }
+          </Masonry>
+
           {
             <div className="spinners-loader">
               <SyncLoader
@@ -49,13 +61,6 @@ class Businesses extends Component {
                 loading={this.state.isLoading}
               />
             </div>
-          }
-          {
-            this.state.businesses.map((business) => {
-              return(
-                <ItemBusiness business={business} key={business.id}/>
-              );
-            })
           }
 
         </div>

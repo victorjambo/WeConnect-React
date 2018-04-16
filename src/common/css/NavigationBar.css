@@ -68,7 +68,7 @@
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
-    color: black; /*** change this ****/
+    color: #abb6d2
   }
   .navbar-custom .nav .Nav-list-link a {
     padding: 20px;

@@ -5,7 +5,6 @@
 ******/
 
 .my-box {
-  height: 466px;
   width: 100%;
   border: 2px;
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.2);
@@ -18,51 +17,14 @@
   padding: 20px;
 }
 
-.cell-body > h4 {
-  font-size: 18px;
-  line-height: 1.33;
-  color: #0d0d0d;
-  font-weight: bold;
-  margin-top: -15px;
-  height: 20px;
-  display: block;
-}
-
-.cell-body > p {
-  height: 130px;
-  margin-top: 10px;
-}
-
 .cell-body h2 {
-  margin-top: -5px;
-}
-
-.btn.btn-default {
-  background-color: #5070e3;
-  width: 100%;
-  display: inline-block;
-  border-radius: 2px;
-  line-height: 1.33;
-  padding: 13px 0;
-  overflow: hidden;
-  color: white;
-}
-
-.btn:hover, .input-group-btn > button {
-  background-color: rgba(80, 112, 227, 0.7490196078431373);
-  transition: translateZ(0);
-  transition-duration: 0.3s;
-  transition-timing-function: ease-out;
-}
-
-a.btn.btn-default > span {
-  color: white;
-  font-size: 18px;
-  border-radius: 2px;
-  text-align: center;
-  font-weight: bold;
+  margin-top: -2px;
 }
 
 .spinners-loader{
   margin-left: 50%;
+}
+
+.masonry {
+  margin-bottom: 50px;
 }

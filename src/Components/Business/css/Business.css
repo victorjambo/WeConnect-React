@@ -30,3 +30,19 @@
   margin-top: 25%;
   margin-left: 50%;
 }
+
+.business-header {
+  background: no-repeat;
+  height: 200px;
+  background-size: cover;
+  
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
+}
+
+.push-up-profile {
+  margin-top: -42px;
+}
