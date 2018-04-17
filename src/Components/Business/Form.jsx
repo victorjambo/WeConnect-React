@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import { BASE_URL } from '../../utils/url.js';
+import { Image } from 'cloudinary-react';
 import { Redirect } from 'react-router-dom';
-import './css/Businesses.css';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import { Image } from 'cloudinary-react';
+import './css/Businesses.css';
 import validateInput from './Validations';
+import { BASE_URL } from '../../utils/url.js';
+import { notify } from '../../utils/notify.js';
 
 class Form extends Component {
   constructor(props) {
@@ -224,7 +225,7 @@ class Form extends Component {
             { this.state.errors.bio && <div className="invalid-feedback">{this.state.errors.bio}</div> }
             
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary" disabled={this.state.isLoading}>
                 <i className="fa fa-btn fa-save"></i> Save
                 { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
               </button>

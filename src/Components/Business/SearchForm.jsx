@@ -1,30 +1,23 @@
 import React, { Component } from 'react';
 import './css/SearchForm.css';
-import decode from 'jwt-decode';
 
 class SearchForm extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-  
-  handleSubmit(e){
+
+  handleClick(e) {
     e.preventDefault();
-    let token = window.sessionStorage.getItem('token');
-    const { exp } = decode(token);
-    console.log(new Date().getTime() / 1000);
-    console.log(exp);
-    const formData = new FormData();
-    console.log(formData);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <div className="input-group">
           <input type="text" className="form-control" name="search" size="60" placeholder="Business Name, location or category"/>
           <span className="input-group-btn">
-            <button className="btn btn-default"/>
+            <button className="btn btn-default" onClick={this.handleClick} />
           </span>
         </div>
       </form> 

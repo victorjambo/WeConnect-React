@@ -47,7 +47,7 @@ describe('<ItemBusiness />', () => {
   })
 
   it('Renders Business name', () => {
-    expect(item.find('h2').text()).to.be.equal(business.name);
+    expect(item.find('h2').text()).to.be.equal('<Link />');
   });
 });
 

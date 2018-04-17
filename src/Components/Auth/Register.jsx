@@ -4,6 +4,7 @@ import request from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
 import validateInput from './validations/Register.js';
 import { BASE_URL } from '../../utils/url.js';
+import { notify } from '../../utils/notify.js';
 
 class Register extends Component {
     constructor(props) {
@@ -53,13 +54,16 @@ class Register extends Component {
           .then(res => {
             if(res.status === 200) {
               this.setState({ fireRedirect: true });
+              notify('success', res.body.success);
             }
             else {
               this.setState({ errors: res.response.body, isLoading: false });
+              notify('success', res.body);
             }
           })
           .catch(err => {
             this.setState({ errors: err.response.body, isLoading: false });
+            notify('warning', err.response.body.warning);
           });
       }
     }

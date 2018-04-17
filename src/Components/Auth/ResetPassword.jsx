@@ -4,6 +4,7 @@ import request from 'superagent';
 import Sidebar from '../../common/Sidebar';
 import validateInput from './validations/ResetPassword.js';
 import { BASE_URL } from '../../utils/url.js';
+import { notify } from '../../utils/notify.js';
 
 class ResetPassword extends React.Component {
   constructor(props) {
@@ -50,13 +51,16 @@ class ResetPassword extends React.Component {
         .then(res => {
           if(res.status === 200) {
             this.setState({ fireRedirect: true });
+            notify('success', res.body.success);
           }
           else {
             this.setState({ serverErrors: res.response.body, isLoading: false });
+            notify('success', res.body);
           }
         })
         .catch(err => {
           this.setState({ serverErrors: err.response.body, isLoading: false });
+          notify('warning', err.response.body.warning);
         });
     }
   }

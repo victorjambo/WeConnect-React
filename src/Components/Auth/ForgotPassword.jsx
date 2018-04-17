@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/ForgotPassword.js';
 import { BASE_URL } from '../../utils/url.js';
+import { notify } from '../../utils/notify.js';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -45,13 +46,16 @@ class ForgotPassword extends Component {
         .then(res => {
           if(res.status === 200) {
             this.setState({ fireRedirect: true });
+            notify('success', res.body.success);
           }
           else {
             this.setState({ errors: res.response.body, isLoading: false });
+            notify('success', res.body);
           }
         })
         .catch(err => {
           this.setState({ errors: err, isLoading: false });
+          notify('warning', err.response.body.warning);
         });
     }
   }

@@ -5,6 +5,7 @@ import request from 'superagent';
 import validateInput from './validations/Login.js';
 import Auth from './Auth.js';
 import { BASE_URL } from '../../utils/url.js';
+import { notify } from '../../utils/notify.js';
 
 class Login extends Component {
   constructor(props) {
@@ -49,13 +50,16 @@ class Login extends Component {
             Auth.authenticate();
             sessionStorage.setItem('token', res.body.token);
             this.setState({ fireRedirect: true });
+            notify('success', res.body.success);
           }
           else {
             this.setState({ errors: res.response.body, isLoading: false });
+            notify('success', res.body);
           }
         })
         .catch(err => {
           this.setState({ errors: err.response.body, isLoading: false });
+          notify('warning', err.response.body.warning);
         });
     }
   }
