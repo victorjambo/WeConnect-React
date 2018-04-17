@@ -12,6 +12,8 @@ import Landing from './Landing/Landing';
 import ForgotPassword from './Components/Auth/ForgotPassword';
 import Profile from './Components/Users/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
+import Notifications from './Components/Notifications/Notifications';
+import UserBusinesses from './Components/Users/UserBusinesses';
 
 class App extends Component {
 
@@ -27,6 +29,8 @@ class App extends Component {
           <Route path="/auth/reset-password" component={ResetPassword} />
     			<PrivateRoute path="/auth/reset-password" exact component={NewBusiness} />
     			<PrivateRoute path="/profile" exact component={Profile} />
+    			<PrivateRoute path="/notifications" exact component={Notifications} />
+    			<PrivateRoute path="/profile/businesses" exact component={UserBusinesses} />
           <Route path="/business/:id" exact component={Business} />
           <PrivateRoute path="/business/:id/edit" exact component={EditBusiness} />
     			<PrivateRoute path="/businesses/new" exact component={NewBusiness} />

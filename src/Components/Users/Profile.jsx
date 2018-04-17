@@ -60,13 +60,15 @@ class Profile extends React.Component {
                 </div>
               ) : (
                 <div>
+                  <h1>{fullname}'s profile</h1>
+                  
                   {
                     activate === 'false' && 
-                    <div class="alert alert-warning" role="alert">
+                    <div className="alert alert-warning" role="alert">
                       <b>Check your email to activate your account!!!</b>
                     </div>
                   }
-                  <h2>{fullname}'s profile</h2>
+                  
                   <div className="overview-info">
                     <label>username:&nbsp;</label>
                     <span className="value">{username}</span>

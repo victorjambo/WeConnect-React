@@ -2,6 +2,7 @@
   "name": "weconnect-react",
   "version": "0.1.0",
   "private": true,
+  "sourceType": "module",
   "dependencies": {
     "ajv": "^6.4.0",
     "cloudinary-core": "^2.5.0",

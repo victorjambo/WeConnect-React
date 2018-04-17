@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../Components/Auth/Auth';
 import { Redirect } from 'react-router-dom';
 import './css/NavigationBar.css';
+import NavNotifications from '../Components/Notifications/NavNotifications';
 
 class NavigationBar extends Component {
   constructor(props){
@@ -40,27 +41,16 @@ class NavigationBar extends Component {
             <ul className="nav navbar-nav navbar-right">
               { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
                 <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i data-count="2" className="glyphicon glyphicon-bell notification-icon"></i>
+                  <i data-count="" className="glyphicon glyphicon-bell notification-icon"></i>
                 </Link>
-                <ul className="dropdown-menu">
-                  <li><Link to="/">Notification 1</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 2</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 3</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 4</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>
-                </ul>
+                <NavNotifications />
               </li> }
               { Auth.isAuthenticated && <li className="dropdown userdashboard">
                 <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span className="glyphicon glyphicon-user" />
                 </Link>
                 <ul className="dropdown-menu">
-                  <li><Link to="/profile">My Profile</Link></li>
-                  <li><Link to="/">My Businesses</Link></li>
+                  <li><Link to="/profile"><span className="glyphicon glyphicon-dashboard" /> Dashboard</Link></li>
                   <li role="separator" className="divider"></li>
                   <li><Link to="" onClick={this.logout}><span className="glyphicon glyphicon-log-out"/>logout</Link></li>
                 </ul>

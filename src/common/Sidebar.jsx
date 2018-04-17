@@ -10,10 +10,10 @@ const Sidebar = () => (
       <Link to="/auth/reset-password">Reset Password</Link>
     </li>
     <li className="list-group-item">
-      <Link to="/">All Business</Link>
+      <Link to="/profile/businesses">All Business</Link>
     </li>
     <li className="list-group-item">
-      <Link to="/">Notifications</Link>
+      <Link to="/notifications">Notifications</Link>
     </li>
   </ul>
 );
