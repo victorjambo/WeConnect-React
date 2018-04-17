@@ -21,6 +21,10 @@
   margin-top: -2px;
 }
 
+.cell-body h2 a {
+  text-decoration: none;
+}
+
 .spinners-loader{
   margin-left: 50%;
 }

@@ -17,7 +17,11 @@ class ItemBusiness extends Component {
             <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={this.business.logo} />
           </Link>
           <div className="cell-body">
-            <h2 className="text-center">{this.business.name}</h2>
+            <h2 className="text-center">
+              <Link to={`/business/${this.business.id}`}>
+                {this.business.name}
+              </Link>
+            </h2>
           </div>
         </div>
       </div>
