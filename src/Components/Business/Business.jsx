@@ -59,7 +59,7 @@ class Business extends Component {
         if(err.status === 404) {
           this.setState({ found: false });
         }
-        console.log(err);
+        this.setState({ errors: err.response.body, isLoading: false });
       });
   }
 

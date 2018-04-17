@@ -59,7 +59,7 @@ class NavigationBar extends Component {
                   <span className="glyphicon glyphicon-user" />
                 </Link>
                 <ul className="dropdown-menu">
-                  <li><Link to="/">My Profile</Link></li>
+                  <li><Link to="/profile">My Profile</Link></li>
                   <li><Link to="/">My Businesses</Link></li>
                   <li role="separator" className="divider"></li>
                   <li><Link to="" onClick={this.logout}><span className="glyphicon glyphicon-log-out"/>logout</Link></li>

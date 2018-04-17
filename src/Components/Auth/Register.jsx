@@ -59,7 +59,7 @@ class Register extends Component {
             }
           })
           .catch(err => {
-            console.log(err);
+            this.setState({ errors: err.response.body, isLoading: false });
           });
       }
     }
