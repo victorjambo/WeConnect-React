@@ -10,7 +10,7 @@ import Login from './Components/Auth/Login';
 import NavigationBar from './common/NavigationBar';
 import Landing from './Landing/Landing';
 import ForgotPassword from './Components/Auth/ForgotPassword';
-import User from './Components/Users/User';
+import Profile from './Components/Users/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
           <Route path="/auth/forgot-password" component={ForgotPassword} />
           <Route path="/auth/reset-password" component={ResetPassword} />
     			<PrivateRoute path="/auth/reset-password" exact component={NewBusiness} />
-    			<PrivateRoute path="/profile" exact component={User} />
+    			<PrivateRoute path="/profile" exact component={Profile} />
           <Route path="/business/:id" exact component={Business} />
           <PrivateRoute path="/business/:id/edit" exact component={EditBusiness} />
     			<PrivateRoute path="/businesses/new" exact component={NewBusiness} />

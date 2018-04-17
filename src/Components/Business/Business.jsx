@@ -120,10 +120,10 @@ class Business extends Component {
                    <div className="col-md-8 col-sm-6 col-xs-12">
                       <div className="overview bucket">
                          <h2>Overview</h2>
-                           <div className="overview-info">
-                              <label>Name:&nbsp;</label>
-                              <span className="value">{business.name}</span>
-                           </div>
+                          <div className="overview-info">
+                            <label>Name:&nbsp;</label>
+                            <span className="value">{business.name}</span>
+                          </div>
                          <div className="overview-info">
                             <label>Location:&nbsp;</label>
                             <span className="value">{business.location}</span>
