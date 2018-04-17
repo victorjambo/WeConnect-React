@@ -21,6 +21,7 @@ class Form extends Component {
       isLoading: false,
       fireRedirect: false,
       errors: {},
+      serverErrors: {},
       file: null,
       preview: null,
       lists: ['Staffing', 'Techology', 'Energy', 'Manufacturing']
@@ -78,21 +79,27 @@ class Form extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      
-      const { file } = this.state;
-      
-      await request
-        .post('https://api.cloudinary.com/v1_1/dhic9kypo/image/upload')
-        .attach("file", file)
-        .field("upload_preset", "zwl9qrsr")
-        .field("api_key", "231513992291381")
-        .field("timestamp", (Date.now() / 1000) | 0)
-        .then(res => { 
-          this.setState({ logo: res.body.public_id }); 
-        })
-        .catch(err => { console.log(err); });
 
       let token = window.sessionStorage.getItem('token');
+      
+      const { file } = this.state;
+      if(file) {
+        await request
+          .post('https://api.cloudinary.com/v1_1/dhic9kypo/image/upload')
+          .attach("file", file)
+          .field("upload_preset", "zwl9qrsr")
+          .field("api_key", "231513992291381")
+          .field("timestamp", (Date.now() / 1000) | 0)
+          .then(res => { 
+            this.setState({
+              logo: res.body.public_id
+            });
+            notify('info', 'Image Uploaded' + this.state.logo);
+          })
+          .catch(err => {
+            notify('error', 'Image Upload Error: ' + err.response.body.error.message);
+          });
+      }
   
       if(this.props.paramId) {
         let url = `${BASE_URL}/api/v2/businesses/${this.props.paramId}`;
@@ -107,6 +114,7 @@ class Form extends Component {
 
   async postForm(url, token) {
     const { name, bio, category, location, logo } = this.state;
+
     await request
       .post(url)
       .type('application/json')
@@ -119,20 +127,23 @@ class Form extends Component {
         logo: logo
       })
       .then((res) => {
-        if(res.status === 200) {
+        if(res.status === 201) {
           this.setState({ fireRedirect: true });
+          notify('success', res.body.success);
         }
         else {
-          this.setState({ errors: res.response.body, isLoading: false });
+          this.setState({ errors: res.body.success, isLoading: false });
         }
       })
       .catch((err) => {
-        this.setState({ errors: err, isLoading: false });
+        this.setState({ serverErrors: err.response.body, isLoading: false });
+        notify('warning', err.response.body.warning);
       });
   }
 
   async putForm(url, token) {
     const { name, bio, category, location, logo } = this.state;
+
     await request
       .put(url)
       .type('application/json')
@@ -145,15 +156,17 @@ class Form extends Component {
         logo: logo
       })
       .then((res) => {
-        if(res.status === 200) {
+        if(res.status === 201) {
           this.setState({ fireRedirect: true });
+          notify('success', res.body.success);
         }
         else {
-          this.setState({ errors: res.response.body, isLoading: false });
+          this.setState({ errors: res.body.success, isLoading: false });
         }
       })
       .catch((err) => {
-        this.setState({ errors: err.response.body, isLoading: false });
+        this.setState({ serverErrors: err.response.body, isLoading: false });
+        notify('warning', err.response.body.warning);
       });
   }
   
@@ -178,7 +191,7 @@ class Form extends Component {
         <div className="col-lg-9">
           <form onSubmit={this.handleSubmit}>
 
-            { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+            { this.state.serverErrors.warning && <div className="alert alert-danger">{this.state.serverErrors.warning}</div> }
 
             <div className="form-group">
               <label htmlFor="name">Business Name</label>

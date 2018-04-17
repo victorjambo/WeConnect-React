@@ -3,6 +3,18 @@ import isEmpty from 'lodash/isEmpty';
 
 const validateInput = (data) => {
   let errors = {};
+  
+  if (!Validator.isAlphanumeric(data.name)) {
+    errors.name = 'Field can only be text';
+  }
+  
+  if (!Validator.isAlphanumeric(data.bio)) {
+    errors.bio = 'Field can only be text';
+  }
+  
+  if (!Validator.isAlphanumeric(data.location)) {
+    errors.location = 'Field can only be text';
+  }
 
   if(Validator.isEmpty(data.name)) {
     errors.name = 'This field is required';
