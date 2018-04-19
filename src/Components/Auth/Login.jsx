@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
-import request from 'superagent';
 import validateInput from '../../helpers/validations';
+import { post } from '../../helpers/request';
 import Auth from './Auth.js';
-import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import { BASE_URL } from '../../helpers/url.js';
 
 class Login extends Component {
   constructor(props) {
@@ -39,30 +39,28 @@ class Login extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      const { username, password} = this.state;
-
+      const { username, password } = this.state;
+      
       let url = `${BASE_URL}/api/v2/auth/login`;
-
-      request
-        .post(url)
-        .set('Content-Type', 'application/json')
-        .send({ username: username, password: password })
-        .then(res => {
-          if(res.status === 200) {
-            Auth.authenticate();
-            sessionStorage.setItem('token', res.body.token);
-            this.setState({ fireRedirect: true });
-            notify('success', res.body.success);
-          }
-          else {
-            this.setState({ errors: res.response.body, isLoading: false });
-            notify('success', res.body);
-          }
-        })
-        .catch(err => {
-          this.setState({ errors: err.response.body, isLoading: false });
-          notify('warning', err.response.body.warning);
-        });
+      
+      let response = post(url, { username, password });
+      
+      response.then(res => {
+        if(res.status === 200) {
+          Auth.authenticate();
+          sessionStorage.setItem('token', res.body.token);
+          this.setState({ fireRedirect: true });
+          notify('success', res.body.success);
+        }
+        else {
+          this.setState({ errors: res.response.body, isLoading: false });
+          notify('success', res.body);
+        }
+      })
+      .catch(err => {
+        this.setState({ errors: err.response.body, isLoading: false });
+        notify('warning', err.response.body.warning);
+      });
     }
   }
 

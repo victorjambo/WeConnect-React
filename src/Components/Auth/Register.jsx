@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './Forms.css';
-import request from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
 import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import { post } from '../../helpers/request';
 
 class Register extends Component {
     constructor(props) {
@@ -43,17 +43,10 @@ class Register extends Component {
         const { username, fullname, email, password } = this.state;
 
         var url = `${BASE_URL}/api/v2/auth/register`;
+        
+        let response = post(url, { username, fullname, email, password });
 
-        request
-          .post(url)
-          .set('Content-Type', 'application/json')
-          .send({ 
-            username: username,
-            fullname: fullname,
-            password: password,
-            email: email
-          })
-          .then(res => {
+        response.then(res => {
             if(res.status === 200) {
               this.setState({ fireRedirect: true });
               notify('success', res.body.success);
@@ -90,17 +83,17 @@ class Register extends Component {
                   <InputAuth onChange={this.logChange} classname="register" name="fullname" 
                     placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} />
 
-                  <InputAuth onChange={this.logChange} name="username" placeholder="Username"
-                    classname="register" type="text" value={this.state.username} error={this.state.errors.username} />
+                  <InputAuth error={this.state.errors.username} placeholder="Username" onChange={this.logChange} name="username" 
+                    classname="register" type="text" value={this.state.username} />
 
-                  <InputAuth onChange={this.logChange} name="email" placeholder="Email Address"
-                    type="email" value={this.state.email} error={this.state.errors.email} classname="register" />
+                  <InputAuth onChange={this.logChange} placeholder="Email Address"
+                    type="email" value={this.state.email} error={this.state.errors.email} name="email" classname="register" />
 
-                  <InputAuth onChange={this.logChange} name="password" placeholder="Password" classname="register"
+                  <InputAuth classname="register" onChange={this.logChange} name="password" placeholder="Password" 
                     type="password" value={this.state.password} error={this.state.errors.password} />
 
-                  <InputAuth onChange={this.logChange} name="confirm_password" classname="register"
-                    placeholder="Confirm Password" type="password" value={this.state.confirm_password} error={this.state.errors.confirm_password} />
+                  <InputAuth value={this.state.confirm_password} type="password" name="confirm_password" classname="register"
+                    placeholder="Confirm Password" error={this.state.errors.confirm_password} onChange={this.logChange} />
 
                   <ButtonAuth disabled={this.state.isLoading} label="signup" />
                 </form>

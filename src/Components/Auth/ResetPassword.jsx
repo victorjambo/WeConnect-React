@@ -89,17 +89,17 @@ class ResetPassword extends React.Component {
               { this.state.serverErrors.warning && <div className="alert alert-danger">{this.state.serverErrors.warning}</div> }
 
               <InputAuth
-                classname="reset"
                 value={this.state.old_password}
+                classname="reset old_password"
                 name="old_password"
-                placeholder="Old Password"
-                type="password"
                 error={this.state.errors.old_password}
+                type="password"
+                placeholder="Old Password"
                 onChange={this.logChange}
                 />
 
               <InputAuth
-                classname="reset"
+                classname="reset password"
                 value={this.state.password}
                 name="password"
                 placeholder="Password"
@@ -110,13 +110,13 @@ class ResetPassword extends React.Component {
 
               
               <InputAuth
-                classname="reset"
+                onChange={this.logChange}
+                classname="reset confirm_password"
                 value={this.state.confirm_password}
                 name="confirm_password"
                 placeholder="Confirm Password"
                 type="password"
                 error={this.state.errors.confirm_password}
-                onChange={this.logChange}
                 />
 
               <ButtonAuth disabled={this.state.isLoading} label="Reset" />
