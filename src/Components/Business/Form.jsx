@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import './css/Businesses.css';
-import validateInput from './Validations';
+import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 
@@ -66,7 +66,8 @@ class Form extends Component {
   }
   
   isValid() {
-    const { errors, isValid } = validateInput(this.state);
+    const { name, bio, location } = this.state;
+    const { errors, isValid } = validateInput({ name, bio, location });
 
     if (!isValid) {
       this.setState({ errors });

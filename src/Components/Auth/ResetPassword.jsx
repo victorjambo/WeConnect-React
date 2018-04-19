@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import request from 'superagent';
 import Sidebar from '../../common/Sidebar';
-import validateInput from './validations/ResetPassword.js';
+import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';

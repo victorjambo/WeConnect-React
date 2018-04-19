@@ -7,8 +7,6 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Register from '../Components/Auth/Register';
 import Login from '../Components/Auth/Login';
-import { default as validateLogin } from '../Components/Auth/validations/Login';
-import { default as validateRegister } from '../Components/Auth/validations/Register';
 import PrivateRoute from '../Components/Auth/PrivateRoute';
 
 configure({ adapter: new Adapter() });
@@ -106,32 +104,7 @@ describe('<Register />', () => {
   });
 });
 
-describe('Validations', () => {
-  let text = 'This field is required';
-  it('Validates Login', () => {
-    let data = {username: '', password: ''};
-    let output = validateLogin(data);
-    
-    for(var error in output.errors) {
-      expect(output.errors[error]).to.equal(text);
-    }
-  });
-  
-  it('Validates Register', () => {
-    let data = {
-      username: '',
-      password: '',
-      fullname: '',
-      email: '',
-      confirm_password: ''
-    };
-    let output = validateRegister(data);
-    
-    for(var error in output.errors) {
-      expect(output.errors[error]).to.equal(text);
-    }
-  });
-});
+
 
 describe('PrivateRoute', () => {
   it('PrivateRoute', () => {

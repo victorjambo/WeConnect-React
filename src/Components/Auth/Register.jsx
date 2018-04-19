@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Forms.css';
 import request from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
-import validateInput from './validations/Register.js';
+import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
