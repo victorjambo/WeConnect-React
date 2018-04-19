@@ -3,8 +3,10 @@ import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/ForgotPassword.js';
-import { BASE_URL } from '../../utils/url.js';
-import { notify } from '../../utils/notify.js';
+import { BASE_URL } from '../../helpers/url.js';
+import { notify } from '../../helpers/notify.js';
+import InputAuth from '../../common/ElementComponents/InputAuth';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -77,19 +79,16 @@ class ForgotPassword extends Component {
 
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
-            <input type="text"
-            name="email"
-            placeholder="Email"
-            className="input pass"
-            value={this.state.email}
-            onChange={this.logChange}
-            />
-            {this.state.errors.email && <div className="invalid-feedback">{this.state.errors.email}</div>}
+            <InputAuth
+              name="email"
+              placeholder="Email Address"
+              type="email"
+              value={this.state.email}
+              error={this.state.errors.email}
+              onChange={this.logChange}
+              />
 
-            <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
-              Send&nbsp;
-              { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
-            </button>
+            <ButtonAuth disabled={this.state.isLoading} label="Send" />
           </form>
           { fireRedirect && (<Redirect to={from || '/'}/>) }
           <div className="text-center">

@@ -4,8 +4,10 @@ import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from './validations/Login.js';
 import Auth from './Auth.js';
-import { BASE_URL } from '../../utils/url.js';
-import { notify } from '../../utils/notify.js';
+import { BASE_URL } from '../../helpers/url.js';
+import { notify } from '../../helpers/notify.js';
+import InputAuth from '../../common/ElementComponents/InputAuth';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 
 class Login extends Component {
   constructor(props) {
@@ -81,28 +83,11 @@ class Login extends Component {
 
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
-            <input type="text"
-            name="username"
-            placeholder="Username"
-            className="input pass"
-            value={this.state.username}
-            onChange={this.logChange}
-            />
-            {this.state.errors.username && <div className="invalid-feedback">{this.state.errors.username}</div>}
+            <InputAuth name="username" placeholder="Username" type="text" value={this.state.username} error={this.state.errors.username} onChange={this.logChange} />
 
-            <input name="password"
-            type="password"
-            placeholder="Password"
-            className="input pass"
-            value={this.state.password}
-            onChange={this.logChange}
-            />
-            {this.state.errors.password && <div className="invalid-feedback">{this.state.errors.password}</div>}
+            <InputAuth name="password" placeholder="password" type="password" value={this.state.password} error={this.state.errors.password} onChange={this.logChange} />
 
-            <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
-              login&nbsp;
-              { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
-            </button>
+            <ButtonAuth disabled={this.state.isLoading} label="login" />
           </form>
           { fireRedirect && (<Redirect to={from || '/'}/>) }
           <div className="text-center">

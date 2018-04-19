@@ -4,12 +4,10 @@ import isEmpty from 'lodash/isEmpty';
 const validateInput = (data) => {
   let errors = {};
 
-  if (Validator.isEmpty(data.username.trim())) {
-    errors.username = 'This field is required';
-  }
-
-  if (Validator.isEmpty(data.password)) {
-    errors.password = 'This field is required';
+  if (Validator.isEmpty(data.username.trim()) || Validator.isEmpty(data.password)) {
+    let response = 'This field is required';
+    errors.username = response;
+    errors.password = response;
   }
 
   return {

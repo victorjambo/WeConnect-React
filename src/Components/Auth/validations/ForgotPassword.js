@@ -5,10 +5,10 @@ const validateInput = (data) => {
   let errors = {};
 
   if(Validator.isEmpty(data.email.trim())) {
-    errors.email = 'This field is required';
+    errors.email = 'Provide Email';
   }
   
-  if(!Validator.isEmail(data.email.trim())) {
+  if(!isEmpty(data.email.trim()) && !Validator.isEmail(data.email.trim())) {
     errors.email = 'Invalid Email';
   }
 

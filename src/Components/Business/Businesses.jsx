@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import ItemBusiness from './ItemBusiness.jsx';
-import { BASE_URL } from '../../utils/url.js';
+import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
 import Masonry from 'react-masonry-component';
 
@@ -41,7 +41,7 @@ class Businesses extends Component {
     return(
       <div className="container">
         <div className="row bucket" ref="refBusiness">
-          <h2>Business Partners</h2><br/>
+          <h2>Registered Businesses</h2><br/>
 
           <Masonry >
             {

@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import './css/Businesses.css';
 import validateInput from './Validations';
-import { BASE_URL } from '../../utils/url.js';
-import { notify } from '../../utils/notify.js';
+import { BASE_URL } from '../../helpers/url.js';
+import { notify } from '../../helpers/notify.js';
 
 class Form extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import { BASE_URL } from '../../utils/url.js';
+import { BASE_URL } from '../../helpers/url.js';
 import { Link, Redirect } from 'react-router-dom';
 import './css/Business.css';
 import Auth from '../Auth/Auth';
@@ -8,7 +8,7 @@ import PageNotFound from '../../Components/PageNotFound/PageNotFound';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
-import { notify } from '../../utils/notify.js';
+import { notify } from '../../helpers/notify.js';
 import Reviews from '../Reviews/Reviews';
 import NewReview from '../Reviews/NewReview';
 

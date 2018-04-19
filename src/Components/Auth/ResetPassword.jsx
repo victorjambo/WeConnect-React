@@ -3,8 +3,10 @@ import { Redirect } from 'react-router-dom';
 import request from 'superagent';
 import Sidebar from '../../common/Sidebar';
 import validateInput from './validations/ResetPassword.js';
-import { BASE_URL } from '../../utils/url.js';
-import { notify } from '../../utils/notify.js';
+import { BASE_URL } from '../../helpers/url.js';
+import { notify } from '../../helpers/notify.js';
+import InputAuth from '../../common/ElementComponents/InputAuth';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 
 class ResetPassword extends React.Component {
   constructor(props) {
@@ -83,42 +85,38 @@ class ResetPassword extends React.Component {
           <div className="col-lg-9">
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
-              
+
               { this.state.serverErrors.warning && <div className="alert alert-danger">{this.state.serverErrors.warning}</div> }
-              
-              <input name="old_password"
-                type="password"
+
+              <InputAuth
+                name="old_password"
                 placeholder="Old Password"
-                className="input pass"
+                type="password"
                 value={this.state.old_password}
+                error={this.state.errors.old_password}
                 onChange={this.logChange}
                 />
-              { this.state.errors.old_password && <div className="invalid-feedback">{this.state.errors.old_password}</div> } 
 
-              <input name="password"
+              <InputAuth
+                name="password"
+                placeholder="Password"
                 type="password"
-                placeholder="New Password"
-                className="input pass"
                 value={this.state.password}
+                error={this.state.errors.password}
                 onChange={this.logChange}
                 />
-              { this.state.errors.password && <div className="invalid-feedback">{this.state.errors.password}</div> }
 
-              <input name="confirm_password"
-                type="password"
+              
+              <InputAuth
+                name="confirm_password"
                 placeholder="Confirm Password"
-                className="input pass"
+                type="password"
                 value={this.state.confirm_password}
+                error={this.state.errors.confirm_password}
                 onChange={this.logChange}
                 />
-              { this.state.errors.confirm_password && <div className="invalid-feedback">{this.state.errors.confirm_password}</div> }
 
-              <button type="submit" className="submit-btn" disabled={this.state.isLoading}>
-                Reset&nbsp;
-                {
-                  this.state.isLoading && <i className="fa fa-spinner fa-spin" />
-                }
-              </button>
+              <ButtonAuth disabled={this.state.isLoading} label="Reset" />
             </form>
             { fireRedirect && (<Redirect to={from || '/profile'}/>) }
           </div>

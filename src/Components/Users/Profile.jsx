@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'superagent';
 import decode from 'jwt-decode';
 import Sidebar from '../../common/Sidebar';
-import { BASE_URL } from '../../utils/url.js';
+import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
 import './Profile.css';
 
