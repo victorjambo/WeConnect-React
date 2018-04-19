@@ -3,12 +3,8 @@ import isEmpty from 'lodash/isEmpty';
 
 const validateInput = (data) => {
   let errors = {};
-  
-  if (!Validator.isAlphanumeric(data.username)) {
-    errors.username = 'Field can only be text';
-  }
 
-  if (Validator.isEmpty(data.username)) {
+  if (Validator.isEmpty(data.username.trim())) {
     errors.username = 'This field is required';
   }
 

@@ -3,18 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 
 const validateInput = (data) => {
   let errors = {};
-  
-  //
-  // isAlphanumeric
-  //
-  if (!Validator.isAlphanumeric(data.fullname)) {
-    errors.fullname = 'Field can only be text';
-  }
-  
-  if (!Validator.isAlphanumeric(data.username)) {
-    errors.username = 'Field can only be text';
-  }
-  
+
   //
   // match
   //
@@ -25,19 +14,19 @@ const validateInput = (data) => {
   //
   // Empty
   //
-  if (Validator.isEmpty(data.fullname)) {
+  if (Validator.isEmpty(data.fullname.trim())) {
     errors.fullname = 'This field is required';
   }
 
-  if (Validator.isEmpty(data.username)) {
+  if (Validator.isEmpty(data.username.trim())) {
     errors.username = 'This field is required';
   }
   
-  if(!Validator.isEmail(data.email)) {
+  if(!Validator.isEmail(data.email.trim())) {
     errors.email = 'Invalid Email';
   }
   
-  if (Validator.isEmpty(data.email)) {
+  if (Validator.isEmpty(data.email.trim())) {
     errors.email = 'This field is required';
   }
 
