@@ -72,7 +72,6 @@ class Register extends Component {
 
     render() {
       const { from } = this.props.location.state || '/';
-      const fireRedirect = this.state.fireRedirect;
         return(
             <div className="container push">
 
@@ -81,24 +80,19 @@ class Register extends Component {
                   <h1>User Registration</h1>
                   <Warning classname="register" warning={this.state.errors.warning}/>
 
-                  <InputAuth onChange={this.logChange} classname="register" name="fullname" 
-                    placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} />
+                  <InputAuth onChange={this.logChange} classname="register" name="fullname" placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} />
 
-                  <InputAuth error={this.state.errors.username} placeholder="Username" onChange={this.logChange} name="username" 
-                    classname="register" type="text" value={this.state.username} />
+                  <InputAuth error={this.state.errors.username} placeholder="Username" onChange={this.logChange} name="username" classname="register" type="text" value={this.state.username} />
 
-                  <InputAuth onChange={this.logChange} placeholder="Email Address"
-                    type="email" value={this.state.email} error={this.state.errors.email} name="email" classname="register" />
+                  <InputAuth onChange={this.logChange} placeholder="Email Address" type="email" value={this.state.email} error={this.state.errors.email} name="email" classname="register" />
 
-                  <InputAuth classname="register" onChange={this.logChange} name="password" placeholder="Password" 
-                    type="password" value={this.state.password} error={this.state.errors.password} />
+                  <InputAuth classname="register" onChange={this.logChange} name="password" placeholder="Password" type="password" value={this.state.password} error={this.state.errors.password} />
 
-                  <InputAuth value={this.state.confirm_password} type="password" name="confirm_password" classname="register"
-                    placeholder="Confirm Password" error={this.state.errors.confirm_password} onChange={this.logChange} />
+                  <InputAuth value={this.state.confirm_password} type="password" name="confirm_password" classname="register" placeholder="Confirm Password" error={this.state.errors.confirm_password} onChange={this.logChange} />
 
                   <ButtonAuth disabled={this.state.isLoading} label="signup" />
                 </form>
-                { fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
+                { this.state.fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
                 <div className="text-center">
                   already have an account? <Link to="/auth/login">login</Link>
                 </div>

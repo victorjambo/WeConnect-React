@@ -68,9 +68,11 @@
     padding: 20px;
     font-size: 21px;
   }
-  .navbar-custom .navbar-brand:hover {
+  .navbar-custom .navbar-brand:hover,
+  .navbar-custom .navbar-brand:focus {
     color: white;
   }
+  
   .navbar-custom .nav .Nav-list-link a {
     padding: 20px;
   }

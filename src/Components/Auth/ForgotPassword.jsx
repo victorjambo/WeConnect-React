@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
-import request from 'superagent';
 import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url';
 import { notify } from '../../helpers/notify';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
+import { post } from '../../helpers/request';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -42,11 +42,7 @@ class ForgotPassword extends Component {
 
       let url = `${BASE_URL}/api/v2/auth/forgot-password`;
 
-      request
-        .post(url)
-        .set('Content-Type', 'application/json')
-        .send({ email: email })
-        .then(res => {
+      post(url, { email }).then(res => {
           if(res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
@@ -57,7 +53,7 @@ class ForgotPassword extends Component {
           }
         })
         .catch(err => {
-          this.setState({ errors: err, isLoading: false });
+          this.setState({ errors: err.response.body, isLoading: false });
           notify('warning', err.response.body.warning);
         });
     }
@@ -70,7 +66,7 @@ class ForgotPassword extends Component {
   }
 
   render() {
-    const { from } = this.props.location.state || '/';
+    const { from } = this.props.location.state || '/auth/login';
     const fireRedirect = this.state.fireRedirect;
     return(
       <div className="container push">
@@ -81,18 +77,15 @@ class ForgotPassword extends Component {
             <Warning warning={this.state.errors.warning} classname="forgot-password" />
 
             <InputAuth
-              type="email"
-              placeholder="Email Address"
+              type="email" placeholder="Email Address"
               error={this.state.errors.email}
-              name="email"
-              value={this.state.email}
-              classname="forgot-password"
-              onChange={this.logChange}
+              name="email" value={this.state.email}
+              classname="forgot-password" onChange={this.logChange}
               />
 
             <ButtonAuth disabled={this.state.isLoading} label="Send" />
           </form>
-          { fireRedirect && (<Redirect to={from || '/'}/>) }
+          { fireRedirect && (<Redirect to={from || '/auth/login'}/>) }
           <div className="text-center">
             Don't have an account? <Link to="/auth/signup">Sign Up</Link><br /><br />
             Already have an account? <Link to="/auth/login">login</Link>
