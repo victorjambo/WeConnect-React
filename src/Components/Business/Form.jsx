@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import request from 'superagent';
-import { Image } from 'cloudinary-react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Dropzone from 'react-dropzone';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
-import { BASE_URL } from '../../helpers/url.js';
-import { notify } from '../../helpers/notify.js';
+import { BASE_URL } from '../../helpers/url';
+import { notify } from '../../helpers/notify';
 import Warning from '../../common/ElementComponents/Warning';
+import Textarea from '../../common/ElementComponents/Textarea';
+import Input from '../../common/ElementComponents/Input';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
+import { getRequest, uploadImage, putRequest } from '../../helpers/request';
+import { post } from '../../helpers/request';
 
 class Form extends Component {
   constructor(props) {
@@ -24,8 +27,7 @@ class Form extends Component {
       errors: {},
       serverErrors: {},
       file: null,
-      preview: null,
-      lists: ['Staffing', 'Techology', 'Energy', 'Manufacturing']
+      preview: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,9 +47,8 @@ class Form extends Component {
 
   getBusiness(paramId) {
     let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
-    request
-      .get(url)
-      .set('Content-Type', 'application/json')
+
+    getRequest(url)
       .then((res) => {
         if(res.status === 200) {
           this.setState({
@@ -83,20 +84,13 @@ class Form extends Component {
       this.setState({ errors: {}, isLoading: true });
 
       let token = window.sessionStorage.getItem('token');
-      
+
       const { file } = this.state;
       if(file) {
-        await request
-          .post('https://api.cloudinary.com/v1_1/dhic9kypo/image/upload')
-          .attach("file", file)
-          .field("upload_preset", "zwl9qrsr")
-          .field("api_key", "231513992291381")
-          .field("timestamp", (Date.now() / 1000) | 0)
-          .then(res => { 
-            this.setState({
-              logo: res.body.public_id
-            });
-            notify('info', 'Image Uploaded' + this.state.logo);
+        await uploadImage(file)
+          .then(res => {
+            this.setState({ logo: res.body.public_id });
+            notify('info', 'Image Uploaded');
           })
           .catch(err => {
             notify('error', 'Image Upload Error: ' + err.response.body.error.message);
@@ -104,12 +98,9 @@ class Form extends Component {
       }
   
       if(this.props.paramId) {
-        let url = `${BASE_URL}/api/v2/businesses/${this.props.paramId}`;
-        this.putForm(url, token);
-      }
-      else {
-        let url = `${BASE_URL}/api/v2/businesses/`;
-        this.postForm(url, token);
+        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token);
+      } else {
+        this.postForm(`${BASE_URL}/api/v2/businesses/`, token);
       }
     }
   }
@@ -117,17 +108,8 @@ class Form extends Component {
   async postForm(url, token) {
     const { name, bio, category, location, logo } = this.state;
 
-    await request
-      .post(url)
-      .type('application/json')
+    await post(url, { name, bio, category, location, logo })
       .set({'x-access-token': token})
-      .send({
-        name: name,
-        bio: bio,
-        category: category,
-        location: location,
-        logo: logo
-      })
       .then((res) => {
         if(res.status === 201) {
           this.setState({ fireRedirect: true });
@@ -146,23 +128,12 @@ class Form extends Component {
   async putForm(url, token) {
     const { name, bio, category, location, logo } = this.state;
 
-    await request
-      .put(url)
-      .type('application/json')
-      .set({'x-access-token': token})
-      .send({
-        name: name,
-        bio: bio,
-        category: category,
-        location: location,
-        logo: logo
-      })
+    await putRequest(url, { name, bio, category, location, logo }, token)
       .then((res) => {
         if(res.status === 201) {
           this.setState({ fireRedirect: true });
           notify('success', res.body.success);
-        }
-        else {
+        } else {
           this.setState({ errors: res.body.success, isLoading: false });
         }
       })
@@ -184,9 +155,6 @@ class Form extends Component {
   }
 
   render() {
-    const options = this.state.lists.map((item) =>
-      <option value={item} key={item}>{item}</option>
-    );
     const fireRedirect = this.state.fireRedirect;
     return(
       <div className="row">
@@ -195,72 +163,25 @@ class Form extends Component {
 
             <Warning warning={this.state.serverErrors.warning} classname="form" />
 
-            <div className="form-group">
-              <label htmlFor="name">Business Name</label>
-              <input
-                className="form-control"
-                autoFocus="autofocus"
-                name="name"
-                value={this.state.name}
-                onChange={this.logChange} />
-            </div>
-            { this.state.errors.name && <div className="invalid-feedback">{this.state.errors.name}</div> }
-            
-            <div className="form-group">
-              <label htmlFor="location">Business Location</label>
-              <input
-                className="form-control"
-                name="location"
-                type="text"
-                value={this.state.location}
-                onChange={this.logChange} />
-            </div>
-            { this.state.errors.location && <div className="invalid-feedback">{this.state.errors.location}</div> }
-            
-            <div className="form-group">
-              <label htmlFor="category_list">Category</label>
-              <select
-                className="form-control"
-                name="category"
-                onChange={this.logChange}>
-                  {options}
-              </select>
-            </div>
+            <Input autoFocus="autofocus" name="name" value={this.state.name} onChange={this.logChange} placeholder="Business Name" error={this.state.errors.name}/>
+
+            <Input name="location" onChange={this.logChange} value={this.state.location} placeholder="Business Location" error={this.state.errors.location}/>
+
+            <Input placeholder="Business Category" name="category" error={this.state.errors.category} value={this.state.category} onChange={this.logChange} />
+
+            <Textarea name="bio" value={this.state.bio} onChange={this.logChange} placeholder="About business" classname="bio" error={this.state.errors.bio}/>
 
             <div className="form-group">
-              <label htmlFor="bio">About business</label>
-              <textarea
-                className="form-control"
-                cols="50"
-                rows="6"
-                name="bio"
-                value={this.state.bio}
-                onChange={this.logChange} />
-            </div>
-            { this.state.errors.bio && <div className="invalid-feedback">{this.state.errors.bio}</div> }
-            
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary" disabled={this.state.isLoading}>
-                <i className="fa fa-btn fa-save"></i> Save
-                { this.state.isLoading && <i className="fa fa-spinner fa-spin" /> }
-              </button>
+              <ButtonAuth disabled={this.state.isLoading} label="Save" classname="btn btn-primary"/>
             </div>
             { fireRedirect && (<Redirect to="/" />) }
           </form>
         </div>
-        
-        <div className="col-lg-3">
-          <Dropzone onDrop={this.onDrop}>
-            <p className="text-center">Drop image here<br /> or <br />click to select files to upload.</p>
-          </Dropzone>
-          <br /><br /><br />
-          { this.state.preview && <div><h5>Preview</h5><img className="img-responsive shadow" src={this.state.preview} alt="preview" /></div> }
-          <hr />
-          { this.state.logo && <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={this.state.logo} /> }
-        </div>
-        
+
+        <DropzoneContainer onDrop={this.onDrop} preview={this.state.preview} logo={this.state.logo} />
+
       </div>
-      
+
     );
   }
 }
