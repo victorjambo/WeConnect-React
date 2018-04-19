@@ -86,8 +86,7 @@ class Form extends Component {
       let token = window.sessionStorage.getItem('token');
 
       const { file } = this.state;
-      if(file) {
-        await uploadImage(file)
+      file && await uploadImage(file)
           .then(res => {
             this.setState({ logo: res.body.public_id });
             notify('info', 'Image Uploaded');
@@ -95,20 +94,19 @@ class Form extends Component {
           .catch(err => {
             notify('error', 'Image Upload Error: ' + err.response.body.error.message);
           });
-      }
-  
-      if(this.props.paramId) {
-        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token);
-      } else {
-        this.postForm(`${BASE_URL}/api/v2/businesses/`, token);
-      }
+
+      const { name, bio, category, location, logo } = this.state;
+      const data = { name, bio, category, location, logo };
+
+      this.props.paramId ? 
+        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data) :
+        this.postForm(`${BASE_URL}/api/v2/businesses/`, token, data);
+
     }
   }
 
-  async postForm(url, token) {
-    const { name, bio, category, location, logo } = this.state;
-
-    await post(url, { name, bio, category, location, logo })
+  async postForm(url, token, data) {
+    await post(url, data)
       .set({'x-access-token': token})
       .then((res) => {
         if(res.status === 201) {
@@ -120,21 +118,23 @@ class Form extends Component {
         }
       })
       .catch((err) => {
-        this.setState({ serverErrors: err.response.body, isLoading: false });
         notify('warning', err.response.body.warning);
+        this.setState({ isLoading: false, serverErrors: err.response.body });
       });
   }
 
-  async putForm(url, token) {
-    const { name, bio, category, location, logo } = this.state;
-
-    await putRequest(url, { name, bio, category, location, logo }, token)
+  async putForm(url, token, data) {
+    await putRequest(url, data, token)
       .then((res) => {
         if(res.status === 201) {
-          this.setState({ fireRedirect: true });
           notify('success', res.body.success);
+          this.setState({
+            fireRedirect: true
+          });
         } else {
-          this.setState({ errors: res.body.success, isLoading: false });
+          this.setState({
+            isLoading: false, errors: res.body.success
+          });
         }
       })
       .catch((err) => {
