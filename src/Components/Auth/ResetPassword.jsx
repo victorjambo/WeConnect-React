@@ -7,6 +7,7 @@ import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Warning from '../../common/ElementComponents/Warning';
 
 class ResetPassword extends React.Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class ResetPassword extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
 
-              { this.state.serverErrors.warning && <div className="alert alert-danger">{this.state.serverErrors.warning}</div> }
+              <Warning classname="pass-reset" warning={this.state.serverErrors.warning}/>
 
               <InputAuth
                 value={this.state.old_password}

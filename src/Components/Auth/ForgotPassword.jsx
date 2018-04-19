@@ -3,10 +3,11 @@ import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
 import request from 'superagent';
 import validateInput from '../../helpers/validations';
-import { BASE_URL } from '../../helpers/url.js';
-import { notify } from '../../helpers/notify.js';
+import { BASE_URL } from '../../helpers/url';
+import { notify } from '../../helpers/notify';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Warning from '../../common/ElementComponents/Warning';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -77,7 +78,7 @@ class ForgotPassword extends Component {
           <form onSubmit={this.handleSubmit}>
             <h1>Forgot Password</h1>
 
-            { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+            <Warning warning={this.state.errors.warning} classname="forgot-password" />
 
             <InputAuth
               type="email"

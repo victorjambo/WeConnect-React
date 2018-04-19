@@ -8,6 +8,7 @@ import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import { BASE_URL } from '../../helpers/url.js';
+import Warning from '../../common/ElementComponents/Warning';
 
 class Login extends Component {
   constructor(props) {
@@ -79,7 +80,7 @@ class Login extends Component {
           <form onSubmit={this.handleSubmit}>
             <h1>Login</h1>
 
-            { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+            <Warning classname="login" warning={this.state.errors.warning}/>
 
             <InputAuth type="text" placeholder="Username" value={this.state.username} classname="login"
               name="username" error={this.state.errors.username} onChange={this.logChange} />

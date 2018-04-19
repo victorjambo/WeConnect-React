@@ -7,6 +7,7 @@ import { notify } from '../../helpers/notify.js';
 import InputAuth from '../../common/ElementComponents/InputAuth';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import { post } from '../../helpers/request';
+import Warning from '../../common/ElementComponents/Warning';
 
 class Register extends Component {
     constructor(props) {
@@ -47,19 +48,19 @@ class Register extends Component {
         let response = post(url, { username, fullname, email, password });
 
         response.then(res => {
-            if(res.status === 200) {
-              this.setState({ fireRedirect: true });
-              notify('success', res.body.success);
-            }
-            else {
-              this.setState({ errors: res.response.body, isLoading: false });
-              notify('success', res.body);
-            }
-          })
-          .catch(err => {
-            this.setState({ errors: err.response.body, isLoading: false });
-            notify('warning', err.response.body.warning);
-          });
+          if(res.status === 200) {
+            this.setState({ fireRedirect: true });
+            notify('success', res.body.success);
+          }
+          else {
+            this.setState({ errors: res.response.body, isLoading: false });
+            notify('success', res.body);
+          }
+        })
+        .catch(err => {
+          this.setState({ errors: err.response.body, isLoading: false });
+          notify('warning', err.response.body.warning);
+        });
       }
     }
     
@@ -78,7 +79,7 @@ class Register extends Component {
               <div className="registration signup">
                 <form id="signup" onSubmit={this.handleSubmit}>
                   <h1>User Registration</h1>
-                  { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
+                  <Warning classname="register" warning={this.state.errors.warning}/>
 
                   <InputAuth onChange={this.logChange} classname="register" name="fullname" 
                     placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} />

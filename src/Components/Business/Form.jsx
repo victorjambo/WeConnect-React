@@ -8,6 +8,7 @@ import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
+import Warning from '../../common/ElementComponents/Warning';
 
 class Form extends Component {
   constructor(props) {
@@ -192,7 +193,7 @@ class Form extends Component {
         <div className="col-lg-9">
           <form onSubmit={this.handleSubmit}>
 
-            { this.state.serverErrors.warning && <div className="alert alert-danger">{this.state.serverErrors.warning}</div> }
+            <Warning warning={this.state.serverErrors.warning} classname="form" />
 
             <div className="form-group">
               <label htmlFor="name">Business Name</label>
