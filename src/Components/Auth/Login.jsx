@@ -83,9 +83,11 @@ class Login extends Component {
 
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
-            <InputAuth name="username" placeholder="Username" type="text" value={this.state.username} error={this.state.errors.username} onChange={this.logChange} />
+            <InputAuth type="text" placeholder="Username" value={this.state.username} classname="login"
+              name="username" error={this.state.errors.username} onChange={this.logChange} />
 
-            <InputAuth name="password" placeholder="password" type="password" value={this.state.password} error={this.state.errors.password} onChange={this.logChange} />
+            <InputAuth type="password" onChange={this.logChange} name="password" classname="login"
+              value={this.state.password} error={this.state.errors.password}  placeholder="password"/>
 
             <ButtonAuth disabled={this.state.isLoading} label="login" />
           </form>

@@ -80,11 +80,12 @@ class ForgotPassword extends Component {
             { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
             <InputAuth
-              name="email"
-              placeholder="Email Address"
               type="email"
-              value={this.state.email}
+              placeholder="Email Address"
               error={this.state.errors.email}
+              name="email"
+              value={this.state.email}
+              classname="forgot-password"
               onChange={this.logChange}
               />
 

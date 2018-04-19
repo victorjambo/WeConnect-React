@@ -87,15 +87,20 @@ class Register extends Component {
                   <h1>User Registration</h1>
                   { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
 
-                  <InputAuth name="fullname" placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} onChange={this.logChange} />
+                  <InputAuth onChange={this.logChange} classname="register" name="fullname" 
+                    placeholder="Fullname" type="fullname" value={this.state.fullname} error={this.state.errors.fullname} />
 
-                  <InputAuth name="username" placeholder="Username" type="text" value={this.state.username} error={this.state.errors.username} onChange={this.logChange} />
+                  <InputAuth onChange={this.logChange} name="username" placeholder="Username"
+                    classname="register" type="text" value={this.state.username} error={this.state.errors.username} />
 
-                  <InputAuth name="email" placeholder="Email Address" type="email" value={this.state.email} error={this.state.errors.email} onChange={this.logChange} />
+                  <InputAuth onChange={this.logChange} name="email" placeholder="Email Address"
+                    type="email" value={this.state.email} error={this.state.errors.email} classname="register" />
 
-                  <InputAuth name="password" placeholder="Password" type="password" value={this.state.password} error={this.state.errors.password} onChange={this.logChange} />
+                  <InputAuth onChange={this.logChange} name="password" placeholder="Password" classname="register"
+                    type="password" value={this.state.password} error={this.state.errors.password} />
 
-                  <InputAuth name="confirm_password" placeholder="Confirm Password" type="password" value={this.state.confirm_password} error={this.state.errors.confirm_password} onChange={this.logChange} />
+                  <InputAuth onChange={this.logChange} name="confirm_password" classname="register"
+                    placeholder="Confirm Password" type="password" value={this.state.confirm_password} error={this.state.errors.confirm_password} />
 
                   <ButtonAuth disabled={this.state.isLoading} label="signup" />
                 </form>

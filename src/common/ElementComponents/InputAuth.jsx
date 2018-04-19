@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InputAuth = ({ name, value, placeholder, error, type, onChange }) => (
+const InputAuth = ({ name, value, placeholder, error, type, onChange, classname}) => (
   <div>
     <input name={name}
       type={type}
@@ -21,7 +21,8 @@ InputAuth.propTypes = {
   placeholder: PropTypes.string.isRequired,
   error: PropTypes.string,
   type: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  classname: PropTypes.string
 };
 
 InputAuth.defaultProps = {
