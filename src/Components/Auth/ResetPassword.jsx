@@ -25,7 +25,7 @@ class ResetPassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.logChange = this.logChange.bind(this);
   }
-  
+
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -35,7 +35,7 @@ class ResetPassword extends React.Component {
 
     return isValid;
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
     let token = window.sessionStorage.getItem('token');
@@ -64,7 +64,7 @@ class ResetPassword extends React.Component {
         });
     }
   }
-  
+
   logChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -73,35 +73,25 @@ class ResetPassword extends React.Component {
 
   render() {
     const { from } = this.props.location.state || '/profile';
-    const fireRedirect = this.state.fireRedirect;
     return(
       <div className="container push-profile">
         <div className="row bucket">
-          <div className="col-lg-3 hidden-sm">
-            <Sidebar />
-          </div>
+          <div className="col-lg-3 hidden-sm"><Sidebar /></div>
           <div className="col-lg-9">
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
-
               <Warning classname="pass-reset" warning={this.state.serverErrors.warning}/>
-
               <InputAuth value={this.state.old_password} classname="reset old_password"
                 name="old_password" error={this.state.errors.old_password}
                 type="password" placeholder="Old Password" onChange={this.logChange} />
-
               <InputAuth classname="reset password" value={this.state.password}
                 name="password" placeholder="Password" type="password"
                 error={this.state.errors.password} onChange={this.logChange} />
-
-              
               <InputAuth onChange={this.logChange} classname="reset confirm_password"
                 value={this.state.confirm_password} name="confirm_password" type="password"
                 placeholder="Confirm Password" error={this.state.errors.confirm_password}/>
-
               <ButtonAuth disabled={this.state.isLoading} label="Reset" />
-            </form>
-            { fireRedirect && (<Redirect to={from || '/profile'}/>) }
+            </form> { this.state.fireRedirect && (<Redirect to={from || '/profile'}/>) }
           </div>
         </div>
       </div>

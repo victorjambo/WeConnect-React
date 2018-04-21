@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import decode from 'jwt-decode';
 import request from 'superagent';
-import { BASE_URL } from '../../helpers/url.js';
-import { Link, Redirect } from 'react-router-dom';
+import { BASE_URL } from '../../helpers/url';
+import { Redirect } from 'react-router-dom';
 import './css/Business.css';
-import Auth from '../Auth/Auth';
 import PageNotFound from '../../Components/PageNotFound/PageNotFound';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
-import { notify } from '../../helpers/notify.js';
+import { notify } from '../../helpers/notify';
 import Reviews from '../Reviews/Reviews';
 import NewReview from '../Reviews/NewReview';
+import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
+import { getRequest } from '../../helpers/request';
+import Auth from '../Auth/Auth';
 
 const cloudinaryCore = new cloudinary.Cloudinary({cloud_name: 'dhic9kypo'});
 
@@ -23,14 +26,15 @@ class Business extends Component {
       errors: {},
       isLoading: false,
       found: true,
-      isDeleting: false
+      isDeleting: false,
+      isCurrentUser: false
     };
 
     this.deleteBusiness = this.deleteBusiness.bind(this);
     this.paramId = this.props.match.params.id;
     this.createBackgroundImage = this.createBackgroundImage.bind(this);
   }
-  
+
   createBackgroundImage(publicId) {
     return cloudinaryCore.url(publicId);
   }
@@ -52,6 +56,7 @@ class Business extends Component {
           this.setState({
             business: response.body.business
           });
+          this.currentUser();
         }
         if(response.status === 404){
           console.log(response);
@@ -73,8 +78,8 @@ class Business extends Component {
 
     let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
     let token = window.sessionStorage.getItem('token');
-    
-    if (window.confirm('Are you sure you wish to delete this business?')) {
+
+    if(window.confirm('Are you sure you wish to delete this business?')) {
       request
         .del(url)
         .type('application/json')
@@ -91,70 +96,46 @@ class Business extends Component {
     }
   }
 
+  currentUser = async () => {
+    if(Auth.isAuthenticated) {
+      let token = window.sessionStorage.getItem('token');
+      let { id } = decode(token);
+      let url = `${BASE_URL}/api/v2/users/${id}`;
+      const { business } = this.state;
+      await getRequest(url).then((res) => {
+        if(res.body.user.username === business.owner) {
+          this.setState({ isCurrentUser: true });
+        }
+      });
+    }
+  }
+
   render() {
-    const business = this.state.business;
-    const fireRedirect = this.state.fireRedirect;
-    if(this.state.isLoading) {
-      return(
-        <DotLoader
-          color={'#123abc'} 
-          loading={this.state.loading}
-        />
-      );
-    }
-    if(this.state.found) {
-      return(
-        <div className="business">
-          <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
-          <div className="container push-up-profile" ref="refBusiness">
-             <div className="row">
-                <div className="col-xs-12">
-                  <div className="col-md-4 col-sm-6 col-xs-12">
-                    <div className="float-left">
-                      <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={business.logo} />
-                    </div>
-                    <div className="push">
-                      { Auth.isAuthenticated && <Link to={`/business/${this.paramId}/edit`} className="btn btn-warning">Edit</Link> }&nbsp;
-                      { Auth.isAuthenticated && <button onClick={this.deleteBusiness} className="btn btn-danger">
-                        Delete Business
-                        { this.state.isDeleting && <i className="fa fa-spinner fa-spin" /> }
-                      </button> }
-                      { this.state.errors.warning && <div className="alert alert-danger">{this.state.errors.warning}</div> }
-                    </div>
-                  </div>
-                  <div className="col-md-8 col-sm-6 col-xs-12">
-                    <div className="overview bucket">
-                       <h2>Overview</h2>
-                        <div className="overview-info">
-                          <label>Name:&nbsp;</label>
-                          <span className="value">{business.name}</span>
-                        </div>
-                       <div className="overview-info">
-                          <label>Location:&nbsp;</label>
-                          <span className="value">{business.location}</span>
-                       </div>
-                       <div className="overview-info">
-                          <label>Category:&nbsp;</label>
-                          <span className="value">{business.category}</span>
-                       </div>
-                    </div>
-                    <div className="about bucket">
-                      <h2>About {business.name}</h2>
-                      <div className="about-txt">
-                        <p>{business.bio}</p>
-                      </div>
-                    </div>
-                    <Reviews />
-                    <NewReview />
-                   </div>
+    const { business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser } = this.state;
+    if(isLoading) {return (<DotLoader color={'#123abc'} />)};
+    if(!found) { return(<PageNotFound />); }
+    return(
+      <div className="business">
+        <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
+        <div className="container push-up-profile" ref="refBusiness">
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="col-md-4 col-sm-6 col-xs-12">
+                <div className="float-left">
+                  <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={business.logo} />
                 </div>
-             </div>
-            { fireRedirect && (<Redirect to="/" />) }
-          </div>
+                <Buttons paramId={this.paramId} isDeleting={isDeleting} deleteBusiness={this.deleteBusiness} error={errors.warning} isCurrentUser={isCurrentUser}/>
+              </div>
+              <div className="col-md-8 col-sm-6 col-xs-12">
+                <Overview business={business}/>
+                <About business={business}/>
+                <Reviews />
+                <NewReview />
+              </div>
+            </div>
+          </div> { fireRedirect && (<Redirect to="/" />) }
         </div>
-      );
-    }
-    return(<PageNotFound />);
+      </div>);
   }
 }
 

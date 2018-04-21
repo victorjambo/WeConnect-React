@@ -1,13 +1,9 @@
-import validateInput from '../Components/Auth/validations/Login.js';
+import validateInput from './validations';
 
 export const isValid = (state) => {
   const { errors, isValid } = validateInput(state);
 
-  if (!isValid) {
-    this.setState({ errors });
-  }
-
-  return isValid;
+  return { isValid, errors };
 };
 
 

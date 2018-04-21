@@ -10,6 +10,8 @@ import Businesses from '../Components/Business/Businesses';
 import SearchForm from '../Components/Business/SearchForm';
 import NavigationBar from '../common/NavigationBar';
 import Auth from '../Components/Auth/Auth.js';
+import Dropdown from '../common/ElementComponents/Dropdown';
+
 
 configure({ adapter: new Adapter() });
 
@@ -50,17 +52,19 @@ describe('<NavigationBar />', () =>  {
     ReactDOM.render(<MemoryRouter><NavigationBar /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  
+});
+
+describe('<Dropdown />', () => {
   it('Contains Authenticated links', () => {
     Auth.authenticate();
-    const wrapper = mount(<MemoryRouter><NavigationBar /></MemoryRouter>);
-    expect(wrapper.find('.navbar')).to.have.length(1);
+    const wrapper = shallow(<Dropdown />);
+    expect(wrapper.find('.navbar-nav')).to.have.length(1);
     expect(wrapper.find('.dropdown-notifications')).to.have.length(1);
   });
-  
+
   it('Contains Un-Authenticated links', () => {
     Auth.signout();
-    const wrapper = mount(<MemoryRouter><NavigationBar /></MemoryRouter>);
+    const wrapper = shallow(<Dropdown />);
     expect(wrapper.find('.login')).to.have.length(1);
     expect(wrapper.find('.logout')).to.have.length(0);
   });

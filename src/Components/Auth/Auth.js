@@ -2,24 +2,25 @@ import decode from 'jwt-decode';
 
 const isTokenValid = () => {
   let token = null;
+  let response = true;
   try {
     token = window.sessionStorage.getItem('token');
   } catch (e) {
-    return false;
+    response = false;
   }
   if(!token) {
-    return false;
+    response = false;
   }
   try {
     let { exp } = decode(token);
     if (exp < new Date().getTime() / 1000) {
       window.sessionStorage.removeItem('token');
-      return false;
+      response = false;
     }
   } catch (e) {
-    return false;
+    response = false;
   }
-  return true;
+  return response;
 };
 
 const Auth = {

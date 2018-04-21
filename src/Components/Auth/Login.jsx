@@ -25,44 +25,36 @@ class Login extends Component {
     this.logChange = this.logChange.bind(this);
   }
 
-  isValid() {
-    const { errors, isValid } = validateInput(this.state);
-
-    if (!isValid) {
-      this.setState({ errors });
-    }
-
-    return isValid;
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+    const { errors, isValid } = validateInput(this.state);
+    if(!isValid){ return this.setState({ errors }); }
 
-      const { username, password } = this.state;
-      
-      let url = `${BASE_URL}/api/v2/auth/login`;
-      
-      let response = post(url, { username, password });
-      
-      response.then(res => {
-        if(res.status === 200) {
-          Auth.authenticate();
-          sessionStorage.setItem('token', res.body.token);
-          this.setState({ fireRedirect: true });
-          notify('success', res.body.success);
-        }
-        else {
-          this.setState({ errors: res.response.body, isLoading: false });
-          notify('success', res.body);
-        }
-      })
-      .catch(err => {
-        this.setState({ errors: err.response.body, isLoading: false });
-        notify('warning', err.response.body.warning);
-      });
-    }
+    this.setState({ errors: {}, isLoading: true });
+
+    const { username, password } = this.state;
+
+    let url = `${BASE_URL}/api/v2/auth/login`;
+
+    let response = post(url, { username, password });
+
+    response.then(res => {
+      if(res.status === 200) {
+        Auth.authenticate();
+        sessionStorage.setItem('token', res.body.token);
+        this.setState({ fireRedirect: true });
+        notify('success', res.body.success);
+      }
+      else {
+        this.setState({ errors: res.response.body, isLoading: false });
+        notify('success', res.body);
+      }
+    })
+    .catch(err => {
+      this.setState({ errors: err.response.body, isLoading: false });
+      notify('warning', err.response.body.warning);
+    });
+
   }
 
   logChange(e) {

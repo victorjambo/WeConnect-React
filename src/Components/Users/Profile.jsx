@@ -5,6 +5,7 @@ import Sidebar from '../../common/Sidebar';
 import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
 import './Profile.css';
+import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
 
 class Profile extends React.Component {
   constructor(props){
@@ -15,14 +16,14 @@ class Profile extends React.Component {
     };
     this.getUser = this.getUser.bind(this);
   }
-  
+
   componentDidMount() {
     this.getUser();
   }
-  
+
   getUser = async () => {
     this.setState({ isLoading: true});
-    
+
     let token = window.sessionStorage.getItem('token');
     let { id } = decode(token);
     let url = `${BASE_URL}/api/v2/users/${id}`;
@@ -43,7 +44,7 @@ class Profile extends React.Component {
       });
   }
   render() {
-    const { username, fullname, activate, email } = this.state.user;
+    const { user, isLoading, activate } = this.state;
     return(
       <div className="container push-profile">
         <div className="row bucket">
@@ -52,38 +53,10 @@ class Profile extends React.Component {
           </div>
           <div className="col-lg-9"  ref="refUser">
             {
-              this.state.isLoading ? (
-                <div className="spinners-loader">
-                  <SyncLoader
-                    color={'#123abc'}
-                  />
-                </div>
+              isLoading ? (
+                <div className="spinners-loader"><SyncLoader color={'#123abc'} /></div>
               ) : (
-                <div>
-                  <h1>{fullname}'s profile</h1>
-                  
-                  {
-                    activate === 'false' && 
-                    <div className="alert alert-warning" role="alert">
-                      <b>Check your email to activate your account!!!</b>
-                    </div>
-                  }
-                  
-                  <div className="overview-info">
-                    <label>username:&nbsp;</label>
-                    <span className="value">{username}</span>
-                  </div>
-
-                  <div className="overview-info">
-                    <label>full names:&nbsp;</label>
-                    <span className="value">{fullname}</span>
-                  </div>
-
-                  <div className="overview-info">
-                    <label>email:&nbsp;</label>
-                    <span className="value">{email}</span>
-                  </div>
-                </div>
+                <ProfileOverview user={user} activate={activate} />
               )
             }
           </div>

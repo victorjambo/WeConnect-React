@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../Components/Auth/Auth';
 import { Redirect } from 'react-router-dom';
 import './css/NavigationBar.css';
-import NavNotifications from '../Components/Notifications/NavNotifications';
+import Dropdown from './ElementComponents/Dropdown';
 
 class NavigationBar extends Component {
   constructor(props){
@@ -36,31 +36,9 @@ class NavigationBar extends Component {
               We<span className="txt-shadow">Connect</span>
             </Link>
           </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav navbar-right">
-              { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
-                <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i data-count="" className="glyphicon glyphicon-bell notification-icon"></i>
-                </Link>
-                <NavNotifications />
-              </li> }
-              { Auth.isAuthenticated && <li className="dropdown userdashboard">
-                <Link to="" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span className="glyphicon glyphicon-user" />
-                </Link>
-                <ul className="dropdown-menu">
-                  <li><Link to="/profile"><span className="glyphicon glyphicon-dashboard" /> Dashboard</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="" onClick={this.logout}><span className="glyphicon glyphicon-log-out"/>logout</Link></li>
-                </ul>
-              </li> }
-              { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/signup">signup</Link></li> }
-              { !Auth.isAuthenticated && <li className="Nav-list-link login"><Link to="/auth/login">login</Link></li> }
-              { fireRedirect && (<Redirect to="/" />) }
-            </ul>
-          </div>
+          <Dropdown logout={this.logout}/>
         </div>
+        { fireRedirect && (<Redirect to="/" />) }
       </nav>
     );
   }
