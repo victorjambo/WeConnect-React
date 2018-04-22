@@ -38,21 +38,21 @@ class Login extends Component {
 
     let response = post(url, { username, password });
 
-    response.then(res => {
-      if(res.status === 200) {
+    response.then(response => {
+      if(response.status === 200) {
         Auth.authenticate();
-        sessionStorage.setItem('token', res.body.token);
+        sessionStorage.setItem('token', response.body.token);
         this.setState({ fireRedirect: true });
-        notify('success', res.body.success);
+        notify('success', response.body.success);
       }
       else {
-        this.setState({ errors: res.response.body, isLoading: false });
-        notify('success', res.body);
+        this.setState({ errors: response.response.body, isLoading: false });
+        notify('success', response.body);
       }
     })
-    .catch(err => {
-      this.setState({ errors: err.response.body, isLoading: false });
-      notify('warning', err.response.body.warning);
+    .catch(error => {
+      this.setState({ errors: error.response.body, isLoading: false });
+      notify('warning', error.response.body.warning);
     });
 
   }
