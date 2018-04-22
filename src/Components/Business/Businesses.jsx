@@ -33,7 +33,7 @@ class Businesses extends Component {
         }
       })
       .catch(err => {
-        this.setState({ errors: err.response.body, isLoading: false });
+        this.setState({ errors: err.response, isLoading: false });
       });
   }
 
@@ -56,7 +56,7 @@ class Businesses extends Component {
           {
             <div className="spinners-loader">
               <SyncLoader
-                color={'#123abc'} 
+                color={'#123abc'}
                 loading={this.state.isLoading}
               />
             </div>

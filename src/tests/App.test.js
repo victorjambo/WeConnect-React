@@ -24,7 +24,7 @@ describe('<App />', () =>  {
       </BrowserRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  
+
   it('<App /> contains all components', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find(NavigationBar)).to.have.length(1);
@@ -52,7 +52,7 @@ describe('invalid path should redirect to 404', () => {
   it('Renders Without crushing', () => {
     expect(randomWrapper.find(PageNotFound)).to.have.length(1);
     expect(randomWrapper.find(Landing)).to.have.length(0);
-    expect(randomWrapper.find('.action')).to.have.length(1);
+    expect(randomWrapper.find('.NotFoundPage')).to.have.length(1);
   });
 
   it('loads content on correct path', () => {

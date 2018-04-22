@@ -21,7 +21,7 @@ const Dropdown = ({ logout }) => (
         <ul className="dropdown-menu">
           <li><Link to="/profile"><span className="glyphicon glyphicon-dashboard" /> Dashboard</Link></li>
           <li role="separator" className="divider"></li>
-          <li><Link to="" onClick={logout}><span className="glyphicon glyphicon-log-out"/>logout</Link></li>
+          <li><Link to="" onClick={logout} className="logout"><span className="glyphicon glyphicon-log-out"/>logout</Link></li>
         </ul>
       </li>
     </ul>

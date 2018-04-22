@@ -8,20 +8,15 @@ const setValue = (user) => {
   userId = user;
 }
 const isCurrentUser = () => {
+  let response = false;
   if(Auth.isAuthenticated) {
     let token = window.sessionStorage.getItem('token');
     let { id } = decode(token);
     let url = `${BASE_URL}/api/v2/users/${id}`;
     getRequest(url).then((res) => {setValue(res.body.user.id)});
     if(userId === id) {
-      console.log(userId, id);
-      return true;
+      response = true;
     }
-    console.log(userId, id);
-    return false;
   }
-  console.log(userId);
-  return false;
+  return response;
 }
-
-

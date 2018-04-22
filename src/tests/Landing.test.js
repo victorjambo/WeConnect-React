@@ -11,6 +11,8 @@ import SearchForm from '../Components/Business/SearchForm';
 import NavigationBar from '../common/NavigationBar';
 import Auth from '../Components/Auth/Auth.js';
 import Dropdown from '../common/ElementComponents/Dropdown';
+import Sidebar from '../common/Sidebar';
+import sinon from 'sinon';
 
 
 configure({ adapter: new Adapter() });
@@ -52,6 +54,15 @@ describe('<NavigationBar />', () =>  {
     ReactDOM.render(<MemoryRouter><NavigationBar /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
+
+  it('simulates logout', () => {
+    Auth.authenticate();
+    const onButtonClick = sinon.spy();
+    const wrapper = shallow(<Dropdown logout={onButtonClick}/>);
+    wrapper.find('.logout').simulate('click');
+    expect(onButtonClick).to.have.property('callCount', 1);
+  });
+
 });
 
 describe('<Dropdown />', () => {
@@ -67,5 +78,12 @@ describe('<Dropdown />', () => {
     const wrapper = shallow(<Dropdown />);
     expect(wrapper.find('.login')).to.have.length(1);
     expect(wrapper.find('.logout')).to.have.length(0);
+  });
+});
+
+describe('<Sidebar />', () => {
+  it('', () => {
+    const wrapper = shallow(<Sidebar />);
+    expect(wrapper.find('.list-group')).to.have.length(1);
   });
 });

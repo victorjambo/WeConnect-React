@@ -12,12 +12,12 @@ const Status = ({ code, children }) => (
 
 const PageNotFound = () =>
   <Status code={404}>
-    <div class="NotFoundPage text-center push">
+    <div className="NotFoundPage text-center push">
       <h1>404</h1>
       <h2>You have upset the balance of the internet. Go back to the&nbsp;
         <Link to="/">WeConnect Mothership!</Link>
       </h2>
-      <img src="/404.jpg" />
+      <img src="/404.jpg" alt="notfound"/>
     </div>
   </Status>
 
