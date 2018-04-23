@@ -15,6 +15,9 @@ const Sidebar = () => (
     <li className="list-group-item">
       <Link to="/notifications">Notifications</Link>
     </li>
+    <li className="list-group-item">
+      <Link to="/businesses/new">Register new business</Link>
+    </li>
   </ul>
 );
 

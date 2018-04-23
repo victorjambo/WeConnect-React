@@ -5,7 +5,7 @@ import validateInput from '../../helpers/validations';
 import { post } from '../../helpers/request';
 import Auth from './Auth.js';
 import { notify } from '../../helpers/notify.js';
-import InputAuth from '../../common/ElementComponents/InputAuth';
+import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import { BASE_URL } from '../../helpers/url.js';
 import Warning from '../../common/ElementComponents/Warning';
@@ -74,10 +74,10 @@ class Login extends Component {
 
             <Warning classname="login" warning={this.state.errors.warning}/>
 
-            <InputAuth type="text" placeholder="Username" value={this.state.username} classname="login"
+            <Input type="text" placeholder="Username" value={this.state.username} classname="login"
               name="username" error={this.state.errors.username} onChange={this.logChange} />
 
-            <InputAuth type="password" onChange={this.logChange} name="password" classname="login"
+            <Input type="password" onChange={this.logChange} name="password" classname="login"
               value={this.state.password} error={this.state.errors.password}  placeholder="password"/>
 
             <ButtonAuth disabled={this.state.isLoading} label="login" />

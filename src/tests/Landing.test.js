@@ -46,9 +46,25 @@ describe('<Hero />', () =>  {
   it('Test if Hero can Render <SearchForm />', () => {
     expect(hero.contains(<SearchForm />)).to.be.true;
   });
+
+  it('Test after auth', () => {
+    Auth.authenticate();
+    expect(hero.find('.link-bucket')).to.have.length(2);
+    const wrapper = mount(<MemoryRouter><Hero /></MemoryRouter>);
+    expect(wrapper.find('a').last().text()).to.be.equal('View your businesses');
+    // console.log(wrapper.debug());
+  });
 });
 
 describe('<NavigationBar />', () =>  {
+  beforeAll(() => {
+    window.sessionStorage = {
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
+      removeItem() {
+        return this.token
+      }
+    };
+  });
   it('Renders without crashing', () => {
     const div = document.createElement('root');
     ReactDOM.render(<MemoryRouter><NavigationBar /></MemoryRouter>, div);
@@ -61,6 +77,13 @@ describe('<NavigationBar />', () =>  {
     const wrapper = shallow(<Dropdown logout={onButtonClick}/>);
     wrapper.find('.logout').simulate('click');
     expect(onButtonClick).to.have.property('callCount', 1);
+  });
+
+  it('test logout function', () => {
+    const wrapper = shallow(<NavigationBar />);
+    expect(wrapper.state().fireRedirect).to.be.false;
+    wrapper.instance().logout();
+    expect(wrapper.state().fireRedirect).to.be.true;
   });
 
 });
@@ -82,7 +105,7 @@ describe('<Dropdown />', () => {
 });
 
 describe('<Sidebar />', () => {
-  it('', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<Sidebar />);
     expect(wrapper.find('.list-group')).to.have.length(1);
   });

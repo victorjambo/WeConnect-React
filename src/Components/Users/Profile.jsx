@@ -12,7 +12,8 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoading: false
+      isLoading: false,
+      errors: {}
     };
     this.getUser = this.getUser.bind(this);
   }

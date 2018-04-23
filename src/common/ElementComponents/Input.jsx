@@ -1,35 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ name, value, placeholder, error, type, onChange, classname}) => (
-  <div className={"form-group " + classname }>
-    <label htmlFor={name}>{placeholder}</label>
-    <input
+const Input = ({ name, value, placeholder, error, type, onChange, classname, label }) => (
+  <div className={classname}>
+    { label && <label htmlFor={name}>{placeholder}</label> }
+    <input name={name}
+      type={type}
+      placeholder={placeholder}
+      className={ label ? "form-control" : "input pass"}
       value={value}
-      className={"form-control " + classname }
-      name={name}
       onChange={onChange}
-      type={type} />
-    { error && <div className={"invalid-feedback " + classname }>{error}</div> }
+      />
+    { error && <div className="invalid-feedback">{error}</div> }
   </div>
-);
+    );
 
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   classname: PropTypes.string,
-  autoFocus: PropTypes.string
+  label: PropTypes.bool
 };
 
 Input.defaultProps = {
   type: 'text',
-  classname: '',
-  autoFocus: ''
+  label: false
 };
 
 export default Input;

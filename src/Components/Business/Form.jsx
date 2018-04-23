@@ -7,11 +7,11 @@ import { BASE_URL } from '../../helpers/url';
 import { notify } from '../../helpers/notify';
 import Warning from '../../common/ElementComponents/Warning';
 import Textarea from '../../common/ElementComponents/Textarea';
-import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
 import { getRequest, uploadImage, putRequest } from '../../helpers/request';
 import { post } from '../../helpers/request';
+import Input from '../../common/ElementComponents/Input';
 
 class Form extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Form extends Component {
         this.setState({ errors: err, isLoading: false });
       });
   }
-  
+
   isValid() {
     const { name, bio, location } = this.state;
     const { errors, isValid } = validateInput({ name, bio, location });
@@ -98,7 +98,7 @@ class Form extends Component {
       const { name, bio, category, location, logo } = this.state;
       const data = { name, bio, category, location, logo };
 
-      this.props.paramId ? 
+      this.props.paramId ?
         this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data) :
         this.postForm(`${BASE_URL}/api/v2/businesses/`, token, data);
 
@@ -142,7 +142,7 @@ class Form extends Component {
         notify('warning', err.response.body.warning);
       });
   }
-  
+
   async onDrop(files) {
     const { preview } = files[0];
     this.setState({ file: files[0], preview: preview });
@@ -163,11 +163,11 @@ class Form extends Component {
 
             <Warning warning={this.state.serverErrors.warning} classname="form" />
 
-            <Input autoFocus="autofocus" name="name" value={this.state.name} onChange={this.logChange} placeholder="Business Name" error={this.state.errors.name}/>
+            <Input label={true} classname="form-group" autoFocus="autofocus" name="name" value={this.state.name} onChange={this.logChange} placeholder="Business Name" error={this.state.errors.name}/>
 
-            <Input name="location" onChange={this.logChange} value={this.state.location} placeholder="Business Location" error={this.state.errors.location}/>
+            <Input name="location" onChange={this.logChange} classname="form-group" value={this.state.location} placeholder="Business Location" label={true} error={this.state.errors.location}/>
 
-            <Input placeholder="Business Category" name="category" error={this.state.errors.category} value={this.state.category} onChange={this.logChange} />
+            <Input placeholder="Business Category" label={true} name="category" error={this.state.errors.category} value={this.state.category} onChange={this.logChange} classname="form-group" />
 
             <Textarea name="bio" value={this.state.bio} onChange={this.logChange} placeholder="About business" classname="bio" error={this.state.errors.bio}/>
 

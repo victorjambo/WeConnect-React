@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import Businesses from '../Components/Business/Businesses';
@@ -11,6 +11,8 @@ import EditBusiness from '../Components/Business/EditBusiness';
 import NewBusiness from '../Components/Business/NewBusiness';
 import SearchForm from '../Components/Business/SearchForm';
 import Form from '../Components/Business/Form';
+import Input from '../common/ElementComponents/Input';
+import sinon from 'sinon';
 
 configure({ adapter: new Adapter() });
 
@@ -113,5 +115,54 @@ describe('<SearchForm />', () => {
   it('should have a form', () => {
     const searchForm = shallow(<SearchForm />);
     expect(searchForm.find('form')).to.have.lengthOf(1);
+  });
+});
+
+describe('<Form />', () => {
+  it('Renders Form without crashing', () => {
+    const div = document.createElement('form-class');
+    ReactDOM.render(<Form />, div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
+
+  it('should have all Components', () => {
+    const wrapper = shallow(<Form />);
+    expect(wrapper.find('form')).to.have.lengthOf(1);
+    expect(wrapper.find('Input')).to.have.lengthOf(3);
+    expect(wrapper.find('Warning')).to.have.lengthOf(1);
+    expect(wrapper.find('Textarea')).to.have.lengthOf(1);
+    expect(wrapper.find('ButtonAuth')).to.have.lengthOf(1);
+  });
+
+  it('simulate click', () => {
+    const handleSubmit = sinon.spy();
+    const wrapper = mount(<Form onSubmit={handleSubmit}/>);
+    expect(wrapper.find('.btn-primary')).to.have.lengthOf(1);
+    wrapper.find('button').simulate('click');
+    expect(handleSubmit).to.have.property('callCount', 0);
+  });
+
+  it('getBusiness', () => {
+    const wrapper = shallow(<Form />);
+    wrapper.instance().getBusiness(1);
+    expect(wrapper.state().isLoading).to.be.false;
+  });
+
+  it('onDrop', () => {
+    const wrapper = shallow(<Form />);
+    wrapper.instance().onDrop(['test']);
+    expect(wrapper.state().file).to.equal('test');
+  });
+
+  it('logChange', () => {
+    let event = {
+      target: {
+        name: 'name',
+        value: 'victor'
+      }
+    }
+    const wrapper = shallow(<Form />);
+    wrapper.instance().logChange(event);
+    expect(wrapper.state().name).to.equal('victor');
   });
 });

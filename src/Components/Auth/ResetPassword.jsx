@@ -5,7 +5,7 @@ import Sidebar from '../../common/Sidebar';
 import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url.js';
 import { notify } from '../../helpers/notify.js';
-import InputAuth from '../../common/ElementComponents/InputAuth';
+import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
 
@@ -81,13 +81,13 @@ class ResetPassword extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
               <Warning classname="pass-reset" warning={this.state.serverErrors.warning}/>
-              <InputAuth value={this.state.old_password} classname="reset old_password"
+              <Input value={this.state.old_password} classname="reset old_password"
                 name="old_password" error={this.state.errors.old_password}
                 type="password" placeholder="Old Password" onChange={this.logChange} />
-              <InputAuth classname="reset password" value={this.state.password}
+              <Input classname="reset password" value={this.state.password}
                 name="password" placeholder="Password" type="password"
                 error={this.state.errors.password} onChange={this.logChange} />
-              <InputAuth onChange={this.logChange} classname="reset confirm_password"
+              <Input onChange={this.logChange} classname="reset confirm_password"
                 value={this.state.confirm_password} name="confirm_password" type="password"
                 placeholder="Confirm Password" error={this.state.errors.confirm_password}/>
               <ButtonAuth disabled={this.state.isLoading} label="Reset" />

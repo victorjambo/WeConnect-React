@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import validateInput from '../../helpers/validations';
 import { BASE_URL } from '../../helpers/url';
 import { notify } from '../../helpers/notify';
-import InputAuth from '../../common/ElementComponents/InputAuth';
+import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
 import { post } from '../../helpers/request';
@@ -76,7 +76,7 @@ class ForgotPassword extends Component {
 
             <Warning warning={this.state.errors.warning} classname="forgot-password" />
 
-            <InputAuth
+            <Input
               type="email" placeholder="Email Address"
               error={this.state.errors.email}
               name="email" value={this.state.email}
