@@ -12,22 +12,16 @@ import NewBusiness from '../Components/Business/NewBusiness';
 import SearchForm from '../Components/Business/SearchForm';
 import Form from '../Components/Business/Form';
 import Input from '../common/ElementComponents/Input';
+import MasonryComponent from 'react-masonry-component';
 import sinon from 'sinon';
 
 configure({ adapter: new Adapter() });
 
-describe('<Businesses />', () =>  {
-  it('Test Render Businesses without crashing', () => {
-    const div = document.createElement('home');
-    ReactDOM.render(<Businesses />, div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
-  it('Test <Businesses />', () => {
+describe('<Businesses />', async () =>  {
+  it('renders Businesses', () => {
     const businesses = shallow(<Businesses />);
     expect(businesses.find('.row.bucket')).to.have.lengthOf(1);
   });
-
 });
 
 describe('<ItemBusiness />', () => {

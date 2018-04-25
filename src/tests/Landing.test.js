@@ -52,7 +52,6 @@ describe('<Hero />', () =>  {
     expect(hero.find('.link-bucket')).to.have.length(2);
     const wrapper = mount(<MemoryRouter><Hero /></MemoryRouter>);
     expect(wrapper.find('a').last().text()).to.be.equal('View your businesses');
-    // console.log(wrapper.debug());
   });
 });
 

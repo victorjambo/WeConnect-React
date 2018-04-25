@@ -14,7 +14,7 @@ class Businesses extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getBusinesses();
   }
 
@@ -33,7 +33,7 @@ class Businesses extends Component {
         }
       })
       .catch(err => {
-        this.setState({ errors: err.response, isLoading: false });
+        this.setState({ errors: err, isLoading: false });
       });
   }
 
