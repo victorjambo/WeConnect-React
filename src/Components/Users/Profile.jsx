@@ -33,7 +33,7 @@ class Profile extends React.Component {
       .get(url)
       .set('Content-Type', 'application/json')
       .then((res) => {
-        if(res.status === 200 && this.refs.refUser) {
+        if (res.status === 200 && this.refs.refUser) {
           this.setState({
             user: res.body.user,
             isLoading: false

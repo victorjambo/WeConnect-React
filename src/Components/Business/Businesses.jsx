@@ -25,7 +25,7 @@ class Businesses extends Component {
       .get(url)
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if(response.status === 200 && this.refs.refBusiness) {
+        if (response.status === 200 && this.refs.refBusiness) {
           this.setState({
             businesses: response.body.businesses,
             isLoading: false

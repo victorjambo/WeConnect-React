@@ -48,7 +48,7 @@ class Register extends Component {
         let response = post(url, { username, fullname, email, password });
 
         response.then(res => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
           }

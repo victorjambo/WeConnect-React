@@ -6,15 +6,15 @@ const validateInput = (data) => {
   let response = 'This field is required';
 
   for(var field in data) {
-    if(field === 'password' && !Validator.matches(data[field].toString(), /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/i)) {
+    if (field === 'password' && !Validator.matches(data[field].toString(), /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/i)) {
       errors[field] = 'Provide strong password, should contain letters and numbers';
     }
 
-    if(field === 'email' && !Validator.isEmail(data[field].toString().trim())) {
+    if (field === 'email' && !Validator.isEmail(data[field].toString().trim())) {
       errors[field] = 'Invalid Email';
     }
 
-    if(field === 'confirm_password' && data.confirm_password !== data.password) {
+    if (field === 'confirm_password' && data.confirm_password !== data.password) {
       errors[field] = 'Passwords do not match';
     }
 
@@ -22,7 +22,7 @@ const validateInput = (data) => {
       errors[field] = 'old password same as new password';
     }
 
-    if(Validator.isEmpty(data[field].toString().trim())) {
+    if (Validator.isEmpty(data[field].toString().trim())) {
       errors[field] = response;
     }
   }

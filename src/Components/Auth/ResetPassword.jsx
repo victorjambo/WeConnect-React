@@ -50,7 +50,7 @@ class ResetPassword extends React.Component {
         .set({'x-access-token': token})
         .send({ old_password: old_password, password: password })
         .then(res => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
           } else {

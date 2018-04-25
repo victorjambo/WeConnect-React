@@ -28,7 +28,7 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { errors, isValid } = validateInput(this.state);
-    if(!isValid){ return this.setState({ errors }); }
+    if (!isValid){ return this.setState({ errors }); }
 
     this.setState({ errors: {}, isLoading: true });
 
@@ -39,7 +39,7 @@ class Login extends Component {
     let response = post(url, { username, password });
 
     response.then(response => {
-      if(response.status === 200) {
+      if (response.status === 200) {
         Auth.authenticate();
         sessionStorage.setItem('token', response.body.token);
         this.setState({ fireRedirect: true });

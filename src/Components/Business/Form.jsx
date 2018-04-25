@@ -40,7 +40,7 @@ class Form extends Component {
 
   componentDidMount() {
     let paramId = this.props.paramId;
-    if(paramId) {
+    if (paramId) {
       this.getBusiness(paramId);
     }
   }
@@ -50,7 +50,7 @@ class Form extends Component {
 
     getRequest(url)
       .then((res) => {
-        if(res.status === 200) {
+        if (res.status === 200) {
           this.setState({
             name: res.body.business.name,
             bio: res.body.business.bio,
@@ -109,7 +109,7 @@ class Form extends Component {
     await post(url, data)
       .set({'x-access-token': token})
       .then((res) => {
-        if(res.status === 201) {
+        if (res.status === 201) {
           this.setState({ fireRedirect: true });
           notify('success', res.body.success);
         }
@@ -126,7 +126,7 @@ class Form extends Component {
   async putForm(url, token, data) {
     await putRequest(url, data, token)
       .then((res) => {
-        if(res.status === 201) {
+        if (res.status === 201) {
           notify('success', res.body.success);
           this.setState({
             fireRedirect: true

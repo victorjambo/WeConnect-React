@@ -8,7 +8,7 @@ const isTokenValid = () => {
   } catch (e) {
     response = false;
   }
-  if(!token) {
+  if (!token) {
     response = false;
   }
   try {

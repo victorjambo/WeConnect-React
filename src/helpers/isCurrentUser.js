@@ -9,12 +9,12 @@ const setValue = (user) => {
 }
 const isCurrentUser = () => {
   let response = false;
-  if(Auth.isAuthenticated) {
+  if (Auth.isAuthenticated) {
     let token = window.sessionStorage.getItem('token');
     let { id } = decode(token);
     let url = `${BASE_URL}/api/v2/users/${id}`;
     getRequest(url).then((res) => {setValue(res.body.user.id)});
-    if(userId === id) {
+    if (userId === id) {
       response = true;
     }
   }

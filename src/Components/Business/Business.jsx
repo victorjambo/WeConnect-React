@@ -52,19 +52,19 @@ class Business extends Component {
       .set('Content-Type', 'application/json')
       .then((response) => {
         this.setState({ isLoading: false });
-        if(response.status === 200 && this.refs.refBusiness) {
+        if (response.status === 200 && this.refs.refBusiness) {
           this.setState({
             business: response.body.business
           });
           this.currentUser();
         }
-        if(response.status === 404){
+        if (response.status === 404){
           console.log(response);
         }
       })
       .catch(err => {
         this.setState({ isLoading: false });
-        if(err.status === 404) {
+        if (err.status === 404) {
           this.setState({ found: false });
         }
         this.setState({ errors: err.response.body, isLoading: false });
@@ -79,13 +79,13 @@ class Business extends Component {
     let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
     let token = window.sessionStorage.getItem('token');
 
-    if(window.confirm('Are you sure you wish to delete this business?')) {
+    if (window.confirm('Are you sure you wish to delete this business?')) {
       request
         .del(url)
         .type('application/json')
         .set({'x-access-token': token})
         .end((err, res) => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
           }
@@ -97,13 +97,13 @@ class Business extends Component {
   }
 
   currentUser = async () => {
-    if(Auth.isAuthenticated) {
+    if (Auth.isAuthenticated) {
       let token = window.sessionStorage.getItem('token');
       let { id } = decode(token);
       let url = `${BASE_URL}/api/v2/users/${id}`;
       const { business } = this.state;
       await getRequest(url).then((res) => {
-        if(res.body.user.username === business.owner) {
+        if (res.body.user.username === business.owner) {
           this.setState({ isCurrentUser: true });
         }
       });
@@ -112,8 +112,8 @@ class Business extends Component {
 
   render() {
     const { business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser } = this.state;
-    if(isLoading) {return (<DotLoader color={'#123abc'} />)};
-    if(!found) { return(<PageNotFound />); }
+    if (isLoading) {return (<DotLoader color={'#123abc'} />)};
+    if (!found) { return(<PageNotFound />); }
     return(
       <div className="business">
         <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />

@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
       let url = `${BASE_URL}/api/v2/auth/forgot-password`;
 
       post(url, { email }).then((res) => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
           }
