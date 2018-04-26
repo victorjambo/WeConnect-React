@@ -9,7 +9,14 @@ import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
 import { post } from '../../helpers/request';
 
+/**
+ * Component to handle Forgotten Password
+ * Resets Password and sends new password
+ */
 class ForgotPassword extends Component {
+  /**
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +30,9 @@ class ForgotPassword extends Component {
     this.logChange = this.logChange.bind(this);
   }
 
+  /**
+   * @returns {bool} true
+   */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -33,6 +43,10 @@ class ForgotPassword extends Component {
     return isValid;
   }
 
+  /**
+   * @param {object} e
+   * @returns {object} setState
+   */
   handleSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
@@ -40,9 +54,10 @@ class ForgotPassword extends Component {
 
       const { email } = this.state;
 
-      let url = `${BASE_URL}/api/v2/auth/forgot-password`;
+      const url = `${BASE_URL}/api/v2/auth/forgot-password`;
 
-      post(url, { email }).then((res) => {
+      post(url, { email })
+        .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
@@ -59,16 +74,23 @@ class ForgotPassword extends Component {
     }
   }
 
+  /**
+   * @param {object} e event
+   * @returns {object} setState
+   */
   logChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * @return {string} jsx
+   */
   render() {
     const { from } = this.props.location.state || '/auth/login';
     const fireRedirect = this.state.fireRedirect;
-    return(
+    return (
       <div className="container push">
         <div className="registration login">
           <form onSubmit={this.handleSubmit}>

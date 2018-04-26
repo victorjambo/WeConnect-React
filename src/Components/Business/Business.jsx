@@ -15,9 +15,16 @@ import { Buttons, Overview, About } from '../../common/ElementComponents/Busines
 import { getRequest } from '../../helpers/request';
 import Auth from '../Auth/Auth';
 
-const cloudinaryCore = new cloudinary.Cloudinary({cloud_name: 'dhic9kypo'});
+const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
 
+/**
+ * Class Business
+ */
 class Business extends Component {
+  
+  /**
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -35,18 +42,29 @@ class Business extends Component {
     this.createBackgroundImage = this.createBackgroundImage.bind(this);
   }
 
+  /**
+   * function to create background url with cloudinary
+   * @param {string} publicId as image id
+   * @returns {string} url
+   */
   createBackgroundImage(publicId) {
     return cloudinaryCore.url(publicId);
   }
 
+  /**
+   * @returns {func} get single business
+   */
   componentDidMount() {
     this.getBusiness();
   }
 
+  /**
+   * @returns {obj} single business
+   */
   getBusiness = async () => {
     this.setState({ isLoading: true });
-    let paramId = this.props.match.params.id;
-    let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
+    const paramId = this.props.match.params.id;
+    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
     await request
       .get(url)
       .set('Content-Type', 'application/json')
@@ -58,11 +76,11 @@ class Business extends Component {
           });
           this.currentUser();
         }
-        if (response.status === 404){
-          console.log(response);
+        if (response.status === 404) {
+          this.setState({ errors: response.response.body, isLoading: false });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ isLoading: false });
         if (err.status === 404) {
           this.setState({ found: false });
@@ -71,19 +89,23 @@ class Business extends Component {
       });
   }
 
+  /**
+   * @param {object} e as event
+   * @returns {del} deleted business
+   */
   deleteBusiness(e) {
     e.preventDefault();
 
     this.setState({ isDeleting: true });
 
-    let url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
-    let token = window.sessionStorage.getItem('token');
+    const url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
+    const token = window.sessionStorage.getItem('token');
 
     if (window.confirm('Are you sure you wish to delete this business?')) {
       request
         .del(url)
         .type('application/json')
-        .set({'x-access-token': token})
+        .set({ 'x-access-token': token })
         .end((err, res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
@@ -96,11 +118,14 @@ class Business extends Component {
     }
   }
 
+  /**
+   * @returns {object} current user
+   */
   currentUser = async () => {
     if (Auth.isAuthenticated) {
-      let token = window.sessionStorage.getItem('token');
-      let { id } = decode(token);
-      let url = `${BASE_URL}/api/v2/users/${id}`;
+      const token = window.sessionStorage.getItem('token');
+      const { id } = decode(token);
+      const url = `${BASE_URL}/api/v2/users/${id}`;
       const { business } = this.state;
       await getRequest(url).then((res) => {
         if (res.body.user.username === business.owner) {
@@ -110,11 +135,14 @@ class Business extends Component {
     }
   }
 
+  /**
+   * @return {string} jsx
+   */
   render() {
     const { business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser } = this.state;
-    if (isLoading) {return (<DotLoader color={'#123abc'} />)};
-    if (!found) { return(<PageNotFound />); }
-    return(
+    if (isLoading) { return (<DotLoader color={'#123abc'} />); }
+    if (!found) { return (<PageNotFound />); }
+    return (
       <div className="business">
         <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
         <div className="container push-up-profile" ref="refBusiness">

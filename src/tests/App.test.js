@@ -6,7 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import App from '../App';
 import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
-import Landing from '../Landing/Landing';
+import Landing from '../common/Landing';
 import NavigationBar from '../common/NavigationBar.jsx';
 
 configure({ adapter: new Adapter() });

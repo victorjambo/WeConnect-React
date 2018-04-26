@@ -8,7 +8,7 @@ describe('Validations', () => {
     password: '',
     fullname: '',
     email: '',
-    confirm_password: ''
+    confirmPassword: ''
   };
 
   it('Validates isEmpty', () => {
@@ -32,14 +32,14 @@ describe('Validations', () => {
 
   it('Validates confirm password', () => {
     data.password = 'password1234';
-    data.confirm_password = 'different1234';
+    data.confirmPassword = 'different1234';
     const output = validateInput(data);
-    expect(output.errors.confirm_password).to.equal('Passwords do not match');
+    expect(output.errors.confirmPassword).to.equal('Passwords do not match');
   });
 
   it('Validates same passwords', () => {
     data.password = 'password1234';
-    data.old_password = 'password1234';
+    data.oldPassword = 'password1234';
     const output = validateInput(data);
     expect(output.errors.password).to.equal('old password same as new password');
   });

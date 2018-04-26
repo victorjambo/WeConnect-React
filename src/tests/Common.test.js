@@ -1,12 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import Textarea from '../common/ElementComponents/Textarea';
-import Landing from '../Landing/Landing';
-import Form from '../Components/Business/Form';
 import ButtonAuth from '../common/ElementComponents/ButtonAuth';
 import Input from '../common/ElementComponents/Input';
 import DropzoneContainer from '../common/ElementComponents/DropzoneContainer';

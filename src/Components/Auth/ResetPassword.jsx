@@ -9,13 +9,21 @@ import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
 
+/**
+ * ResetPassword
+ */
 class ResetPassword extends React.Component {
+  
+  /**
+   * constructor that takes
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
-      old_password: '',
+      oldPassword: '',
       password: '',
-      confirm_password: '',
+      confirmPassword: '',
       errors: {},
       serverErrors: {},
       isLoading: false,
@@ -26,6 +34,10 @@ class ResetPassword extends React.Component {
     this.logChange = this.logChange.bind(this);
   }
 
+  /**
+   * validates user inputs
+   * @returns {bool} true or false
+   */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -36,20 +48,27 @@ class ResetPassword extends React.Component {
     return isValid;
   }
 
+  /**
+   * takes
+   * @param {object} e as event submit
+   * sends post request to API server
+   * @returns {object} new state
+   * then redirect
+   */
   handleSubmit(e) {
     e.preventDefault();
     let token = window.sessionStorage.getItem('token');
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      const { old_password, password} = this.state;
+      const { oldPassword, password } = this.state;
 
       let url = `${BASE_URL}/api/v2/auth/reset-password`;
 
       request.put(url).type('application/json')
-        .set({'x-access-token': token})
-        .send({ old_password: old_password, password: password })
-        .then(res => {
+        .set({ 'x-access-token': token })
+        .send({ old_password: oldPassword, password: password })
+        .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
@@ -58,22 +77,31 @@ class ResetPassword extends React.Component {
             notify('success', res.body);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({ serverErrors: err.response.body, isLoading: false });
           notify('warning', err.response.body.warning);
         });
     }
   }
 
+  /**
+   * takes
+   * @param {object} e as event
+   * updates state on value change
+   * @returns {object} new state
+   */
   logChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
     const { from } = this.props.location.state || '/profile';
-    return(
+    return (
       <div className="container push-profile">
         <div className="row bucket">
           <div className="col-lg-3 hidden-sm"><Sidebar /></div>
@@ -81,15 +109,15 @@ class ResetPassword extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
               <Warning classname="pass-reset" warning={this.state.serverErrors.warning}/>
-              <Input value={this.state.old_password} classname="reset old_password"
-                name="old_password" error={this.state.errors.old_password}
+              <Input value={this.state.oldPassword} classname="reset oldPassword"
+                name="oldPassword" error={this.state.errors.oldPassword}
                 type="password" placeholder="Old Password" onChange={this.logChange} />
               <Input classname="reset password" value={this.state.password}
                 name="password" placeholder="Password" type="password"
                 error={this.state.errors.password} onChange={this.logChange} />
-              <Input onChange={this.logChange} classname="reset confirm_password"
-                value={this.state.confirm_password} name="confirm_password" type="password"
-                placeholder="Confirm Password" error={this.state.errors.confirm_password}/>
+              <Input onChange={this.logChange} classname="reset confirmPassword"
+                value={this.state.confirmPassword} name="confirmPassword" type="password"
+                placeholder="Confirm Password" error={this.state.errors.confirmPassword}/>
               <ButtonAuth disabled={this.state.isLoading} label="Reset" />
             </form> { this.state.fireRedirect && (<Redirect to={from || '/profile'}/>) }
           </div>

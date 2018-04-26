@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import Businesses from '../Components/Business/Businesses';
 import Business from '../Components/Business/Business';
 import ItemBusiness from '../Components/Business/ItemBusiness';
@@ -11,9 +12,6 @@ import EditBusiness from '../Components/Business/EditBusiness';
 import NewBusiness from '../Components/Business/NewBusiness';
 import SearchForm from '../Components/Business/SearchForm';
 import Form from '../Components/Business/Form';
-import Input from '../common/ElementComponents/Input';
-import MasonryComponent from 'react-masonry-component';
-import sinon from 'sinon';
 
 configure({ adapter: new Adapter() });
 
@@ -25,7 +23,7 @@ describe('<Businesses />', async () =>  {
 });
 
 describe('<ItemBusiness />', () => {
-  let business, item;
+  let business, wrapper;
   beforeEach(() => {
     business = {
       name: 'NNeka',
@@ -35,30 +33,21 @@ describe('<ItemBusiness />', () => {
       location: 'Nairobi',
       id: '1'
     };
-    item = shallow(<ItemBusiness business={business} key={business.id} />);
+    wrapper = shallow(<ItemBusiness business={business} key={business.id} />);
+  });
+  it('Renders without crushing', () => {
+    expect(wrapper.find('.my-box')).to.have.lengthOf(1);
   });
 
-  it('Renders without crushing', () => {
-    expect(item.find('.my-box')).to.have.lengthOf(1);
-  })
-
   it('Renders Business name', () => {
-    expect(item.find('h2').text()).to.be.equal('<Link />');
+    expect(wrapper.find('h2').text()).to.be.equal('<Link />');
   });
 });
 
 describe('<Business />', () => {
-  let match, business;
+  let match;
   beforeEach(() => {
     match = { params: { id: 23 }, isExact: false, path: "/", url: "/" };
-    business = {
-      name: 'NNeka',
-      logo: 'url_here',
-      bio: 'this is a bio',
-      category: 'Staffing',
-      location: 'Nairobi',
-      id: '1'
-    };
   });
 
   it('Renders Business without crashing', () => {
@@ -66,22 +55,12 @@ describe('<Business />', () => {
     ReactDOM.render(<MemoryRouter><Business required={true} match={match} /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
-
-  // it('Test Business', () => {});
 });
 
 describe('<EditBusiness />', () => {
-  let match, business;
+  let match;
   beforeEach(() => {
     match = { params: { id: '23' }, isExact: false, path: "/", url: "/" };
-    business = {
-      name: 'NNeka',
-      logo: 'url_here',
-      bio: 'this is a bio',
-      category: 'Staffing',
-      location: 'Nairobi',
-      id: '1'
-    };
   });
 
   it('Renders EditBusiness without crashing', () => {
@@ -154,7 +133,7 @@ describe('<Form />', () => {
         name: 'name',
         value: 'victor'
       }
-    }
+    };
     const wrapper = shallow(<Form />);
     wrapper.instance().logChange(event);
     expect(wrapper.state().name).to.equal('victor');

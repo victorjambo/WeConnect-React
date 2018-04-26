@@ -12,7 +12,7 @@ const isTokenValid = () => {
     response = false;
   }
   try {
-    let { exp } = decode(token);
+    const { exp } = decode(token);
     if (exp < new Date().getTime() / 1000) {
       window.sessionStorage.removeItem('token');
       response = false;

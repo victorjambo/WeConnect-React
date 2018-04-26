@@ -4,13 +4,14 @@ import './PageNotFound.css';
 
 const Status = ({ code, children }) => (
   <Route render={({ staticContext }) => {
-    if (staticContext)
-      staticContext.status = code
-    return children
+    if (staticContext) {
+      staticContext.status = code;
+    }
+    return children;
   }}/>
-)
+);
 
-const PageNotFound = () =>
+const PageNotFound = () => (
   <Status code={404}>
     <div className="NotFoundPage text-center push">
       <h1>404</h1>
@@ -20,5 +21,6 @@ const PageNotFound = () =>
       <img src="/404.jpg" alt="notfound"/>
     </div>
   </Status>
+);
 
 export default PageNotFound;

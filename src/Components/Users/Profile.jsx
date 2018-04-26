@@ -7,8 +7,17 @@ import { SyncLoader } from 'react-spinners';
 import './Profile.css';
 import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
 
+/**
+ * register new user
+ */
 class Profile extends React.Component {
-  constructor(props){
+  
+  /**
+   * constructor that takes
+   * @param {object} props
+   */
+  constructor(props) 
+  {
     super(props);
     this.state = {
       user: {},
@@ -18,16 +27,22 @@ class Profile extends React.Component {
     this.getUser = this.getUser.bind(this);
   }
 
+  /**
+   * @returns {func} getUser
+   */
   componentDidMount() {
     this.getUser();
   }
 
+  /**
+   * @returns {obj} user details
+   */
   getUser = async () => {
     this.setState({ isLoading: true});
 
-    let token = window.sessionStorage.getItem('token');
-    let { id } = decode(token);
-    let url = `${BASE_URL}/api/v2/users/${id}`;
+    const token = window.sessionStorage.getItem('token');
+    const { id } = decode(token);
+    const url = `${BASE_URL}/api/v2/users/${id}`;
 
     await request
       .get(url)
@@ -44,6 +59,10 @@ class Profile extends React.Component {
         this.setState({ errors: err.body, isLoading: false });
       });
   }
+  
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
     const { user, isLoading, activate } = this.state;
     return(
@@ -52,7 +71,7 @@ class Profile extends React.Component {
           <div className="col-lg-3 hidden-sm">
             <Sidebar />
           </div>
-          <div className="col-lg-9"  ref="refUser">
+          <div className="col-lg-9" ref="refUser">
             {
               isLoading ? (
                 <div className="spinners-loader"><SyncLoader color={'#123abc'} /></div>

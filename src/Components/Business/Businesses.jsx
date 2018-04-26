@@ -5,7 +5,15 @@ import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
 import Masonry from 'react-masonry-component';
 
+/**
+ * register new user
+ */
 class Businesses extends Component {
+
+  /**
+   * constructor that takes
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -14,13 +22,19 @@ class Businesses extends Component {
     };
   }
 
+  /**
+   * @returns {func} get business
+   */
   componentWillMount() {
     this.getBusinesses();
   }
 
+  /**
+   * @returns {obj} all businesses
+   */
   getBusinesses = async () => {
     this.setState({ isLoading: true});
-    let url = `${BASE_URL}/api/v2/businesses/?limit=30`;
+    const url = `${BASE_URL}/api/v2/businesses/?limit=30`;
     await request
       .get(url)
       .set('Content-Type', 'application/json')
@@ -32,25 +46,26 @@ class Businesses extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ errors: err, isLoading: false });
       });
   }
 
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
-    return(
+    const { businesses } = this.state;
+    const business = businesses.map((_business) =>
+      <ItemBusiness business={_business} key={_business.id}/>
+    );
+    return (
       <div className="container">
         <div className="row bucket" ref="refBusiness">
           <h2>Registered Businesses</h2><br/>
 
           <Masonry >
-            {
-              this.state.businesses.map((business) => {
-                return(
-                  <ItemBusiness business={business} key={business.id}/>
-                );
-              })
-            }
+            { business }
           </Masonry>
 
           {

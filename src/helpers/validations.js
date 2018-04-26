@@ -2,10 +2,10 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 const validateInput = (data) => {
-  let errors = {};
-  let response = 'This field is required';
+  const errors = {};
+  const response = 'This field is required';
 
-  for(var field in data) {
+  Object.keys(data).forEach((field) => {
     if (field === 'password' && !Validator.matches(data[field].toString(), /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/i)) {
       errors[field] = 'Provide strong password, should contain letters and numbers';
     }
@@ -14,18 +14,18 @@ const validateInput = (data) => {
       errors[field] = 'Invalid Email';
     }
 
-    if (field === 'confirm_password' && data.confirm_password !== data.password) {
+    if (field === 'confirmPassword' && data.confirmPassword !== data.password) {
       errors[field] = 'Passwords do not match';
     }
 
-    if (field === 'password' && data.old_password === data.password) {
+    if (field === 'password' && data.oldPassword === data.password) {
       errors[field] = 'old password same as new password';
     }
 
     if (Validator.isEmpty(data[field].toString().trim())) {
       errors[field] = response;
     }
-  }
+  });
 
   return {
     errors,

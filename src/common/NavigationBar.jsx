@@ -5,8 +5,16 @@ import { Redirect } from 'react-router-dom';
 import './css/NavigationBar.css';
 import Dropdown from './ElementComponents/Dropdown';
 
+/**
+ * NavigationBar
+ */
 class NavigationBar extends Component {
-  constructor(props){
+
+  /**
+   * constructor that takes
+   * @param {object} props
+   */
+  constructor(props) {
     super(props);
     this.state = {
       fireRedirect: false
@@ -15,6 +23,11 @@ class NavigationBar extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  /**
+   * Change state of login
+   * @returns {object} new state
+   * then redirect and re-render component
+   */
   logout() {
     Auth.signout();
     window.sessionStorage.removeItem('token');
@@ -22,8 +35,11 @@ class NavigationBar extends Component {
     this.forceUpdate();
   }
 
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
-    const fireRedirect = this.state.fireRedirect;
+    const { fireRedirect } = this.state;
     return (
       <nav className="navbar navbar-default navbar-override navbar-custom navbar-fixed-top">
         <div className="container-fluid">

@@ -4,15 +4,16 @@ import { MemoryRouter } from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import Hero from '../common/Hero';
-import Landing from '../Landing/Landing';
+import Landing from '../common/Landing';
 import Businesses from '../Components/Business/Businesses';
 import SearchForm from '../Components/Business/SearchForm';
 import NavigationBar from '../common/NavigationBar';
 import Auth from '../Components/Auth/Auth.js';
 import Dropdown from '../common/ElementComponents/Dropdown';
 import Sidebar from '../common/Sidebar';
-import sinon from 'sinon';
+
 
 
 configure({ adapter: new Adapter() });

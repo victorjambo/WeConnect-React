@@ -5,7 +5,7 @@ import './css/Hero.css';
 import Auth from '../Components/Auth/Auth';
 
 const Hero = () => (
-  <header className="intro-header" style={{backgroundImage: "url('/images/landingpage.jpg')"}}>
+  <header className="intro-header" style={{ backgroundImage: "url('/images/landingpage.jpg')" }}>
     <div className="container">
       <div className="row">
         <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

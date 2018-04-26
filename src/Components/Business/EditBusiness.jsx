@@ -3,10 +3,17 @@ import './css/Businesses.css';
 import Form from './Form';
 import Sidebar from '../../common/Sidebar';
 
+/**
+ * Edit Business
+ */
 class EditBusiness extends Component {
+  
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
-    let paramId = this.props.match.params.id;
-    return(
+    const paramId = this.props.match.params.id;
+    return (
       <div className="container push-profile">
         <div className="row bucket">
           <div className="col-lg-3 hidden-sm">

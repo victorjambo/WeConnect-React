@@ -7,13 +7,13 @@ const Input = ({ name, value, placeholder, error, type, onChange, classname, lab
     <input name={name}
       type={type}
       placeholder={placeholder}
-      className={ label ? "form-control" : "input pass"}
+      className={ label ? 'form-control' : 'input pass' }
       value={value}
       onChange={onChange}
       />
-    { error && <div className="invalid-feedback">{error}</div> }
+    { error && <div className='invalid-feedback'>{error}</div> }
   </div>
-    );
+);
 
 
 Input.propTypes = {

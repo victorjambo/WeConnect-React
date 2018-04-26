@@ -15,6 +15,6 @@ export const notify = (type, message) => {
       toast.error(message, { className: 'notify-top' });
       break;
     default:
-      toast("WeConnect!", { className: 'notify-top' });
+      toast('WeConnect!', { className: 'notify-top' });
   }
 };

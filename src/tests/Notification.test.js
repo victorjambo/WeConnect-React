@@ -1,12 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import sinon from 'sinon';
 import { expect } from 'chai';
-import Hero from '../common/Hero';
-import Landing from '../Landing/Landing';
 import Sidebar from '../common/Sidebar';
 import NavNotifications from '../Components/Notifications/NavNotifications';
 import Notifications from '../Components/Notifications/Notifications';
