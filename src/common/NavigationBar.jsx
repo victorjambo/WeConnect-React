@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Auth from '../Auth/Auth';
+import Auth from '../Components/Auth/Auth';
 import { Redirect } from 'react-router-dom';
+import './css/NavigationBar.css';
+import Dropdown from './ElementComponents/Dropdown';
 
+/**
+ * NavigationBar
+ */
 class NavigationBar extends Component {
-  constructor(props){
+
+  /**
+   * constructor that takes
+   * @param {object} props
+   */
+  constructor(props) {
     super(props);
     this.state = {
       fireRedirect: false
@@ -12,16 +22,24 @@ class NavigationBar extends Component {
 
     this.logout = this.logout.bind(this);
   }
-  
+
+  /**
+   * Change state of login
+   * @returns {object} new state
+   * then redirect and re-render component
+   */
   logout() {
     Auth.signout();
-    window.localStorage.removeItem('token');
+    window.sessionStorage.removeItem('token');
     this.setState({ fireRedirect: true });
     this.forceUpdate();
   }
-  
+
+  /**
+   * @return {jsx} html to be rendered
+   */
   render() {
-    const fireRedirect = this.state.fireRedirect;
+    const { fireRedirect } = this.state;
     return (
       <nav className="navbar navbar-default navbar-override navbar-custom navbar-fixed-top">
         <div className="container-fluid">
@@ -34,32 +52,9 @@ class NavigationBar extends Component {
               We<span className="txt-shadow">Connect</span>
             </Link>
           </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav navbar-right">
-              { Auth.isAuthenticated && <li className="dropdown dropdown-notifications">
-                <Link to="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
-                </Link>
-                <ul className="dropdown-menu">
-                  <li><Link to="/">Notification 1</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 2</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 3</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 4</Link></li>
-                  <li role="separator" className="divider"></li>
-                  <li><Link to="/">Notification 5</Link></li>
-                </ul>
-              </li> }
-              { Auth.isAuthenticated && <li className="Nav-list-link"><Link to="" onClick={this.logout}>logout</Link></li> }
-              { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/signup">signup</Link></li> }
-              { !Auth.isAuthenticated && <li className="Nav-list-link"><Link to="/auth/login">login</Link></li> }
-              { fireRedirect && (<Redirect to="/" />) }
-            </ul>
-          </div>
+          <Dropdown logout={this.logout}/>
         </div>
+        { fireRedirect && (<Redirect to="/" />) }
       </nav>
     );
   }
