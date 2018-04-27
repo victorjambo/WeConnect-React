@@ -13,7 +13,14 @@ import { getRequest, uploadImage, putRequest } from '../../helpers/request';
 import { post } from '../../helpers/request';
 import Input from '../../common/ElementComponents/Input';
 
+/**
+ * Component to handle Forgotten Password
+ * Resets Password and sends new password
+ */
 class Form extends Component {
+  /**
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -38,15 +45,19 @@ class Form extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
+  /** @returns {func} get business */
   componentDidMount() {
-    let paramId = this.props.paramId;
+    const paramId = this.props.paramId;
     if (paramId) {
       this.getBusiness(paramId);
     }
   }
 
+  /** @param {string} paramId
+   * @returns {obj} state
+   */
   getBusiness(paramId) {
-    let url = `${BASE_URL}/api/v2/businesses/${paramId}`;
+    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
 
     getRequest(url)
       .then((res) => {
@@ -67,6 +78,9 @@ class Form extends Component {
       });
   }
 
+  /**
+   * @returns {bool} true
+   */
   isValid() {
     const { name, bio, location } = this.state;
     const { errors, isValid } = validateInput({ name, bio, location });
@@ -78,12 +92,16 @@ class Form extends Component {
     return isValid;
   }
 
+  /**
+   * @param {object} e
+   * @returns {object} setState
+   */
   async handleSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
-      let token = window.sessionStorage.getItem('token');
+      const token = window.sessionStorage.getItem('token');
 
       const { file } = this.state;
       file && await uploadImage(file)
@@ -105,9 +123,15 @@ class Form extends Component {
     }
   }
 
+  /**
+   * @param {string} url
+   * @param {string} token
+   * @param {string} data
+   * @returns {obj} state
+   */
   async postForm(url, token, data) {
     await post(url, data)
-      .set({'x-access-token': token})
+      .set({ 'x-access-token': token })
       .then((res) => {
         if (res.status === 201) {
           this.setState({ fireRedirect: true });
@@ -123,6 +147,12 @@ class Form extends Component {
       });
   }
 
+  /**
+   * @param {string} url
+   * @param {string} token
+   * @param {string} data
+   * @returns {obj} state
+   */
   async putForm(url, token, data) {
     await putRequest(url, data, token)
       .then((res) => {
@@ -143,19 +173,30 @@ class Form extends Component {
       });
   }
 
+  /**
+   * @param {string} files
+   * @returns {obj} state
+   */
   async onDrop(files) {
     const { preview } = files[0];
     this.setState({ file: files[0], preview: preview });
   }
 
+  /**
+   * @param {object} e event
+   * @returns {object} setState
+   */
   logChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * @return {string} jsx
+   */
   render() {
-    const fireRedirect = this.state.fireRedirect;
+    const { fireRedirect } = this.state;
     return(
       <div className="row">
         <div className="col-lg-9">
