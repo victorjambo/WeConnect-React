@@ -6,15 +6,6 @@
     "es6": true,
     "mocha": true
   },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-        "jsx": true,
-        "modules": true,
-        "experimentalObjectRestSpread": true
-    }
-  },
   "rules": {
     "no-bitwise": ["error", { "int32Hint": true }],
     "react/jsx-uses-react": 1,
