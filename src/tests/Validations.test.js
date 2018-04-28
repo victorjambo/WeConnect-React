@@ -1,5 +1,5 @@
-import validateInput from '../helpers/validations';
 import { expect } from 'chai';
+import validateInput from '../helpers/validations';
 
 describe('Validations', () => {
   const response = 'This field is required';

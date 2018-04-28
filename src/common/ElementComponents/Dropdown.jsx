@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Auth from '../../Components/Auth/Auth';
-import NavNotifications from '../../Components/Notifications/NavNotifications';
+import Auth from '../../helpers/Auth.js';
+import NavNotifications from '../../Components/Notifications/NavNotifications.jsx';
 
 const Dropdown = ({ logout }) => (
   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

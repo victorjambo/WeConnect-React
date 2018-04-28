@@ -1,11 +1,11 @@
 import React from 'react';
 import request from 'superagent';
 import decode from 'jwt-decode';
-import Sidebar from '../../common/Sidebar';
-import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
+import Sidebar from '../../common/Sidebar.jsx';
+import BASE_URL from '../../helpers/url.js';
 import './Profile.css';
-import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
+import ProfileOverview from '../../common/ElementComponents/ProfileOverview.jsx';
 
 /**
  * register new user

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import ItemBusiness from './ItemBusiness.jsx';
-import { BASE_URL } from '../../helpers/url.js';
 import { SyncLoader } from 'react-spinners';
 import Masonry from 'react-masonry-component';
+import ItemBusiness from './ItemBusiness.jsx';
+import BASE_URL from '../../helpers/url.js';
 
 /**
  * register new user

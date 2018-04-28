@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
 import request from 'superagent';
-import { BASE_URL } from '../../helpers/url';
-import { Redirect } from 'react-router-dom';
-import './css/Business.css';
-import PageNotFound from '../../Components/PageNotFound/PageNotFound';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
-import { notify } from '../../helpers/notify';
-import Reviews from '../Reviews/Reviews';
-import NewReview from '../Reviews/NewReview';
-import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
-import { getRequest } from '../../helpers/request';
-import Auth from '../Auth/Auth';
+import BASE_URL from '../../helpers/url';
+import { Redirect } from 'react-router-dom';
+import './css/Business.css';
+import PageNotFound from '../../Components/PageNotFound/PageNotFound.jsx';
+import notify from '../../helpers/notify.js';
+import Reviews from '../Reviews/Reviews.jsx';
+import NewReview from '../Reviews/NewReview.jsx';
+import { Buttons, Overview, About } from '../../common/ElementComponents/Business.jsx';
+import { getRequest } from '../../helpers/request.js';
+import Auth from '../../helpers/Auth.js';
 
 const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
 

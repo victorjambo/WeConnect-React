@@ -24,8 +24,8 @@ export const getRequest = (url) => {
 export const uploadImage = (file) => {
   return request
     .post('https://api.cloudinary.com/v1_1/dhic9kypo/image/upload')
-    .attach("file", file)
-    .field("upload_preset", "zwl9qrsr")
-    .field("api_key", "231513992291381")
-    .field("timestamp", (Date.now() / 1000) | 0);
+    .attach('file', file)
+    .field('upload_preset', 'zwl9qrsr')
+    .field('api_key', '231513992291381')
+    .field('timestamp', (Date.now() / 1000) | 0);
 };

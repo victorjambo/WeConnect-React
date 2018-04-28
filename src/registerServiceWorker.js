@@ -18,6 +18,7 @@ const isLocalhost = Boolean(
     )
 );
 
+/** @returns {obj} register */
 export default function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -52,6 +53,10 @@ export default function register() {
   }
 }
 
+/**
+ * @param {string} swUrl
+ * @returns {obj} service worfker
+ */
 function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
@@ -81,6 +86,10 @@ function registerValidSW(swUrl) {
     });
 }
 
+/**
+ * @param {string} swUrl
+ * @returns {obj} service worfker
+ */
 function checkValidServiceWorker(swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
@@ -108,6 +117,9 @@ function checkValidServiceWorker(swUrl) {
     });
 }
 
+/**
+ * @returns {obj} unregistered
+ */
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {

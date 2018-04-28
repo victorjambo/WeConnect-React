@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/Businesses.css';
-import Form from './Form';
-import Sidebar from '../../common/Sidebar';
+import Form from './Form.jsx';
+import Sidebar from '../../common/Sidebar.jsx';
 
 const NewBusiness = () => (
   <div className="container push-profile">

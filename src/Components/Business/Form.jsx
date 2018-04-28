@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
-import validateInput from '../../helpers/validations';
-import { BASE_URL } from '../../helpers/url';
-import { notify } from '../../helpers/notify';
-import Warning from '../../common/ElementComponents/Warning';
-import Textarea from '../../common/ElementComponents/Textarea';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
-import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
-import { getRequest, uploadImage, putRequest } from '../../helpers/request';
-import { post } from '../../helpers/request';
-import Input from '../../common/ElementComponents/Input';
+import validateInput from '../../helpers/validations.js';
+import BASE_URL from '../../helpers/url.js';
+import notify from '../../helpers/notify.js';
+import Warning from '../../common/ElementComponents/Warning.jsx';
+import Textarea from '../../common/ElementComponents/Textarea.jsx';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
+import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer.jsx';
+import { getRequest, uploadImage, putRequest } from '../../helpers/request.js';
+import { post } from '../../helpers/request.js';
+import Input from '../../common/ElementComponents/Input.jsx';
 
 /**
  * Component to handle Forgotten Password

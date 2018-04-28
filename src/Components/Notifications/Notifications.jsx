@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../../common/Sidebar';
+import Sidebar from '../../common/Sidebar.jsx';
 
 const Notifications = () => (
   <div className="container push-profile">

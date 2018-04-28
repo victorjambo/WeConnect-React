@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchForm from '../Components/Business/SearchForm.jsx';
 import './css/Hero.css';
-import Auth from '../Components/Auth/Auth';
+import Auth from '../helpers/Auth.js';
 
 const Hero = () => (
   <header className="intro-header" style={{ backgroundImage: "url('/images/landingpage.jpg')" }}>

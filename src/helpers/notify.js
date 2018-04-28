@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export const notify = (type, message) => {
+const notify = (type, message) => {
   switch (type) {
     case 'info':
       toast.info(message, { className: 'notify-top' });
@@ -18,3 +18,5 @@ export const notify = (type, message) => {
       toast('WeConnect!', { className: 'notify-top' });
   }
 };
+
+export default notify;

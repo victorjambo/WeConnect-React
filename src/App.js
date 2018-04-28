@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './Components/Auth/PrivateRoute';
 import PageNotFound from './Components/PageNotFound/PageNotFound';
 import Business from './Components/Business/Business';
@@ -14,7 +15,6 @@ import Profile from './Components/Users/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
 import Notifications from './Components/Notifications/Notifications';
 import UserBusinesses from './Components/Users/UserBusinesses';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 /**

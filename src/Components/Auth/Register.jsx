@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import './Forms.css';
 import { Link, Redirect } from 'react-router-dom';
-import validateInput from '../../helpers/validations';
-import { BASE_URL } from '../../helpers/url.js';
-import { notify } from '../../helpers/notify.js';
-import Input from '../../common/ElementComponents/Input';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
-import { post } from '../../helpers/request';
-import Warning from '../../common/ElementComponents/Warning';
+import './Forms.css';
+import validateInput from '../../helpers/validations.js';
+import BASE_URL from '../../helpers/url.js';
+import notify from '../../helpers/notify.js';
+import Input from '../../common/ElementComponents/Input.jsx';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
+import { post } from '../../helpers/request.js';
+import Warning from '../../common/ElementComponents/Warning.jsx';
 
 /**
  * register new user

@@ -5,16 +5,14 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Hero from '../common/Hero';
-import Landing from '../common/Landing';
-import Businesses from '../Components/Business/Businesses';
-import SearchForm from '../Components/Business/SearchForm';
-import NavigationBar from '../common/NavigationBar';
-import Auth from '../Components/Auth/Auth.js';
-import Dropdown from '../common/ElementComponents/Dropdown';
-import Sidebar from '../common/Sidebar';
-
-
+import Hero from '../common/Hero.jsx';
+import Landing from '../common/Landing.jsx';
+import Businesses from '../Components/Business/Businesses.jsx';
+import SearchForm from '../Components/Business/SearchForm.jsx';
+import NavigationBar from '../common/NavigationBar.jsx';
+import Auth from '../helpers/Auth.js';
+import Dropdown from '../common/ElementComponents/Dropdown.jsx';
+import Sidebar from '../common/Sidebar.jsx';
 
 configure({ adapter: new Adapter() });
 
