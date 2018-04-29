@@ -6,7 +6,7 @@ import ItemBusiness from './ItemBusiness.jsx';
 import BASE_URL from '../../helpers/url.js';
 
 /**
- * register new user
+ * All businesses
  */
 class Businesses extends Component {
 

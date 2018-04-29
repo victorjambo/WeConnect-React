@@ -157,8 +157,8 @@ class Business extends Component {
               <div className="col-md-8 col-sm-6 col-xs-12">
                 <Overview business={business}/>
                 <About business={business}/>
-                <Reviews />
-                <NewReview />
+                <Reviews businessId={this.props.match.params.id} />
+                <NewReview businessId={this.props.match.params.id} />
               </div>
             </div>
           </div> { fireRedirect && (<Redirect to="/" />) }

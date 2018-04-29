@@ -19,7 +19,7 @@ export const Buttons = ({ paramId, deleteBusiness, isDeleting, error, isCurrentU
 );
 
 Buttons.propTypes = {
-  paramId: PropTypes.number.isRequired,
+  paramId: PropTypes.string.isRequired,
   isDeleting: PropTypes.bool,
   deleteBusiness: PropTypes.func.isRequired,
   error: PropTypes.string,
