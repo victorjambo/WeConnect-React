@@ -1,0 +1,38 @@
+/*****
+*
+* businesses container
+*
+******/
+
+.my-box {
+  width: 100%;
+  border: 2px;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.2);
+  overflow: hidden;
+  text-align: justify;
+  font-size: 15px;
+}
+
+.cell-body {
+  padding: 20px;
+}
+
+.cell-body h2 {
+  margin-top: -2px;
+}
+
+.cell-body h2 a {
+  text-decoration: none;
+}
+
+.spinners-loader{
+  margin-left: 50%;
+}
+
+.masonry {
+  margin-bottom: 50px;
+}
+
+.img-center {
+  margin: 0 auto;
+}
