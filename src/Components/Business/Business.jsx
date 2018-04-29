@@ -10,7 +10,6 @@ import './css/Business.css';
 import PageNotFound from '../../Components/PageNotFound/PageNotFound.jsx';
 import notify from '../../helpers/notify.js';
 import Reviews from '../Reviews/Reviews.jsx';
-import NewReview from '../Reviews/NewReview.jsx';
 import { Buttons, Overview, About } from '../../common/ElementComponents/Business.jsx';
 import { getRequest } from '../../helpers/request.js';
 import Auth from '../../helpers/Auth.js';
@@ -142,6 +141,7 @@ class Business extends Component {
     const { business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser } = this.state;
     if (isLoading) { return (<DotLoader color={'#123abc'} />); }
     if (!found) { return (<PageNotFound />); }
+    const { match, location } = this.props;
     return (
       <div className="business">
         <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
@@ -157,8 +157,7 @@ class Business extends Component {
               <div className="col-md-8 col-sm-6 col-xs-12">
                 <Overview business={business}/>
                 <About business={business}/>
-                <Reviews businessId={this.props.match.params.id} />
-                <NewReview businessId={this.props.match.params.id} />
+                <Reviews businessId={match.params.id} path={location.pathname} />
               </div>
             </div>
           </div> { fireRedirect && (<Redirect to="/" />) }
