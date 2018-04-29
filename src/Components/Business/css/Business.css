@@ -1,0 +1,48 @@
+/*****
+*
+* Profile
+*
+*****/
+
+.bucket {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 0 16px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 1px 1px rgba(127,127,127,0.3);
+  box-shadow: 0 1px 1px 1px rgba(127,127,127,0.3);
+}
+
+.overview {
+  line-height: 1em;
+  font-size: 15px;
+}
+
+.overview-info{
+  padding-bottom: 12px;
+  width: 50%;
+}
+
+
+.css-1q0tqd{
+  margin-top: 25%;
+  margin-left: 50%;
+}
+
+.business-header {
+  background: no-repeat;
+  height: 200px;
+  background-size: cover;
+  
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
+}
+
+.push-up-profile {
+  margin-top: -42px;
+}
