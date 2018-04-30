@@ -73,7 +73,7 @@ class Register extends Component {
         }
         else {
           this.setState({ errors: res.response.body, isLoading: false });
-          notify('success', res.body);
+          notify('success', res.body.success);
         }
       })
       .catch(err => {

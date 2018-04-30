@@ -1,8 +1,10 @@
 import React from 'react';
 import request from 'superagent';
+import decode from 'jwt-decode';
 import notify from '../../helpers/notify.js';
 import BASE_URL from '../../helpers/url.js';
 import NewReview from './NewReview.jsx';
+import Review from './Review.jsx';
 import validateInput from '../../helpers/validations.js';
 import LoginFirst from '../Auth/LoginFirst.jsx';
 import Auth from '../../helpers/Auth.js';
@@ -28,6 +30,7 @@ class Reviews extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.logChange = this.logChange.bind(this);
+    this.currentUser = this.currentUser.bind(this);
   }
   
   /**
@@ -119,19 +122,69 @@ class Reviews extends React.Component {
   }
   
   /**
+   * @param {string} currentname
+   * @returns {bool} current user
+   */
+  currentUser = (currentname) => {
+    let response = false;
+    if (Auth.isAuthenticated) {
+      const token = window.sessionStorage.getItem('token');
+      const { username } = decode(token);
+      if (username === currentname) {
+        response = true;
+      }
+    }
+    return response;
+  }
+  
+  /**
+   * @param {number} reviewId
+   * @returns {state} deleted
+  */
+  deleteReview = (reviewId) => {
+    // delete request on /<businessId>/reviews/<reviewId>
+    // if deleted fade out
+    // Check on how to pop out that review from our state
+    // this.database.child(noteId).remove();
+    
+
+    const { businessId } = this.props;
+    const { reviews } = this.state;
+
+    const url = `${BASE_URL}/api/v2/businesses/${businessId}/reviews/${reviewId}`;
+    const token = window.sessionStorage.getItem('token');
+    
+    const found = reviews.find((element) => {
+      return element.id === reviewId;
+    });
+
+    if (window.confirm('Confirm to delete review')) {
+      request
+        .del(url)
+        .type('application/json')
+        .set({ 'x-access-token': token })
+        .end((err, res) => {
+          if (res.status === 200) {
+            const index = reviews.indexOf(found);
+            reviews.splice(index, 1);
+            this.setState({ reviews: reviews });
+            notify('success', res.body.success);
+          }
+          else {
+            this.setState({ errors: err.response.body });
+          }
+        });
+    }
+  }
+  
+  /**
    * @return {jsx} html to be rendered
    */
   render() {
     const { reviews, title, desc, errors, isLoading } = this.state;
     const { businessId } = this.props;
     const review = reviews.map((_review) =>
-      <div className="fade-in" key={_review.id} >
-        <div className="review">
-          <h3 className="title">{_review.title}</h3>
-          <div className="review-body">{_review.desc}</div>
-        </div>
-        <hr />
-      </div>
+      <Review review={_review} key={_review.id} deleteReview={this.deleteReview} currentUser={this.currentUser} />
     );
     return (
       <div>
