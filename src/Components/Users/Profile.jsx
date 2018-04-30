@@ -68,7 +68,7 @@ class Profile extends React.Component {
     return(
       <div className="container push-profile">
         <div className="row bucket">
-          <div className="col-lg-3 hidden-sm">
+          <div className="col-lg-3 hidden-xs">
             <Sidebar />
           </div>
           <div className="col-lg-9" ref="refUser">
