@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/victorjambo/WeConnect-React.svg?branch=master)](https://travis-ci.org/victorjambo/WeConnect-React)
-[![Coverage Status](https://coveralls.io/repos/github/victorjambo/WeConnect-React/badge.svg?branch=ft-businesses)](https://coveralls.io/github/victorjambo/WeConnect-React?branch=ft-businesses)
+[![Coverage Status](https://coveralls.io/repos/github/victorjambo/WeConnect-React/badge.svg?branch=ft-reviews)](https://coveralls.io/github/victorjambo/WeConnect-React?branch=ft-reviews)
 
 
 # WeConnect
