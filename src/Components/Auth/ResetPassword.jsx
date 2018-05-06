@@ -57,13 +57,13 @@ class ResetPassword extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    let token = window.sessionStorage.getItem('token');
+    const token = window.sessionStorage.getItem('token');
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
       const { oldPassword, password } = this.state;
 
-      let url = `${BASE_URL}/api/v2/auth/reset-password`;
+      const url = `${BASE_URL}/api/v2/auth/reset-password`;
 
       request.put(url).type('application/json')
         .set({ 'x-access-token': token })

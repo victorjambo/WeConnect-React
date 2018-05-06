@@ -60,6 +60,9 @@ describe('<NavigationBar />', () =>  {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
       removeItem() {
         return this.token;
+      },
+      getItem() {
+        return this.token;
       }
     };
   });

@@ -66,7 +66,7 @@ class Register extends Component {
 
       let response = post(url, { username, fullname, email, password });
 
-      response.then(res => {
+      response.then((res) => {
         if (res.status === 200) {
           this.setState({ fireRedirect: true });
           notify('success', res.body.success);
@@ -76,7 +76,7 @@ class Register extends Component {
           notify('success', res.body.success);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ errors: err.response.body, isLoading: false });
         notify('warning', err.response.body.warning);
       });
