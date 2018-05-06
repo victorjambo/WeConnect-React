@@ -142,12 +142,6 @@ class Reviews extends React.Component {
    * @returns {state} deleted
   */
   deleteReview = (reviewId) => {
-    // delete request on /<businessId>/reviews/<reviewId>
-    // if deleted fade out
-    // Check on how to pop out that review from our state
-    // this.database.child(noteId).remove();
-    
-
     const { businessId } = this.props;
     const { reviews } = this.state;
 

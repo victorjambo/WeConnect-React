@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
@@ -17,7 +16,7 @@ import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
 
 configure({ adapter: new Adapter() });
 
-describe('<Businesses />', async () =>  {
+describe('<Businesses />', () =>  {
   it('renders Businesses', () => {
     const businesses = shallow(<Businesses />);
     expect(businesses.find('.row.bucket')).to.have.lengthOf(1);

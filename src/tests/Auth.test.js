@@ -8,6 +8,8 @@ import sinon from 'sinon';
 import Register from '../Components/Auth/Register';
 import Login from '../Components/Auth/Login';
 import PrivateRoute from '../Components/Auth/PrivateRoute';
+import LoginFirst from '../Components/Auth/LoginFirst';
+import ResetPassword from '../Components/Auth/ResetPassword';
 
 configure({ adapter: new Adapter() });
 
@@ -65,7 +67,7 @@ describe('<Login />', () => {
         name: 'name',
         value: 'victor'
       }
-    }
+    };
     const wrapper = shallow(<Login location={location} />);
     wrapper.instance().logChange(event);
     expect(wrapper.state().name).to.equal('victor');
@@ -75,7 +77,7 @@ describe('<Login />', () => {
     const preventDefault = sinon.spy();
     let event = {
       preventDefault
-    }
+    };
     const wrapper = shallow(<Login location={location} />);
     wrapper.instance().handleSubmit(event);
     expect(preventDefault.called).to.be.true;
@@ -137,7 +139,7 @@ describe('<Register />', () => {
         name: 'name',
         value: 'victor'
       }
-    }
+    };
     const wrapper = shallow(<Register location={location} />);
     wrapper.instance().logChange(event);
     expect(wrapper.state().name).to.equal('victor');
@@ -147,7 +149,7 @@ describe('<Register />', () => {
     const preventDefault = sinon.spy();
     let event = {
       preventDefault
-    }
+    };
     const wrapper = shallow(<Register location={location} />);
     wrapper.instance().handleSubmit(event);
     expect(preventDefault.called).to.be.true;
@@ -166,5 +168,51 @@ describe('PrivateRoute', () => {
     let mockObject = { component: Register, ...[]};
     let route = <Route />;
     expect(PrivateRoute(mockObject).type).to.equal(route.type);
+  });
+});
+
+describe('<LoginFirst />', () => {
+  it('renders', () => {
+    const wrapper = shallow(<LoginFirst businessId="3" />);
+    expect(wrapper.find('.login-first-body')).to.have.lengthOf(1);
+  });
+});
+
+describe('<ResetPassword />', () => {
+  it('Renders', () => {
+    const location = { state: '/' };
+    const wrapper = shallow(<ResetPassword location={location}/>);
+    expect(wrapper.find('form')).to.have.lengthOf(1);
+  });
+  
+  it('handleSubmit', () => {
+    const location = { state: '/' };
+    window.sessionStorage = {
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
+      getItem() {
+        return this.token;
+      }
+    };
+    const wrapper = shallow(<ResetPassword location={location}/>);
+    const preventDefault = sinon.spy();
+    let event = {
+      preventDefault
+    };
+    wrapper.instance().handleSubmit(event);
+    expect(preventDefault.called).to.be.true;
+    expect(wrapper.state().isLoading).to.be.false;
+    wrapper.setState({ 
+      oldPassword: '',
+      password: '',
+      confirmPassword: ''
+    });
+
+    expect(wrapper.state().errors.password).to.equal('This field is required');
+    wrapper.setState({ 
+      oldPassword: 'password1234',
+      password: 'password',
+      confirmPassword: 'passwords' });
+
+    expect(wrapper.state().confirmPassword).to.equal('passwords');
   });
 });

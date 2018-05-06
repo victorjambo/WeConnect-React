@@ -25,7 +25,7 @@ class Businesses extends Component {
   /**
    * @returns {func} get business
    */
-  componentWillMount() {
+  componentDidMount() {
     this.getBusinesses();
   }
 
