@@ -32,14 +32,14 @@ class Reviews extends React.Component {
     this.logChange = this.logChange.bind(this);
     this.currentUser = this.currentUser.bind(this);
   }
-  
+
   /**
    * @returns {func} get business
    */
   componentDidMount() {
     this.getReviews();
   }
-  
+
   /**
    * @returns {bool} true
    */
@@ -53,7 +53,7 @@ class Reviews extends React.Component {
 
     return isValid;
   }
-  
+
   /**
    * @returns {obj} all businesses
    */
@@ -75,7 +75,7 @@ class Reviews extends React.Component {
         this.setState({ errors: err, isLoading: false });
       });
   }
-  
+
   /**
    * @param {object} e
    * @returns {object} setState
@@ -94,7 +94,7 @@ class Reviews extends React.Component {
         .then((res) => {
           if (res.status === 201) {
             reviews.push(res.body.review);
-            this.setState({ 
+            this.setState({
               isLoading: false, title: '', desc: '',
               reviews: reviews
             });
@@ -110,7 +110,7 @@ class Reviews extends React.Component {
         });
     }
   }
-  
+
   /**
    * @param {object} e event
    * @returns {object} setState
@@ -120,7 +120,7 @@ class Reviews extends React.Component {
       [e.target.name]: e.target.value
     });
   }
-  
+
   /**
    * @param {string} currentname
    * @returns {bool} current user
@@ -136,7 +136,7 @@ class Reviews extends React.Component {
     }
     return response;
   }
-  
+
   /**
    * @param {number} reviewId
    * @returns {state} deleted
@@ -147,7 +147,7 @@ class Reviews extends React.Component {
 
     const url = `${BASE_URL}/api/v2/businesses/${businessId}/reviews/${reviewId}`;
     const token = window.sessionStorage.getItem('token');
-    
+
     const found = reviews.find((element) => {
       return element.id === reviewId;
     });
@@ -170,7 +170,7 @@ class Reviews extends React.Component {
         });
     }
   }
-  
+
   /**
    * @return {jsx} html to be rendered
    */
@@ -182,7 +182,7 @@ class Reviews extends React.Component {
     );
     return (
       <div>
-        <div className="reviews bucket" ref="reviewRef">
+        <div className="reviews bucket" ref="reviewRef" style={{display: reviews.length === 0 ? 'none' : 'block' }}>
           <h2>Reviews</h2>
           <hr />
           {review}
