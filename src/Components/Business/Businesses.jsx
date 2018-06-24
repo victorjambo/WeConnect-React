@@ -3,14 +3,13 @@ import request from 'superagent';
 import { SyncLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
-import ItemBusiness from './ItemBusiness.jsx';
-import BASE_URL from '../../helpers/url.js';
+import ItemBusiness from './ItemBusiness';
+import BASE_URL from '../../helpers/url';
 
 /**
  * All businesses
  */
 class Businesses extends Component {
-
   /**
    * constructor that takes
    * @param {object} props
@@ -34,7 +33,7 @@ class Businesses extends Component {
    * @returns {obj} all businesses
    */
   getBusinesses = async () => {
-    this.setState({ isLoading: true});
+    this.setState({ isLoading: true });
     const url = `${BASE_URL}/api/v2/businesses/?limit=30`;
     await request
       .get(url)
@@ -57,9 +56,7 @@ class Businesses extends Component {
    */
   render() {
     const { businesses, isLoading } = this.state;
-    const business = businesses.map((_business) =>
-      <ItemBusiness business={_business} key={_business.id}/>
-    );
+    const business = businesses.map((_business) => <ItemBusiness business={_business} key={_business.id}/>);
     return (
       <div className="container">
         <div className="row bucket" ref="refBusiness">
@@ -81,7 +78,7 @@ class Businesses extends Component {
 
           {
             !isLoading &&
-            <div className="no-content fade-in" style={{display: businesses.length === 0 ? 'block' : 'none' }}>
+            <div className="no-content fade-in" style={{ display: businesses.length === 0 ? 'block' : 'none' }}>
               <p className="lead">No business registered. Follow link to register a business</p>
               <Link className="btn btn-primary btn-lg" to="/businesses/new">Register business</Link>
             </div>

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 const Review = ({ review, deleteReview, currentUser }) => (
   <div className="fade-in" id={`review-${review.id}`}>
     { currentUser(review.reviewer) &&
-      <span className="closebtn" onClick={()=>deleteReview(review.id)}>
-        &times;
-      </span>
+        <span className="closebtn" onClick={() => deleteReview(review.id)}>
+          &times;
+        </span>
     }
     <div className="review">
       <h3 className="title">{review.title}</h3>

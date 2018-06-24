@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export const Buttons = ({ paramId, deleteBusiness, isDeleting, error, isCurrentUser }) => (
+export const Buttons = ({
+  paramId, deleteBusiness, isDeleting, error, isCurrentUser
+}) => (
   <div className="push">
     { isCurrentUser &&
       <div>
@@ -32,19 +34,19 @@ Buttons.defaultProps = {
 
 export const Overview = ({ business }) => (
   <div className="overview bucket">
-     <h2>Overview</h2>
-      <div className="overview-info">
-        <label>Name:&nbsp;</label>
-        <span className="value">{business.name}</span>
-      </div>
-     <div className="overview-info">
-        <label>Location:&nbsp;</label>
-        <span className="value">{business.location}</span>
-     </div>
-     <div className="overview-info">
-        <label>Category:&nbsp;</label>
-        <span className="value">{business.category}</span>
-     </div>
+    <h2>Overview</h2>
+    <div className="overview-info">
+      <label>Name:&nbsp;</label>
+      <span className="value">{business.name}</span>
+    </div>
+    <div className="overview-info">
+      <label>Location:&nbsp;</label>
+      <span className="value">{business.location}</span>
+    </div>
+    <div className="overview-info">
+      <label>Category:&nbsp;</label>
+      <span className="value">{business.category}</span>
+    </div>
   </div>
 );
 

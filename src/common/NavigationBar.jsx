@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './css/NavigationBar.css';
-import Dropdown from './ElementComponents/Dropdown.jsx';
-import Auth from '../helpers/Auth.js';
+import Dropdown from './ElementComponents/Dropdown';
+import Auth from '../helpers/Auth';
 
 /**
  * NavigationBar
  */
 class NavigationBar extends Component {
-
   /**
    * constructor that takes
    * @param {object} props
@@ -44,9 +42,11 @@ class NavigationBar extends Component {
       <nav className="navbar navbar-default navbar-override navbar-custom navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header page-scroll">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button"
+              className="navbar-toggle" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1">
               <span className="sr-only">Toggle navigation</span>
-              Menu <i className="fa fa-bars"></i>
+              Menu <i className="fa fa-bars"/>
             </button>
             <Link className="navbar-brand" to="/" id="navbar-logo">
               We<span className="txt-shadow">Connect</span>

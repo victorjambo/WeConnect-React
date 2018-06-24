@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './css/Businesses.css';
-import Form from './Form.jsx';
-import Sidebar from '../../common/Sidebar.jsx';
+import Form from './Form';
+import Sidebar from '../../common/Sidebar';
 
 /**
  * Edit Business
  */
 class EditBusiness extends Component {
-  
   /**
    * @return {jsx} html to be rendered
    */

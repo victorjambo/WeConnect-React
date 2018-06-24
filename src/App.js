@@ -21,7 +21,6 @@ import 'react-toastify/dist/ReactToastify.css';
  * App. Main Component
  */
 class App extends Component {
-
   /**
    * @return {jsx} html to be rendered
    */

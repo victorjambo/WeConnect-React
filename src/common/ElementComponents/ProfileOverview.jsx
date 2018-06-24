@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Warning from './Warning.jsx';
+import Warning from './Warning';
 
 const ProfileOverview = ({ user, activate }) => (
   <div >
@@ -17,7 +17,7 @@ const ProfileOverview = ({ user, activate }) => (
           <p className="value">{user.username}</p>
         </div>
       </li>
-  
+
       <li className="overview-info-profile">
         <div className="summary-img">
           <img src="https://media.licdn.com/dms/image/C4E03AQH-l0kS6O1p7g/profile-displayphoto-shrink_800_800/0?e=1530298800&v=beta&t=u0DgMKy3LAc57YKgdx864JB6fAc17ZZM2AdR-5BiSTY" alt="" />
@@ -27,7 +27,7 @@ const ProfileOverview = ({ user, activate }) => (
           <p className="value">{user.fullname}</p>
         </div>
       </li>
-  
+
       <li className="overview-info-profile">
         <div className="summary-img">
           <img src="https://media.licdn.com/dms/image/C4E03AQH-l0kS6O1p7g/profile-displayphoto-shrink_800_800/0?e=1530298800&v=beta&t=u0DgMKy3LAc57YKgdx864JB6fAc17ZZM2AdR-5BiSTY" alt="" />

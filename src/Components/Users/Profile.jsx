@@ -2,22 +2,20 @@ import React from 'react';
 import request from 'superagent';
 import decode from 'jwt-decode';
 import { SyncLoader } from 'react-spinners';
-import Sidebar from '../../common/Sidebar.jsx';
-import BASE_URL from '../../helpers/url.js';
+import Sidebar from '../../common/Sidebar';
+import BASE_URL from '../../helpers/url';
 import './Profile.css';
-import ProfileOverview from '../../common/ElementComponents/ProfileOverview.jsx';
+import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
 
 /**
  * register new user
  */
 class Profile extends React.Component {
-  
   /**
    * constructor that takes
    * @param {object} props
    */
-  constructor(props) 
-  {
+  constructor(props) {
     super(props);
     this.state = {
       user: {},
@@ -38,7 +36,7 @@ class Profile extends React.Component {
    * @returns {obj} user details
    */
   getUser = async () => {
-    this.setState({ isLoading: true});
+    this.setState({ isLoading: true });
 
     const token = window.sessionStorage.getItem('token');
     const { id } = decode(token);
@@ -59,13 +57,13 @@ class Profile extends React.Component {
         this.setState({ errors: err.body, isLoading: false });
       });
   }
-  
+
   /**
    * @return {jsx} html to be rendered
    */
   render() {
     const { user, isLoading, activate } = this.state;
-    return(
+    return (
       <div className="container push-profile">
         <div className="row bucket">
           <div className="col-lg-3 hidden-xs">

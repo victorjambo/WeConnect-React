@@ -21,7 +21,6 @@ const ItemBusiness = ({ business }) => (
     </div>
   </div>
 );
-  
 
 ItemBusiness.propTypes = {
   business: PropTypes.object

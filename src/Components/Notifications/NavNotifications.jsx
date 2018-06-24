@@ -8,7 +8,6 @@ import BASE_URL from '../../helpers/url';
  * Class NavNotifications
  */
 class NavNotifications extends React.Component {
-  
   /**
    * @param {object} props
    */
@@ -28,14 +27,14 @@ class NavNotifications extends React.Component {
 
     this.getNotifications = this.getNotifications.bind(this);
   }
-  
+
   /**
    * @returns {func} get single business
    */
   componentDidMount() {
     this.getNotifications();
   }
-  
+
   /**
    * @returns {obj} single business
    */
@@ -67,12 +66,9 @@ class NavNotifications extends React.Component {
    */
   render() {
     const { notifications, isLoading } = this.state;
-    console.log(notifications);
-    const notification = notifications.map((_notification) =>
-      <li key={_notification.id}>
-        <Link to={_notification.url}>{_notification.act}</Link>
-      </li>
-    );
+    const notification = notifications.map((_notification) => (<li key={_notification.id}>
+      <Link to={_notification.url}>{_notification.act}</Link>
+    </li>));
     return (
       <ul className="dropdown-menu" ref="refNotification">
         <div className="spinners-loader">
@@ -82,7 +78,7 @@ class NavNotifications extends React.Component {
           />
         </div>
         { notification }
-        <li role="separator" className="divider"></li>
+        <li role="separator" className="divider" />
         <li><Link to="/notifications" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>
       </ul>
     );

@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Textarea from '../../common/ElementComponents/Textarea.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import Input from '../../common/ElementComponents/Input.jsx';
+import Textarea from '../../common/ElementComponents/Textarea';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Input from '../../common/ElementComponents/Input';
 
-const NewReview = ({ title, desc, logChange, errors, isLoading, handleSubmit }) => (
+const NewReview = ({
+  title, desc, logChange, errors, isLoading, handleSubmit
+}) => (
   <div className="add-review bucket" id="new-review">
     <h2>Give us feedback</h2>
     <div className="review-body">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <Input label={true} classname="form-group" name="title" autoFocus="autofocus"
-            value={title} onChange={logChange} placeholder="Review title" 
+          <Input label classname="form-group" name="title" autoFocus="autofocus"
+            value={title} onChange={logChange} placeholder="Review title"
             error={errors.title}/>
-          
-          <Textarea name="desc" value={desc} onChange={logChange} 
+          <Textarea name="desc" value={desc} onChange={logChange}
             placeholder="Add Review" classname="desc" error={errors.desc}/>
         </div>
         <div className="form-group">
