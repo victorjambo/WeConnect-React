@@ -118,7 +118,7 @@ class Form extends Component {
             notify('info', 'Image Uploaded');
           })
           .catch(err => {
-            notify('error', `Image Upload Error: ${  err.response.body.error.message}`);
+            notify('error', `Image Upload Error: ${err.response.body.error.message}`);
           });
       }
 

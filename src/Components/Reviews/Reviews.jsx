@@ -149,9 +149,7 @@ class Reviews extends React.Component {
     const url = `${BASE_URL}/api/v2/businesses/${businessId}/reviews/${reviewId}`;
     const token = window.sessionStorage.getItem('token');
 
-    const found = reviews.find((element) => {
-      return element.id === reviewId;
-    });
+    const found = reviews.find((element) => element.id === reviewId);
 
     if (window.confirm('Confirm to delete review')) {
       request
