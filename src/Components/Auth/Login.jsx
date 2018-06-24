@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
-import validateInput from '../../helpers/validations.js';
-import { post } from '../../helpers/request.js';
-import Auth from '../../helpers/Auth.js';
-import notify from '../../helpers/notify.js';
-import Input from '../../common/ElementComponents/Input.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import BASE_URL from '../../helpers/url.js';
-import Warning from '../../common/ElementComponents/Warning.jsx';
+import validateInput from '../../helpers/validations';
+import { post } from '../../helpers/request';
+import Auth from '../../helpers/Auth';
+import notify from '../../helpers/notify';
+import Input from '../../common/ElementComponents/Input';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import BASE_URL from '../../helpers/url';
+import Warning from '../../common/ElementComponents/Warning';
 
 /**
  * Login user
  */
 class Login extends Component {
-
   /**
    * constructor that takes
    * @param {object} props

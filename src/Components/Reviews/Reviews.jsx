@@ -1,13 +1,13 @@
 import React from 'react';
 import request from 'superagent';
 import decode from 'jwt-decode';
-import notify from '../../helpers/notify.js';
-import BASE_URL from '../../helpers/url.js';
-import NewReview from './NewReview.jsx';
-import Review from './Review.jsx';
-import validateInput from '../../helpers/validations.js';
-import LoginFirst from '../Auth/LoginFirst.jsx';
-import Auth from '../../helpers/Auth.js';
+import notify from '../../helpers/notify';
+import BASE_URL from '../../helpers/url';
+import NewReview from './NewReview';
+import Review from './Review';
+import validateInput from '../../helpers/validations';
+import LoginFirst from '../Auth/LoginFirst';
+import Auth from '../../helpers/Auth';
 import './Reviews.css';
 
 /**
@@ -58,7 +58,7 @@ class Reviews extends React.Component {
    * @returns {obj} all businesses
    */
   getReviews = () => {
-    this.setState({ isLoading: true});
+    this.setState({ isLoading: true });
     const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
     request
       .get(url)
@@ -83,7 +83,7 @@ class Reviews extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.setState({ isLoading: true});
+      this.setState({ isLoading: true });
       const { title, desc, reviews } = this.state;
       const token = window.sessionStorage.getItem('token');
       const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
@@ -95,12 +95,13 @@ class Reviews extends React.Component {
           if (res.status === 201) {
             reviews.push(res.body.review);
             this.setState({
-              isLoading: false, title: '', desc: '',
+              isLoading: false,
+              title: '',
+              desc: '',
               reviews: reviews
             });
             notify('success', res.body.success);
-          }
-          else {
+          } else {
             this.setState({ errors: res.body.success, isLoading: false });
           }
         })
@@ -163,8 +164,7 @@ class Reviews extends React.Component {
             reviews.splice(index, 1);
             this.setState({ reviews: reviews });
             notify('success', res.body.success);
-          }
-          else {
+          } else {
             this.setState({ errors: err.response.body });
           }
         });
@@ -175,14 +175,19 @@ class Reviews extends React.Component {
    * @return {jsx} html to be rendered
    */
   render() {
-    const { reviews, title, desc, errors, isLoading } = this.state;
+    const {
+      reviews, title, desc, errors, isLoading
+    } = this.state;
     const { businessId } = this.props;
-    const review = reviews.map((_review) =>
-      <Review review={_review} key={_review.id} deleteReview={this.deleteReview} currentUser={this.currentUser} />
-    );
+    const review = reviews.map((_review) => (
+      <Review review={_review}
+        key={_review.id}
+        deleteReview={this.deleteReview}
+        currentUser={this.currentUser} />
+    ));
     return (
       <div>
-        <div className="reviews bucket" ref="reviewRef" style={{display: reviews.length === 0 ? 'none' : 'block' }}>
+        <div className="reviews bucket" ref="reviewRef" style={{ display: reviews.length === 0 ? 'none' : 'block' }}>
           <h2>Reviews</h2>
           <hr />
           {review}
@@ -194,7 +199,7 @@ class Reviews extends React.Component {
               handleSubmit={this.handleSubmit}
               title={title} desc={desc}
               errors={errors} isLoading={isLoading} />
-            ) : (<LoginFirst businessId={businessId} />)
+          ) : (<LoginFirst businessId={businessId} />)
         }
       </div>
     );

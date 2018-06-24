@@ -7,10 +7,10 @@ const LoginFirst = ({ businessId }) => (
     <h2>Login First To Drop a Review</h2>
     <div className="login-first-body">
       <Link to={{
-          pathname: '/auth/login',
-          state: { from: `/business/${businessId}#new-review` }
-        }}
-        className="btn btn-primary">
+        pathname: '/auth/login',
+        state: { from: `/business/${businessId}#new-review` }
+      }}
+      className="btn btn-primary">
         Login
       </Link>
     </div>

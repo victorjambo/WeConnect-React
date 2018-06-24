@@ -1,19 +1,18 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import request from 'superagent';
-import Sidebar from '../../common/Sidebar.jsx';
-import validateInput from '../../helpers/validations.js';
-import BASE_URL from '../../helpers/url.js';
-import notify from '../../helpers/notify.js';
-import Input from '../../common/ElementComponents/Input.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import Warning from '../../common/ElementComponents/Warning.jsx';
+import Sidebar from '../../common/Sidebar';
+import validateInput from '../../helpers/validations';
+import BASE_URL from '../../helpers/url';
+import notify from '../../helpers/notify';
+import Input from '../../common/ElementComponents/Input';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Warning from '../../common/ElementComponents/Warning';
 
 /**
  * ResetPassword
  */
 class ResetPassword extends React.Component {
-  
   /**
    * constructor that takes
    * @param {object} props

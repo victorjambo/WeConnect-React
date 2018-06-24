@@ -4,15 +4,15 @@ import request from 'superagent';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
-import BASE_URL from '../../helpers/url';
 import { Redirect } from 'react-router-dom';
+import BASE_URL from '../../helpers/url';
 import './css/Business.css';
-import PageNotFound from '../../Components/PageNotFound/PageNotFound.jsx';
-import notify from '../../helpers/notify.js';
-import Reviews from '../Reviews/Reviews.jsx';
-import { Buttons, Overview, About } from '../../common/ElementComponents/Business.jsx';
-import { getRequest } from '../../helpers/request.js';
-import Auth from '../../helpers/Auth.js';
+import PageNotFound from "../PageNotFound/PageNotFound";
+import notify from '../../helpers/notify';
+import Reviews from '../Reviews/Reviews';
+import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
+import { getRequest } from '../../helpers/request';
+import Auth from '../../helpers/Auth';
 
 const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
 
@@ -20,7 +20,6 @@ const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
  * Class Business
  */
 class Business extends Component {
-  
   /**
    * @param {object} props
    */
@@ -42,20 +41,13 @@ class Business extends Component {
   }
 
   /**
-   * function to create background url with cloudinary
-   * @param {string} publicId as image id
-   * @returns {string} url
-   */
-  createBackgroundImage(publicId) {
-    return cloudinaryCore.url(publicId);
-  }
-
-  /**
    * @returns {func} get single business
    */
   componentDidMount() {
     this.getBusiness();
   }
+
+  createBackgroundImage = (publicId) => cloudinaryCore.url(publicId)
 
   /**
    * @returns {obj} single business
@@ -109,8 +101,7 @@ class Business extends Component {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
-          }
-          else {
+          } else {
             this.setState({ errors: err.response.body, isDeleting: false });
           }
         });
@@ -138,7 +129,9 @@ class Business extends Component {
    * @return {string} jsx
    */
   render() {
-    const { business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser } = this.state;
+    const {
+      business, fireRedirect, isLoading, found, errors, isDeleting, isCurrentUser
+    } = this.state;
     if (isLoading) { return (<DotLoader color={'#123abc'} />); }
     if (!found) { return (<PageNotFound />); }
     const { match, location } = this.props;
@@ -152,7 +145,11 @@ class Business extends Component {
                 <div className="float-left">
                   <Image cloudName="dhic9kypo" className="img-responsive shadow" publicId={business.logo} />
                 </div>
-                <Buttons paramId={this.paramId} isDeleting={isDeleting} deleteBusiness={this.deleteBusiness} error={errors.warning} isCurrentUser={isCurrentUser}/>
+                <Buttons paramId={this.paramId}
+                  isDeleting={isDeleting}
+                  deleteBusiness={this.deleteBusiness}
+                  error={errors.warning}
+                  isCurrentUser={isCurrentUser}/>
               </div>
               <div className="col-md-8 col-sm-6 col-xs-12">
                 <Overview business={business}/>

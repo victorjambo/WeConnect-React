@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
-import validateInput from '../../helpers/validations.js';
-import BASE_URL from '../../helpers/url.js';
-import notify from '../../helpers/notify.js';
-import Input from '../../common/ElementComponents/Input.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import Warning from '../../common/ElementComponents/Warning.jsx';
-import { post } from '../../helpers/request.js';
+import validateInput from '../../helpers/validations';
+import BASE_URL from '../../helpers/url';
+import notify from '../../helpers/notify';
+import Input from '../../common/ElementComponents/Input';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Warning from '../../common/ElementComponents/Warning';
+import { post } from '../../helpers/request';
 
 /**
  * Component to handle Forgotten Password
@@ -61,8 +61,7 @@ class ForgotPassword extends Component {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
-          }
-          else {
+          } else {
             this.setState({ errors: res.response.body, isLoading: false });
             notify('success', res.body);
           }
@@ -89,7 +88,7 @@ class ForgotPassword extends Component {
    */
   render() {
     const { from } = this.props.location.state || '/auth/login';
-    const fireRedirect = this.state.fireRedirect;
+    const { fireRedirect } = this.state;
     return (
       <div className="container push">
         <div className="registration login">
@@ -102,8 +101,7 @@ class ForgotPassword extends Component {
               type="email" placeholder="Email Address"
               error={this.state.errors.email}
               name="email" value={this.state.email}
-              classname="forgot-password" onChange={this.logChange}
-              />
+              classname="forgot-password" onChange={this.logChange}/>
 
             <ButtonAuth disabled={this.state.isLoading} label="Send" />
           </form>
