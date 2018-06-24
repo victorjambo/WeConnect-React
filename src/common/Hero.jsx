@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchForm from '../Components/Business/SearchForm.jsx';
+import SearchForm from '../Components/Business/SearchForm';
 import './css/Hero.css';
-import Auth from '../helpers/Auth.js';
+import Auth from '../helpers/Auth';
 
 const Hero = () => (
   <header className="intro-header" style={{ backgroundImage: "url('/images/landingpage.jpg')" }}>
@@ -14,14 +14,20 @@ const Hero = () => (
             <div className="container" id="link-bucket">
               <div className="row">
                 <div className="col-md-6">
-                  <Link className="link-bucket" to="/businesses/new">Register your business</Link>
+                  <Link className="link-bucket" to="/businesses/new">
+                    Register your business
+                  </Link>
                 </div>
                 <div className="col-md-6">
-                  { 
+                  {
                     Auth.isAuthenticated ? (
-                      <Link className="link-bucket" to="/">View your businesses</Link>
+                      <Link className="link-bucket" to="/">
+                        View your businesses
+                      </Link>
                     ) : (
-                      <Link className="link-bucket" to="/auth/signup">Join us</Link>)
+                      <Link className="link-bucket" to="/auth/signup">
+                        Join us
+                      </Link>)
                   }
                 </div>
               </div>

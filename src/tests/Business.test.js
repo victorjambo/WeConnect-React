@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
@@ -12,10 +11,12 @@ import EditBusiness from '../Components/Business/EditBusiness';
 import NewBusiness from '../Components/Business/NewBusiness';
 import SearchForm from '../Components/Business/SearchForm';
 import Form from '../Components/Business/Form';
+import Reviews from '../Components/Reviews/Reviews';
+import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
 
 configure({ adapter: new Adapter() });
 
-describe('<Businesses />', async () =>  {
+describe('<Businesses />', () =>  {
   it('renders Businesses', () => {
     const businesses = shallow(<Businesses />);
     expect(businesses.find('.row.bucket')).to.have.lengthOf(1);
@@ -45,15 +46,40 @@ describe('<ItemBusiness />', () => {
 });
 
 describe('<Business />', () => {
-  let match;
+  let match, location, initialState, wrapper;
   beforeEach(() => {
-    match = { params: { id: 23 }, isExact: false, path: "/", url: "/" };
+    match = { params: { id: '23' } };
+    location = { pathname: '/' };
+    initialState = {
+      business: {
+        bio: "bio",
+        category: "Music",
+        id: 62,
+        location: "Nairobi Kenya",
+        logo: "owlwhoumyhga3itgdqzo",
+        name: "Super Agent",
+        owner: "victorjambo"
+      },
+      isLoading: false,
+      found: true,
+      isCurrentUser: true
+    };
+    wrapper = shallow(<Business match={match} location={location}/>);
   });
 
   it('Renders Business without crashing', () => {
-    const div = document.createElement('business');
-    ReactDOM.render(<MemoryRouter><Business required={true} match={match} /></MemoryRouter>, div);
-    ReactDOM.unmountComponentAtNode(div);
+    wrapper.setState(initialState);
+    expect(wrapper.find('.business').length).to.equal(1);
+    expect(wrapper.contains(<Reviews businessId="23" path="/" />)).to.be.true;
+  });
+  
+  it('Redirect to <PageNotFound />', () => {
+    wrapper.setState({ isLoading: false, found: false });
+    expect(wrapper.contains(<PageNotFound />)).to.be.true;
+  });
+  
+  it('isLoading', () => {
+    expect(wrapper.find('.business')).to.have.lengthOf(0);
   });
 });
 

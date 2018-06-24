@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../../common/Sidebar.jsx';
+import Sidebar from '../../common/Sidebar';
 
 const UserBusinesses = () => (
   <div className="container push-profile">

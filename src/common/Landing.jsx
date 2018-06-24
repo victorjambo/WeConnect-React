@@ -1,6 +1,6 @@
 import React from 'react';
-import Businesses from '../Components/Business/Businesses.jsx';
-import Hero from '../common/Hero.jsx';
+import Businesses from '../Components/Business/Businesses';
+import Hero from "./Hero";
 
 const Landing = () => (
   <div>

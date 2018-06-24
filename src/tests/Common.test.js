@@ -49,7 +49,7 @@ describe('<Input />', () =>  {
 
 describe('<Buttons />', () =>  {
   it('Test Render Buttons Component', () => {
-    const wrapper = shallow(<Buttons deleteBusiness={()=>{}} paramId={1} error="test" isCurrentUser={true} isDeleting={true} />);
+    const wrapper = shallow(<Buttons deleteBusiness={()=>{}} paramId={"1"} error="test" isCurrentUser={true} isDeleting={true} />);
     expect(wrapper.find('.btn-warning')).to.have.length(1);
     expect(wrapper.find('.btn-danger')).to.have.length(1);
     expect(wrapper.find('.fa-spin')).to.have.length(1);

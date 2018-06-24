@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Textarea = ({ name, value, placeholder, error, onChange, classname}) => (
-  <div className={ "form-group " + classname }>
+const Textarea = ({
+  name, value, placeholder, error, onChange, classname
+}) => (
+  <div className={`form-group ${classname}`}>
     <label htmlFor={name}>{placeholder}</label>
     <textarea
-      className={"form-control " + classname }
+      className={`form-control ${classname}`}
       cols="50"
       rows="6"
       name={name}

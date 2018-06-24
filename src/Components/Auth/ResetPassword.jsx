@@ -1,19 +1,18 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import request from 'superagent';
-import Sidebar from '../../common/Sidebar.jsx';
-import validateInput from '../../helpers/validations.js';
-import BASE_URL from '../../helpers/url.js';
-import notify from '../../helpers/notify.js';
-import Input from '../../common/ElementComponents/Input.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import Warning from '../../common/ElementComponents/Warning.jsx';
+import Sidebar from '../../common/Sidebar';
+import validateInput from '../../helpers/validations';
+import BASE_URL from '../../helpers/url';
+import notify from '../../helpers/notify';
+import Input from '../../common/ElementComponents/Input';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import Warning from '../../common/ElementComponents/Warning';
 
 /**
  * ResetPassword
  */
 class ResetPassword extends React.Component {
-  
   /**
    * constructor that takes
    * @param {object} props
@@ -57,13 +56,13 @@ class ResetPassword extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    let token = window.sessionStorage.getItem('token');
+    const token = window.sessionStorage.getItem('token');
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
 
       const { oldPassword, password } = this.state;
 
-      let url = `${BASE_URL}/api/v2/auth/reset-password`;
+      const url = `${BASE_URL}/api/v2/auth/reset-password`;
 
       request.put(url).type('application/json')
         .set({ 'x-access-token': token })

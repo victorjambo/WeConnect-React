@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ name, value, placeholder, error, type, onChange, classname, label }) => (
+const Input = ({
+  name, value, placeholder, error, type, onChange, classname, label
+}) => (
   <div className={classname}>
     { label && <label htmlFor={name}>{placeholder}</label> }
     <input name={name}
       type={type}
       placeholder={placeholder}
-      className={ label ? 'form-control' : 'input pass' }
+      className={label ? 'form-control' : 'input pass'}
       value={value}
-      onChange={onChange}
-      />
-    { error && <div className='invalid-feedback'>{error}</div> }
+      onChange={onChange}/>
+    { error && <div className="invalid-feedback">{error}</div> }
   </div>
 );
 

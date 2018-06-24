@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
-import validateInput from '../../helpers/validations.js';
-import BASE_URL from '../../helpers/url.js';
-import notify from '../../helpers/notify.js';
-import Warning from '../../common/ElementComponents/Warning.jsx';
-import Textarea from '../../common/ElementComponents/Textarea.jsx';
-import ButtonAuth from '../../common/ElementComponents/ButtonAuth.jsx';
-import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer.jsx';
-import { getRequest, uploadImage, putRequest } from '../../helpers/request.js';
-import { post } from '../../helpers/request.js';
-import Input from '../../common/ElementComponents/Input.jsx';
+import validateInput from '../../helpers/validations';
+import BASE_URL from '../../helpers/url';
+import notify from '../../helpers/notify';
+import Warning from '../../common/ElementComponents/Warning';
+import Textarea from '../../common/ElementComponents/Textarea';
+import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
+import Input from '../../common/ElementComponents/Input';
+import {
+  getRequest,
+  uploadImage,
+  putRequest,
+  post
+} from '../../helpers/request';
+
 
 /**
  * Component to handle Forgotten Password
@@ -47,7 +52,7 @@ class Form extends Component {
 
   /** @returns {func} get business */
   componentDidMount() {
-    const paramId = this.props.paramId;
+    const { paramId } = this.props;
     if (paramId) {
       this.getBusiness(paramId);
     }
@@ -104,22 +109,31 @@ class Form extends Component {
       const token = window.sessionStorage.getItem('token');
 
       const { file } = this.state;
-      file && await uploadImage(file)
+      const { paramId } = this.props;
+
+      if (file) {
+        await uploadImage(file)
           .then(res => {
             this.setState({ logo: res.body.public_id });
             notify('info', 'Image Uploaded');
           })
           .catch(err => {
-            notify('error', 'Image Upload Error: ' + err.response.body.error.message);
+            notify('error', `Image Upload Error: ${err.response.body.error.message}`);
           });
+      }
 
-      const { name, bio, category, location, logo } = this.state;
-      const data = { name, bio, category, location, logo };
+      const {
+        name, bio, category, location, logo
+      } = this.state;
+      const data = {
+        name, bio, category, location, logo
+      };
 
-      this.props.paramId ?
-        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data) :
+      if (paramId) {
+        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data);
+      } else {
         this.postForm(`${BASE_URL}/api/v2/businesses/`, token, data);
-
+      }
     }
   }
 
@@ -136,8 +150,7 @@ class Form extends Component {
         if (res.status === 201) {
           this.setState({ fireRedirect: true });
           notify('success', res.body.success);
-        }
-        else {
+        } else {
           this.setState({ errors: res.body.success, isLoading: false });
         }
       })
@@ -197,20 +210,39 @@ class Form extends Component {
    */
   render() {
     const { fireRedirect } = this.state;
-    return(
+    return (
       <div className="row">
         <div className="col-lg-9">
           <form onSubmit={this.handleSubmit}>
 
             <Warning warning={this.state.serverErrors.warning} classname="form" />
 
-            <Input label={true} classname="form-group" autoFocus="autofocus" name="name" value={this.state.name} onChange={this.logChange} placeholder="Business Name" error={this.state.errors.name}/>
+            <Input label classname="form-group"
+              autoFocus="autofocus" name="name"
+              value={this.state.name} onChange={this.logChange}
+              placeholder="Business Name"
+              error={this.state.errors.name}/>
 
-            <Input name="location" onChange={this.logChange} classname="form-group" value={this.state.location} placeholder="Business Location" label={true} error={this.state.errors.location}/>
+            <Input name="location"
+              onChange={this.logChange}
+              classname="form-group"
+              value={this.state.location}
+              placeholder="Business Location" label
+              error={this.state.errors.location}/>
 
-            <Input placeholder="Business Category" label={true} name="category" error={this.state.errors.category} value={this.state.category} onChange={this.logChange} classname="form-group" />
+            <Input placeholder="Business Category"
+              label name="category"
+              error={this.state.errors.category}
+              value={this.state.category}
+              onChange={this.logChange}
+              classname="form-group" />
 
-            <Textarea name="bio" value={this.state.bio} onChange={this.logChange} placeholder="About business" classname="bio" error={this.state.errors.bio}/>
+            <Textarea name="bio"
+              value={this.state.bio}
+              onChange={this.logChange}
+              placeholder="About business"
+              classname="bio"
+              error={this.state.errors.bio}/>
 
             <div className="form-group">
               <ButtonAuth disabled={this.state.isLoading} label="Save" classname="btn btn-primary"/>
