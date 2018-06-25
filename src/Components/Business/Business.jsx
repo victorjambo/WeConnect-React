@@ -3,9 +3,9 @@ import decode from 'jwt-decode';
 import request from 'superagent';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
-import cloudinary from 'cloudinary-core';
 import { Redirect } from 'react-router-dom';
 import BASE_URL from '../../helpers/url';
+import cloudinaryCore from '../../helpers/cloudinary';
 import './css/Business.css';
 import PageNotFound from "../PageNotFound/PageNotFound";
 import notify from '../../helpers/notify';
@@ -14,7 +14,6 @@ import { Buttons, Overview, About } from '../../common/ElementComponents/Busines
 import { getRequest } from '../../helpers/request';
 import Auth from '../../helpers/Auth';
 
-const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
 
 /**
  * Class Business
