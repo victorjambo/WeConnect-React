@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import Form from './Form';
 import Sidebar from '../../common/Sidebar';
@@ -28,5 +29,9 @@ class EditBusiness extends Component {
     );
   }
 }
+
+EditBusiness.propTypes = {
+  match: PropTypes.object
+};
 
 export default EditBusiness;

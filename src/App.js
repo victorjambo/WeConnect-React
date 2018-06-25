@@ -34,8 +34,7 @@ class App extends Component {
           <Route path="/auth/signup" component={Register} />
           <Route path="/auth/login" component={Login} />
           <Route path="/auth/forgot-password" component={ForgotPassword} />
-          <Route path="/auth/reset-password" component={ResetPassword} />
-          <PrivateRoute path="/auth/reset-password" exact component={NewBusiness} />
+          <PrivateRoute path="/auth/reset-password" exact component={ResetPassword} />
           <PrivateRoute path="/profile" exact component={Profile} />
           <PrivateRoute path="/notifications" exact component={Notifications} />
           <PrivateRoute path="/profile/businesses" exact component={UserBusinesses} />

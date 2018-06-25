@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import request from 'superagent';
 import { SyncLoader } from 'react-spinners';
-import BASE_URL from '../../helpers/url';
+import API from '../../helpers/api';
 
 /**
  * Class NavNotifications
@@ -39,25 +38,22 @@ class NavNotifications extends React.Component {
    * @returns {obj} single business
    */
   getNotifications = () => {
-    const url = `${BASE_URL}/api/v2/notifications`;
+    const url = "/api/v2/notifications";
     const token = window.sessionStorage.getItem('token');
-    request
-      .get(url)
-      .set({ 'x-access-token': token })
-      .type('application/json')
+    API.get(url, { headers: { 'x-access-token': token } })
       .then((response) => {
         this.setState({ isLoading: false });
         if (response.status === 200 && this.refs.refNotification) {
           this.setState({
-            notifications: response.body.notifications
+            notifications: response.data.notifications
           });
         }
         if (response.status === 404) {
-          this.setState({ errors: response.response.body, isLoading: false });
+          this.setState({ errors: response.data.body, isLoading: false });
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({ errors: err.response.data, isLoading: false });
       });
   }
 
@@ -79,7 +75,13 @@ class NavNotifications extends React.Component {
         </div>
         { notification }
         <li role="separator" className="divider" />
-        <li><Link to="/notifications" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>
+        <li>
+          <Link to="/notifications"
+            className="text-center"
+            style={{ paddingBottom: 15 }}>
+              View all >>
+          </Link>
+        </li>
       </ul>
     );
   }

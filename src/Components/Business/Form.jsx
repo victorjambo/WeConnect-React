@@ -3,19 +3,14 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Warning from '../../common/ElementComponents/Warning';
 import Textarea from '../../common/ElementComponents/Textarea';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
 import Input from '../../common/ElementComponents/Input';
-import {
-  getRequest,
-  uploadImage,
-  putRequest,
-  post
-} from '../../helpers/request';
+import API from '../../helpers/api';
+import { uploadImage } from '../../helpers/request';
 
 
 /**
@@ -62,24 +57,23 @@ class Form extends Component {
    * @returns {obj} state
    */
   getBusiness(paramId) {
-    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
-
-    getRequest(url)
+    const url = "/api/v2/businesses/";
+    API.get(url + paramId)
       .then((res) => {
         if (res.status === 200) {
           this.setState({
-            name: res.body.business.name,
-            bio: res.body.business.bio,
-            category: res.body.business.category,
-            location: res.body.business.location,
-            logo: res.body.business.logo
+            name: res.data.business.name,
+            bio: res.data.business.bio,
+            category: res.data.business.category,
+            location: res.data.business.location,
+            logo: res.data.business.logo
           });
         } else {
-          this.setState({ errors: res.response.body, isLoading: false });
+          this.setState({ errors: res.data, isLoading: false });
         }
       })
       .catch((err) => {
-        this.setState({ errors: err, isLoading: false });
+        this.setState({ errors: err.response.data, isLoading: false });
       });
   }
 
@@ -118,7 +112,7 @@ class Form extends Component {
             notify('info', 'Image Uploaded');
           })
           .catch(err => {
-            notify('error', `Image Upload Error: ${err.response.body.error.message}`);
+            notify('error', "Image Upload Error: " + err.response.body.error.message);
           });
       }
 
@@ -130,9 +124,9 @@ class Form extends Component {
       };
 
       if (paramId) {
-        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data);
+        this.putForm("/api/v2/businesses/" + this.props.paramId, token, data);
       } else {
-        this.postForm(`${BASE_URL}/api/v2/businesses/`, token, data);
+        this.postForm("/api/v2/businesses/", token, data);
       }
     }
   }
@@ -144,19 +138,16 @@ class Form extends Component {
    * @returns {obj} state
    */
   async postForm(url, token, data) {
-    await post(url, data)
-      .set({ 'x-access-token': token })
+    API.post(url, data, { headers: { 'x-access-token': token } })
       .then((res) => {
         if (res.status === 201) {
           this.setState({ fireRedirect: true });
-          notify('success', res.body.success);
-        } else {
-          this.setState({ errors: res.body.success, isLoading: false });
+          notify('success', res.data.success);
         }
       })
       .catch((err) => {
-        notify('warning', err.response.body.warning);
-        this.setState({ isLoading: false, serverErrors: err.response.body });
+        notify('warning', err.response.data.warning);
+        this.setState({ isLoading: false, serverErrors: err.response.data });
       });
   }
 
@@ -167,22 +158,18 @@ class Form extends Component {
    * @returns {obj} state
    */
   async putForm(url, token, data) {
-    await putRequest(url, data, token)
+    API.put(url, data, { headers: { 'x-access-token': token } })
       .then((res) => {
         if (res.status === 201) {
-          notify('success', res.body.success);
+          notify('success', res.data.success);
           this.setState({
             fireRedirect: true
-          });
-        } else {
-          this.setState({
-            isLoading: false, errors: res.body.success
           });
         }
       })
       .catch((err) => {
-        this.setState({ serverErrors: err.response.body, isLoading: false });
-        notify('warning', err.response.body.warning);
+        this.setState({ serverErrors: err.response.data, isLoading: false });
+        notify('warning', err.response.data.warning);
       });
   }
 

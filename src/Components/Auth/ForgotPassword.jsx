@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
+import API from '../../helpers/api';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
-import { post } from '../../helpers/request';
 
 /**
  * Component to handle Forgotten Password
@@ -53,22 +52,18 @@ class ForgotPassword extends Component {
       this.setState({ errors: {}, isLoading: true });
 
       const { email } = this.state;
+      const url = "/api/v2/auth/forgot-password";
 
-      const url = `${BASE_URL}/api/v2/auth/forgot-password`;
-
-      post(url, { email })
+      API.post(url, { email })
         .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
-            notify('success', res.body.success);
-          } else {
-            this.setState({ errors: res.response.body, isLoading: false });
-            notify('success', res.body);
+            notify('success', res.data.success);
           }
         })
         .catch((err) => {
-          this.setState({ errors: err.response.body, isLoading: false });
-          notify('warning', err.response.body.warning);
+          this.setState({ errors: err.response.data, isLoading: false });
+          notify('warning', err.response.data.warning);
         });
     }
   }

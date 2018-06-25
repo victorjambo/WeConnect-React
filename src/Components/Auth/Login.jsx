@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
-import { post } from '../../helpers/request';
 import Auth from '../../helpers/Auth';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
-import BASE_URL from '../../helpers/url';
+import API from '../../helpers/api';
 import Warning from '../../common/ElementComponents/Warning';
 
 /**
@@ -48,23 +48,22 @@ class Login extends Component {
 
     const { username, password } = this.state;
 
-    const url = `${BASE_URL}/api/v2/auth/login`;
-
-    post(url, { username, password })
+    const url = "/api/v2/auth/login";
+    API.post(url, { username, password })
       .then((response) => {
         if (response.status === 200) {
           Auth.authenticate();
-          window.sessionStorage.setItem('token', response.body.token);
+          window.sessionStorage.setItem('token', response.data.token);
           this.setState({ fireRedirect: true });
-          notify('success', response.body.success);
+          notify('success', response.data.success);
         } else {
-          this.setState({ errors: response.response.body, isLoading: false });
-          notify('success', response.body);
+          this.setState({ errors: response.data, isLoading: false });
+          notify('success', response.data.success);
         }
       })
       .catch((error) => {
-        this.setState({ errors: error.response.body, isLoading: false });
-        notify('warning', error.response.body.warning);
+        this.setState({ errors: error.response.data, isLoading: false });
+        notify('warning', error.response.data.warning);
       });
   }
 
@@ -112,5 +111,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  location: PropTypes.object
+};
 
 export default Login;

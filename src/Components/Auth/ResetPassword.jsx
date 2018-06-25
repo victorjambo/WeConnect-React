@@ -1,13 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import request from 'superagent';
 import Sidebar from '../../common/Sidebar';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
+import API from '../../helpers/api';
 
 /**
  * ResetPassword
@@ -62,23 +61,20 @@ class ResetPassword extends React.Component {
 
       const { oldPassword, password } = this.state;
 
-      const url = `${BASE_URL}/api/v2/auth/reset-password`;
+      const url = "/api/v2/auth/reset-password";
 
-      request.put(url).type('application/json')
-        .set({ 'x-access-token': token })
-        .send({ old_password: oldPassword, password: password })
+      API.put(url,
+        { old_password: oldPassword, password: password },
+        { headers: { 'x-access-token': token } })
         .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
-            notify('success', res.body.success);
-          } else {
-            this.setState({ serverErrors: res.response.body, isLoading: false });
-            notify('success', res.body);
+            notify('success', res.data.success);
           }
         })
         .catch((err) => {
-          this.setState({ serverErrors: err.response.body, isLoading: false });
-          notify('warning', err.response.body.warning);
+          this.setState({ serverErrors: err.response.data, isLoading: false });
+          notify('warning', err.response.data.warning);
         });
     }
   }

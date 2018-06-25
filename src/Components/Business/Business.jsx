@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
-import request from 'superagent';
 import { DotLoader } from 'react-spinners';
 import { Image } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
 import { Redirect } from 'react-router-dom';
-import BASE_URL from '../../helpers/url';
 import './css/Business.css';
 import PageNotFound from "../PageNotFound/PageNotFound";
 import notify from '../../helpers/notify';
 import Reviews from '../Reviews/Reviews';
 import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
-import { getRequest } from '../../helpers/request';
 import Auth from '../../helpers/Auth';
+import API from '../../helpers/api';
 
 const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dhic9kypo' });
 
-/**
- * Class Business
- */
+
 class Business extends Component {
   /**
    * @param {object} props
@@ -55,20 +51,19 @@ class Business extends Component {
   getBusiness = async () => {
     this.setState({ isLoading: true });
     const paramId = this.props.match.params.id;
-    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
-    await request
-      .get(url)
-      .set('Content-Type', 'application/json')
+    const url = "/api/v2/businesses/";
+
+    API.get(url + paramId)
       .then((response) => {
         this.setState({ isLoading: false });
         if (response.status === 200 && this.refs.refBusiness) {
           this.setState({
-            business: response.body.business
+            business: response.data.business
           });
           this.currentUser();
         }
         if (response.status === 404) {
-          this.setState({ errors: response.response.body, isLoading: false });
+          this.setState({ errors: response.data.warning, isLoading: false });
         }
       })
       .catch((err) => {
@@ -76,7 +71,7 @@ class Business extends Component {
         if (err.status === 404) {
           this.setState({ found: false });
         }
-        this.setState({ errors: err.response.body, isLoading: false });
+        this.setState({ errors: err.response.data, isLoading: false });
       });
   }
 
@@ -89,20 +84,18 @@ class Business extends Component {
 
     this.setState({ isDeleting: true });
 
-    const url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
+    const url = "/api/v2/businesses/";
     const token = window.sessionStorage.getItem('token');
 
     if (window.confirm('Are you sure you wish to delete this business?')) {
-      request
-        .del(url)
-        .type('application/json')
-        .set({ 'x-access-token': token })
-        .end((err, res) => {
+      API.delete(url + this.paramId,
+        { headers: { 'x-access-token': token } })
+        .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
-            notify('success', res.body.success);
+            notify('success', res.data.success);
           } else {
-            this.setState({ errors: err.response.body, isDeleting: false });
+            this.setState({ errors: res.response.data, isDeleting: false });
           }
         });
     }
@@ -115,13 +108,14 @@ class Business extends Component {
     if (Auth.isAuthenticated) {
       const token = window.sessionStorage.getItem('token');
       const { id } = decode(token);
-      const url = `${BASE_URL}/api/v2/users/${id}`;
+      const url = "/api/v2/users/";
       const { business } = this.state;
-      await getRequest(url).then((res) => {
-        if (res.body.user.username === business.owner) {
-          this.setState({ isCurrentUser: true });
-        }
-      });
+      API.get(url + id)
+        .then((res) => {
+          if (res.data.user.username === business.owner) {
+            this.setState({ isCurrentUser: true });
+          }
+        });
     }
   }
 
@@ -137,7 +131,8 @@ class Business extends Component {
     const { match, location } = this.props;
     return (
       <div className="business">
-        <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
+        <div className="business-header"
+          style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
         <div className="container push-up-profile" ref="refBusiness">
           <div className="row">
             <div className="col-xs-12">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './PageNotFound.css';
 
 const Status = ({ code, children }) => (
@@ -10,6 +11,11 @@ const Status = ({ code, children }) => (
     return children;
   }}/>
 );
+
+Status.propTypes = {
+  code: PropTypes.number,
+  children: PropTypes.object
+};
 
 const PageNotFound = () => (
   <Status code={404}>

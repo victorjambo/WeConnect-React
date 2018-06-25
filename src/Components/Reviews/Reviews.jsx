@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import decode from 'jwt-decode';
+import PropTypes from 'prop-types';
 import notify from '../../helpers/notify';
 import BASE_URL from '../../helpers/url';
 import NewReview from './NewReview';
@@ -203,5 +204,9 @@ class Reviews extends React.Component {
     );
   }
 }
+
+Reviews.propTypes = {
+  businessId: PropTypes.string
+};
 
 export default Reviews;
