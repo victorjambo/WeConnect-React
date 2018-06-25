@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
-import { post } from '../../helpers/request';
 import Auth from '../../helpers/Auth';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
-import BASE_URL from '../../helpers/url';
 import Warning from '../../common/ElementComponents/Warning';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * Login user
@@ -48,9 +47,11 @@ class Login extends Component {
 
     const { username, password } = this.state;
 
-    const url = `${BASE_URL}/api/v2/auth/login`;
+    const url = "/api/v2/auth/login";
 
-    post(url, { username, password })
+    requestAgent.post(url)
+      .set('Content-Type', 'application/json')
+      .send({ username, password })
       .then((response) => {
         if (response.status === 200) {
           Auth.authenticate();

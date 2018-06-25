@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
-import request from 'superagent';
 import { DotLoader } from 'react-spinners';
+import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
 import { Redirect } from 'react-router-dom';
-import BASE_URL from '../../helpers/url';
 import cloudinaryCore from '../../helpers/cloudinary';
 import './css/Business.css';
 import PageNotFound from "../PageNotFound/PageNotFound";
 import notify from '../../helpers/notify';
 import Reviews from '../Reviews/Reviews';
 import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
-import { getRequest } from '../../helpers/request';
+import requestAgent from '../../helpers/superagent';
 import Auth from '../../helpers/Auth';
 
 
-/**
- * Class Business
- */
 class Business extends Component {
   /**
    * @param {object} props
@@ -54,9 +50,8 @@ class Business extends Component {
   getBusiness = async () => {
     this.setState({ isLoading: true });
     const paramId = this.props.match.params.id;
-    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
-    await request
-      .get(url)
+    const url = "/api/v2/businesses/";
+    requestAgent.get(url + paramId)
       .set('Content-Type', 'application/json')
       .then((response) => {
         this.setState({ isLoading: false });
@@ -88,12 +83,11 @@ class Business extends Component {
 
     this.setState({ isDeleting: true });
 
-    const url = `${BASE_URL}/api/v2/businesses/${this.paramId}`;
+    const url = "/api/v2/businesses/";
     const token = window.sessionStorage.getItem('token');
 
     if (window.confirm('Are you sure you wish to delete this business?')) {
-      request
-        .del(url)
+      requestAgent.del(url + this.paramId)
         .type('application/json')
         .set({ 'x-access-token': token })
         .end((err, res) => {
@@ -114,13 +108,14 @@ class Business extends Component {
     if (Auth.isAuthenticated) {
       const token = window.sessionStorage.getItem('token');
       const { id } = decode(token);
-      const url = `${BASE_URL}/api/v2/users/${id}`;
+      const url = "/api/v2/users/";
       const { business } = this.state;
-      await getRequest(url).then((res) => {
-        if (res.body.user.username === business.owner) {
-          this.setState({ isCurrentUser: true });
-        }
-      });
+      requestAgent.get(url + id)
+        .then((res) => {
+          if (res.body.user.username === business.owner) {
+            this.setState({ isCurrentUser: true });
+          }
+        });
     }
   }
 
@@ -161,5 +156,10 @@ class Business extends Component {
       </div>);
   }
 }
+
+Business.propTypes = {
+  match: PropTypes.object,
+  location: PropTypes.object
+};
 
 export default Business;

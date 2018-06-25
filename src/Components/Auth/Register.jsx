@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
-import { post } from '../../helpers/request';
 import Warning from '../../common/ElementComponents/Warning';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * register new user
@@ -63,21 +63,22 @@ class Register extends Component {
         username, fullname, email, password
       } = this.state;
 
-      var url = `${BASE_URL}/api/v2/auth/register`;
+      var url = "/api/v2/auth/register";
 
-      let response = post(url, {
-        username, fullname, email, password
-      });
-
-      response.then((res) => {
-        if (res.status === 200) {
-          this.setState({ fireRedirect: true });
-          notify('success', res.body.success);
-        } else {
-          this.setState({ errors: res.response.body, isLoading: false });
-          notify('success', res.body.success);
-        }
-      })
+      requestAgent.post(url)
+        .set('Content-Type', 'application/json')
+        .send({
+          username, fullname, email, password
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.setState({ fireRedirect: true });
+            notify('success', res.body.success);
+          } else {
+            this.setState({ errors: res.response.body, isLoading: false });
+            notify('success', res.body.success);
+          }
+        })
         .catch((err) => {
           this.setState({ errors: err.response.body, isLoading: false });
           notify('warning', err.response.body.warning);
@@ -151,5 +152,9 @@ class Register extends Component {
     );
   }
 }
+
+Register.propTypes = {
+  location: PropTypes.object
+};
 
 export default Register;

@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'superagent';
+import PropTypes from 'prop-types';
 import decode from 'jwt-decode';
 import notify from '../../helpers/notify';
 import BASE_URL from '../../helpers/url';
@@ -9,6 +10,7 @@ import validateInput from '../../helpers/validations';
 import LoginFirst from '../Auth/LoginFirst';
 import Auth from '../../helpers/Auth';
 import './Reviews.css';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * register new user
@@ -59,9 +61,9 @@ class Reviews extends React.Component {
    */
   getReviews = () => {
     this.setState({ isLoading: true });
-    const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
-    request
-      .get(url)
+    const url = "/api/v2/businesses/";
+    const suffixurl = "/reviews";
+    requestAgent.get(url + this.props.businessId + suffixurl)
       .set('Content-Type', 'application/json')
       .then((response) => {
         if (response.status === 200 && this.refs.reviewRef) {
@@ -86,9 +88,10 @@ class Reviews extends React.Component {
       this.setState({ isLoading: true });
       const { title, desc, reviews } = this.state;
       const token = window.sessionStorage.getItem('token');
-      const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
-      request
-        .post(url)
+      // const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
+      const url = "/api/v2/businesses/";
+      const suffixurl = "/reviews";
+      requestAgent.post(url + this.props.businessId + suffixurl)
         .set({ 'x-access-token': token })
         .send({ title, desc })
         .then((res) => {
@@ -203,5 +206,9 @@ class Reviews extends React.Component {
     );
   }
 }
+
+Reviews.propTypes = {
+  businessId: PropTypes.string
+};
 
 export default Reviews;

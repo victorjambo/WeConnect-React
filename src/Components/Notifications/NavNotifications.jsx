@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import request from 'superagent';
 import { SyncLoader } from 'react-spinners';
-import BASE_URL from '../../helpers/url';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * Class NavNotifications
@@ -39,10 +38,9 @@ class NavNotifications extends React.Component {
    * @returns {obj} single business
    */
   getNotifications = () => {
-    const url = `${BASE_URL}/api/v2/notifications`;
+    const url = "/api/v2/notifications";
     const token = window.sessionStorage.getItem('token');
-    request
-      .get(url)
+    requestAgent.get(url)
       .set({ 'x-access-token': token })
       .type('application/json')
       .then((response) => {
