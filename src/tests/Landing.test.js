@@ -5,18 +5,18 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Hero from '../common/Hero.jsx';
-import Landing from '../common/Landing.jsx';
-import Businesses from '../Components/Business/Businesses.jsx';
-import SearchForm from '../Components/Business/SearchForm.jsx';
-import NavigationBar from '../common/NavigationBar.jsx';
-import Auth from '../helpers/Auth.js';
-import Dropdown from '../common/ElementComponents/Dropdown.jsx';
-import Sidebar from '../common/Sidebar.jsx';
+import Hero from '../common/Hero';
+import Landing from '../common/Landing';
+import Businesses from '../Components/Business/Businesses';
+import SearchForm from '../Components/SearchResults/SearchForm';
+import NavigationBar from '../common/NavigationBar';
+import Auth from '../helpers/Auth';
+import Dropdown from '../common/ElementComponents/Dropdown';
+import Sidebar from '../common/Sidebar';
 
 configure({ adapter: new Adapter() });
 
-describe('<Landing />', () =>  {
+describe('<Landing />', () => {
   it('Test Render Landing Components', () => {
     const app = shallow(<Landing />);
     expect(app.contains(<Hero />)).to.be.true;
@@ -24,7 +24,7 @@ describe('<Landing />', () =>  {
   });
 });
 
-describe('<SearchForm />', () =>  {
+describe('<SearchForm />', () => {
   it('Test Render Search Bar', () => {
     const form = shallow(<SearchForm />);
     expect(form.find('form').length).to.equal(1);
@@ -36,7 +36,7 @@ describe('<SearchForm />', () =>  {
   });
 });
 
-describe('<Hero />', () =>  {
+describe('<Hero />', () => {
   const hero = shallow(<Hero />);
   it('Test Render Hero', () => {
     expect(hero.find('.intro-header')).to.have.length(1);
@@ -54,7 +54,7 @@ describe('<Hero />', () =>  {
   });
 });
 
-describe('<NavigationBar />', () =>  {
+describe('<NavigationBar />', () => {
   beforeAll(() => {
     window.sessionStorage = {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
@@ -86,7 +86,6 @@ describe('<NavigationBar />', () =>  {
     wrapper.instance().logout();
     expect(wrapper.state().fireRedirect).to.be.true;
   });
-
 });
 
 describe('<Dropdown />', () => {

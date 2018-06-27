@@ -1,6 +1,6 @@
 import React from 'react';
 import { SyncLoader } from 'react-spinners';
-import './search.css';
+import './css/search.css';
 import Item from './Item';
 import FormField from './FormField';
 import requestAgent from '../../helpers/superagent';
