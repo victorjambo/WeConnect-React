@@ -158,15 +158,21 @@ class Business extends Component {
           <a
             target="_blank"
             href={`http://www.facebook.com/sharer/sharer.php?u=https://weconnect-react.herokuapp.com/business/${business.id}`}
-            className="fai fa fa-facebook"> </a>
+            className="fai fa fa-facebook">
+            <span style={{display:'none'}}/>
+          </a>
           <a
             target="_blank"
             href={`https://twitter.com/intent/tweet?text=Read%20more%20about${business.name}%20at%20https://weconnect-react.herokuapp.com/business/${business.id}`}
-            className="fai fa fa-twitter"> </a>
+            className="fai fa fa-twitter">
+            <span style={{display:'none'}}/>
+          </a>
           <a
             target="_blank"
             href={`https://plus.google.com/share?url=https://weconnect-react.herokuapp.com/business/${business.id}`}
-            className="fai fa fa-google"> </a>
+            className="fai fa fa-google">
+            <span style={{display:'none'}}/>
+          </a>
         </div>
       </div>);
   }
