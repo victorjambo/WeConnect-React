@@ -1,9 +1,8 @@
 import React from 'react';
-import request from 'superagent';
 import decode from 'jwt-decode';
 import { SyncLoader } from 'react-spinners';
 import Sidebar from '../../common/Sidebar';
-import BASE_URL from '../../helpers/url';
+import requestAgent from '../../helpers/superagent';
 import './Profile.css';
 import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
 
@@ -40,10 +39,9 @@ class Profile extends React.Component {
 
     const token = window.sessionStorage.getItem('token');
     const { id } = decode(token);
-    const url = `${BASE_URL}/api/v2/users/${id}`;
+    const url = "/api/v2/users/";
 
-    await request
-      .get(url)
+    requestAgent.get(url + id)
       .set('Content-Type', 'application/json')
       .then((res) => {
         if (res.status === 200 && this.refs.refUser) {

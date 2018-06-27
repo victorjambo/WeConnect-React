@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import request from 'superagent';
+import PropTypes from 'prop-types';
 import Sidebar from '../../common/Sidebar';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
+import requestAgent from '../../helpers/superagent';
 import Warning from '../../common/ElementComponents/Warning';
 
 /**
@@ -62,9 +62,10 @@ class ResetPassword extends React.Component {
 
       const { oldPassword, password } = this.state;
 
-      const url = `${BASE_URL}/api/v2/auth/reset-password`;
+      const url = "/api/v2/auth/reset-password";
 
-      request.put(url).type('application/json')
+      requestAgent.put(url)
+        .type('application/json')
         .set({ 'x-access-token': token })
         .send({ old_password: oldPassword, password: password })
         .then((res) => {
@@ -125,5 +126,9 @@ class ResetPassword extends React.Component {
     );
   }
 }
+
+ResetPassword.propTypes = {
+  location: PropTypes.object
+};
 
 export default ResetPassword;

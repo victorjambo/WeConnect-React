@@ -5,9 +5,9 @@ import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import App from '../App';
-import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
+import PageNotFound from '../Components/PageNotFound/PageNotFound';
 import Landing from '../common/Landing';
-import NavigationBar from '../common/NavigationBar.jsx';
+import NavigationBar from '../common/NavigationBar';
 
 configure({ adapter: new Adapter() });
 
@@ -15,13 +15,14 @@ test('sanity test', () => {
   expect(1).to.equal(1);
 });
 
-describe('<App />', () =>  {
+describe('<App />', () => {
   it('Test Browser Routes', () => {
     const div = document.createElement('root');
     ReactDOM.render(
       <BrowserRouter>
-    	  <App />
-      </BrowserRouter>, div);
+        <App />
+      </BrowserRouter>, div
+    );
     ReactDOM.unmountComponentAtNode(div);
   });
 
@@ -29,7 +30,7 @@ describe('<App />', () =>  {
     const wrapper = shallow(<App />);
     expect(wrapper.find(NavigationBar)).to.have.length(1);
     expect(wrapper.find('Switch')).to.have.length(1);
-    expect(wrapper.find('Route')).to.have.length(7);
+    expect(wrapper.find('Route')).to.have.length(8);
     expect(wrapper.find('PrivateRoute')).to.have.length(6);
   });
 });
@@ -38,12 +39,12 @@ describe('invalid path should redirect to 404', () => {
   let randomWrapper, landingWrapper;
   beforeEach(() => {
     randomWrapper = mount(
-      <MemoryRouter initialEntries={[ '/random' ]}>
+      <MemoryRouter initialEntries={['/random']}>
         <App/>
       </MemoryRouter>
     );
     landingWrapper = mount(
-      <MemoryRouter initialEntries={[ '/' ]}>
+      <MemoryRouter initialEntries={['/']}>
         <App/>
       </MemoryRouter>
     );

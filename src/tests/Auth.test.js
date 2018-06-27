@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter, Route} from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
@@ -36,7 +36,8 @@ describe('<Login />', () => {
     let wrapper = mount(
       <MemoryRouter>
         <Login location={location} />
-      </MemoryRouter>);
+      </MemoryRouter>
+    );
 
     wrapper.find('form').simulate('submit', { preventDefault() {} });
 
@@ -52,7 +53,8 @@ describe('<Login />', () => {
     let wrapper = mount(
       <MemoryRouter>
         <Login location={location} />
-      </MemoryRouter>);
+      </MemoryRouter>
+    );
 
     wrapper.find('input').first().simulate('change', { preventDefault() {} });
 
@@ -87,7 +89,6 @@ describe('<Login />', () => {
     wrapper.setState({ username: 'victor', password: 'password' });
     expect(wrapper.state().username).to.equal('victor');
   });
-
 });
 
 describe('<Register />', () => {
@@ -108,7 +109,8 @@ describe('<Register />', () => {
     let wrapper = mount(
       <MemoryRouter>
         <Register location={location} />
-      </MemoryRouter>);
+      </MemoryRouter>
+    );
 
     wrapper.find('form').simulate('submit', { preventDefault() {} });
 
@@ -124,7 +126,8 @@ describe('<Register />', () => {
     let wrapper = mount(
       <MemoryRouter>
         <Register location={location} />
-      </MemoryRouter>);
+      </MemoryRouter>
+    );
 
     wrapper.find('input').first().simulate('change', { preventDefault() {} });
 
@@ -162,10 +165,9 @@ describe('<Register />', () => {
 });
 
 
-
 describe('PrivateRoute', () => {
   it('PrivateRoute', () => {
-    let mockObject = { component: Register, ...[]};
+    let mockObject = { component: Register, ...[] };
     let route = <Route />;
     expect(PrivateRoute(mockObject).type).to.equal(route.type);
   });
@@ -184,7 +186,7 @@ describe('<ResetPassword />', () => {
     const wrapper = shallow(<ResetPassword location={location}/>);
     expect(wrapper.find('form')).to.have.lengthOf(1);
   });
-  
+
   it('handleSubmit', () => {
     const location = { state: '/' };
     window.sessionStorage = {
@@ -201,17 +203,18 @@ describe('<ResetPassword />', () => {
     wrapper.instance().handleSubmit(event);
     expect(preventDefault.called).to.be.true;
     expect(wrapper.state().isLoading).to.be.false;
-    wrapper.setState({ 
+    wrapper.setState({
       oldPassword: '',
       password: '',
       confirmPassword: ''
     });
 
     expect(wrapper.state().errors.password).to.equal('This field is required');
-    wrapper.setState({ 
+    wrapper.setState({
       oldPassword: 'password1234',
       password: 'password',
-      confirmPassword: 'passwords' });
+      confirmPassword: 'passwords'
+    });
 
     expect(wrapper.state().confirmPassword).to.equal('passwords');
   });

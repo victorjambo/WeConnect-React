@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import request from 'superagent';
-import { SyncLoader } from 'react-spinners';
-import BASE_URL from '../../helpers/url';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * Class NavNotifications
@@ -14,13 +12,7 @@ class NavNotifications extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notifications: [
-        {
-          url: '/notifications',
-          act: 'No Notifications',
-          id: '1'
-        }
-      ],
+      notifications: [],
       isLoading: false,
       errors: {}
     };
@@ -31,7 +23,7 @@ class NavNotifications extends React.Component {
   /**
    * @returns {func} get single business
    */
-  componentDidMount() {
+  componentWillMount() {
     this.getNotifications();
   }
 
@@ -39,10 +31,9 @@ class NavNotifications extends React.Component {
    * @returns {obj} single business
    */
   getNotifications = () => {
-    const url = `${BASE_URL}/api/v2/notifications`;
+    const url = "/api/v2/notifications";
     const token = window.sessionStorage.getItem('token');
-    request
-      .get(url)
+    requestAgent.get(url)
       .set({ 'x-access-token': token })
       .type('application/json')
       .then((response) => {
@@ -52,12 +43,15 @@ class NavNotifications extends React.Component {
             notifications: response.body.notifications
           });
         }
-        if (response.status === 404) {
-          this.setState({ errors: response.response.body, isLoading: false });
-        }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          notifications: [{
+            url: '/notifications',
+            act: 'No Notifications',
+            id: '1'
+          }]
+        });
       });
   }
 
@@ -65,18 +59,12 @@ class NavNotifications extends React.Component {
    * @return {string} jsx
    */
   render() {
-    const { notifications, isLoading } = this.state;
+    const { notifications } = this.state;
     const notification = notifications.map((_notification) => (<li key={_notification.id}>
       <Link to={_notification.url}>{_notification.act}</Link>
     </li>));
     return (
       <ul className="dropdown-menu" ref="refNotification">
-        <div className="spinners-loader">
-          <SyncLoader
-            color={'#123abc'}
-            loading={isLoading}
-          />
-        </div>
         { notification }
         <li role="separator" className="divider" />
         <li><Link to="/notifications" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>

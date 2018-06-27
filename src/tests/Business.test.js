@@ -9,14 +9,14 @@ import Business from '../Components/Business/Business';
 import ItemBusiness from '../Components/Business/ItemBusiness';
 import EditBusiness from '../Components/Business/EditBusiness';
 import NewBusiness from '../Components/Business/NewBusiness';
-import SearchForm from '../Components/Business/SearchForm';
+import SearchForm from '../Components/SearchResults/SearchForm';
 import Form from '../Components/Business/Form';
 import Reviews from '../Components/Reviews/Reviews';
-import PageNotFound from '../Components/PageNotFound/PageNotFound.jsx';
+import PageNotFound from '../Components/PageNotFound/PageNotFound';
 
 configure({ adapter: new Adapter() });
 
-describe('<Businesses />', () =>  {
+describe('<Businesses />', () => {
   it('renders Businesses', () => {
     const businesses = shallow(<Businesses />);
     expect(businesses.find('.row.bucket')).to.have.lengthOf(1);
@@ -72,12 +72,12 @@ describe('<Business />', () => {
     expect(wrapper.find('.business').length).to.equal(1);
     expect(wrapper.contains(<Reviews businessId="23" path="/" />)).to.be.true;
   });
-  
+
   it('Redirect to <PageNotFound />', () => {
     wrapper.setState({ isLoading: false, found: false });
     expect(wrapper.contains(<PageNotFound />)).to.be.true;
   });
-  
+
   it('isLoading', () => {
     expect(wrapper.find('.business')).to.have.lengthOf(0);
   });
@@ -86,7 +86,9 @@ describe('<Business />', () => {
 describe('<EditBusiness />', () => {
   let match;
   beforeEach(() => {
-    match = { params: { id: '23' }, isExact: false, path: "/", url: "/" };
+    match = {
+      params: { id: '23' }, isExact: false, path: "/", url: "/"
+    };
   });
 
   it('Renders EditBusiness without crashing', () => {

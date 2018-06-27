@@ -71,3 +71,11 @@ ul {
 .notify-top {
   top: 4em;
 }
+
+.link-nostyle,
+.link-nostyle:hover,
+.link-nostyle:visited,
+.link-nostyle:focus {
+  text-decoration: none;
+  color: inherit;
+}

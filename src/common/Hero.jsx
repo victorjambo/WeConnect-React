@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchForm from '../Components/Business/SearchForm';
+import SearchForm from '../Components/SearchResults/SearchForm';
 import './css/Hero.css';
 import Auth from '../helpers/Auth';
 

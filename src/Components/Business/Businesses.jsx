@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import request from 'superagent';
 import { SyncLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
 import ItemBusiness from './ItemBusiness';
-import BASE_URL from '../../helpers/url';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * All businesses
@@ -34,8 +33,8 @@ class Businesses extends Component {
    */
   getBusinesses = async () => {
     this.setState({ isLoading: true });
-    const url = `${BASE_URL}/api/v2/businesses/?limit=30`;
-    await request
+    const url = "/api/v2/businesses/?limit=30";
+    requestAgent
       .get(url)
       .set('Content-Type', 'application/json')
       .then((response) => {

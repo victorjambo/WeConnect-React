@@ -3,19 +3,14 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Warning from '../../common/ElementComponents/Warning';
 import Textarea from '../../common/ElementComponents/Textarea';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
 import Input from '../../common/ElementComponents/Input';
-import {
-  getRequest,
-  uploadImage,
-  putRequest,
-  post
-} from '../../helpers/request';
+import { uploadImage } from '../../helpers/request';
+import requestAgent from '../../helpers/superagent';
 
 
 /**
@@ -62,9 +57,10 @@ class Form extends Component {
    * @returns {obj} state
    */
   getBusiness(paramId) {
-    const url = `${BASE_URL}/api/v2/businesses/${paramId}`;
+    const url = "/api/v2/businesses/";
 
-    getRequest(url)
+    requestAgent.get(url + paramId)
+      .set('Content-Type', 'application/json')
       .then((res) => {
         if (res.status === 200) {
           this.setState({
@@ -130,9 +126,9 @@ class Form extends Component {
       };
 
       if (paramId) {
-        this.putForm(`${BASE_URL}/api/v2/businesses/${this.props.paramId}`, token, data);
+        this.putForm("/api/v2/businesses/", token, data);
       } else {
-        this.postForm(`${BASE_URL}/api/v2/businesses/`, token, data);
+        this.postForm("/api/v2/businesses/", token, data);
       }
     }
   }
@@ -144,7 +140,9 @@ class Form extends Component {
    * @returns {obj} state
    */
   async postForm(url, token, data) {
-    await post(url, data)
+    requestAgent.post(url)
+      .set('Content-Type', 'application/json')
+      .send(data)
       .set({ 'x-access-token': token })
       .then((res) => {
         if (res.status === 201) {
@@ -167,7 +165,10 @@ class Form extends Component {
    * @returns {obj} state
    */
   async putForm(url, token, data) {
-    await putRequest(url, data, token)
+    requestAgent.put(url + this.props.paramId)
+      .type('application/json')
+      .set({ 'x-access-token': token })
+      .send(data)
       .then((res) => {
         if (res.status === 201) {
           notify('success', res.body.success);

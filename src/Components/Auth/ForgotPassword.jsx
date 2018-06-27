@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Warning from '../../common/ElementComponents/Warning';
-import { post } from '../../helpers/request';
+import requestAgent from '../../helpers/superagent';
 
 /**
  * Component to handle Forgotten Password
@@ -54,9 +53,11 @@ class ForgotPassword extends Component {
 
       const { email } = this.state;
 
-      const url = `${BASE_URL}/api/v2/auth/forgot-password`;
+      const url = "/api/v2/auth/forgot-password";
 
-      post(url, { email })
+      requestAgent.post(url)
+        .set('Content-Type', 'application/json')
+        .send({ email })
         .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
