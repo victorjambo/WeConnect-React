@@ -154,19 +154,19 @@ class Business extends Component {
             </div>
           </div> { fireRedirect && (<Redirect to="/" />) }
         </div>
-        <div class="social-buttons">
+        <div className="social-buttons">
           <a
             target="_blank"
             href={`http://www.facebook.com/sharer/sharer.php?u=https://weconnect-react.herokuapp.com/business/${business.id}`}
-            class="fai fa fa-facebook"> </a>
+            className="fai fa fa-facebook"> </a>
           <a
             target="_blank"
             href={`https://twitter.com/intent/tweet?text=Read%20more%20about${business.name}%20at%20https://weconnect-react.herokuapp.com/business/${business.id}`}
-            class="fai fa fa-twitter"> </a>
+            className="fai fa fa-twitter"> </a>
           <a
             target="_blank"
             href={`https://plus.google.com/share?url=https://weconnect-react.herokuapp.com/business/${business.id}`}
-            class="fai fa fa-google"> </a>
+            className="fai fa fa-google"> </a>
         </div>
       </div>);
   }

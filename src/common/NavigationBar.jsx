@@ -15,10 +15,18 @@ class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fireRedirect: false
+      fireRedirect: false,
+      clicked: false
     };
 
     this.logout = this.logout.bind(this);
+    this.click = this.click.bind(this);
+  }
+
+  click() {
+    this.setState({
+      clicked: true
+    });
   }
 
   /**
@@ -37,7 +45,7 @@ class NavigationBar extends Component {
    * @return {jsx} html to be rendered
    */
   render() {
-    const { fireRedirect } = this.state;
+    const { fireRedirect, clicked } = this.state;
     return (
       <nav className="navbar navbar-default navbar-override navbar-custom navbar-fixed-top">
         <div className="container-fluid">
@@ -52,7 +60,7 @@ class NavigationBar extends Component {
               We<span className="txt-shadow">Connect</span>
             </Link>
           </div>
-          <Dropdown logout={this.logout}/>
+          <Dropdown logout={this.logout} click={this.click} clicked={clicked}/>
         </div>
         { fireRedirect && (<Redirect to="/" />) }
       </nav>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { SyncLoader } from 'react-spinners';
 import requestAgent from '../../helpers/superagent';
 
 /**
@@ -13,13 +12,7 @@ class NavNotifications extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notifications: [
-        {
-          url: '/notifications',
-          act: 'No Notifications',
-          id: '1'
-        }
-      ],
+      notifications: [],
       isLoading: false,
       errors: {}
     };
@@ -30,7 +23,7 @@ class NavNotifications extends React.Component {
   /**
    * @returns {func} get single business
    */
-  componentDidMount() {
+  componentWillMount() {
     this.getNotifications();
   }
 
@@ -50,12 +43,15 @@ class NavNotifications extends React.Component {
             notifications: response.body.notifications
           });
         }
-        if (response.status === 404) {
-          this.setState({ errors: response.response.body, isLoading: false });
-        }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          notifications: [{
+            url: '/notifications',
+            act: 'No Notifications',
+            id: '1'
+          }]
+        });
       });
   }
 
@@ -63,18 +59,12 @@ class NavNotifications extends React.Component {
    * @return {string} jsx
    */
   render() {
-    const { notifications, isLoading } = this.state;
+    const { notifications } = this.state;
     const notification = notifications.map((_notification) => (<li key={_notification.id}>
       <Link to={_notification.url}>{_notification.act}</Link>
     </li>));
     return (
       <ul className="dropdown-menu" ref="refNotification">
-        <div className="spinners-loader">
-          <SyncLoader
-            color={'#123abc'}
-            loading={isLoading}
-          />
-        </div>
         { notification }
         <li role="separator" className="divider" />
         <li><Link to="/notifications" className="text-center" style={{ paddingBottom: 15 }}>View all >></Link></li>

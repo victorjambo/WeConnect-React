@@ -4,17 +4,19 @@ import { Link } from 'react-router-dom';
 import Auth from '../../helpers/Auth';
 import NavNotifications from '../../Components/Notifications/NavNotifications';
 
-const Dropdown = ({ logout }) => (
+const Dropdown = ({ logout, clicked, click }) => (
   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     { Auth.isAuthenticated ? (
       <ul className="nav navbar-nav navbar-right">
         <li className="dropdown dropdown-notifications">
-          <Link to="" className="dropdown-toggle nav-link"
+          <Link to=""
+            className="dropdown-toggle nav-link"
             data-toggle="dropdown" role="button"
+            onClick={click}
             aria-haspopup="true" aria-expanded="false">
             <i data-count="" className="glyphicon glyphicon-bell notification-icon" />
           </Link>
-          <NavNotifications />
+          { clicked && <NavNotifications /> }
         </li>
         <li className="dropdown userdashboard">
           <Link to="" className="dropdown-toggle nav-link"
@@ -42,7 +44,9 @@ const Dropdown = ({ logout }) => (
 );
 
 Dropdown.propTypes = {
-  logout: PropTypes.func
+  logout: PropTypes.func,
+  click: PropTypes.func,
+  clicked: PropTypes.bool
 };
 
 export default Dropdown;
