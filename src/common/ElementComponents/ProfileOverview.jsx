@@ -10,7 +10,7 @@ const ProfileOverview = ({ user, activate }) => (
 
       <li className="overview-info-profile">
         <div className="summary-img">
-          <img src="https://media.licdn.com/dms/image/C4E03AQH-l0kS6O1p7g/profile-displayphoto-shrink_800_800/0?e=1530298800&v=beta&t=u0DgMKy3LAc57YKgdx864JB6fAc17ZZM2AdR-5BiSTY" alt="" />
+          <img src="https://www.shareicon.net/data/256x256/2016/09/01/822742_user_512x512.png" alt="" />
         </div>
         <div className="entity-summary-info">
           <h3>username</h3>
@@ -20,7 +20,7 @@ const ProfileOverview = ({ user, activate }) => (
 
       <li className="overview-info-profile">
         <div className="summary-img">
-          <img src="https://media.licdn.com/dms/image/C4E03AQH-l0kS6O1p7g/profile-displayphoto-shrink_800_800/0?e=1530298800&v=beta&t=u0DgMKy3LAc57YKgdx864JB6fAc17ZZM2AdR-5BiSTY" alt="" />
+          <img src="https://www.shareicon.net/data/256x256/2016/09/01/822742_user_512x512.png" alt="" />
         </div>
         <div className="entity-summary-info">
           <h3>Full Names</h3>
@@ -30,7 +30,7 @@ const ProfileOverview = ({ user, activate }) => (
 
       <li className="overview-info-profile">
         <div className="summary-img">
-          <img src="https://media.licdn.com/dms/image/C4E03AQH-l0kS6O1p7g/profile-displayphoto-shrink_800_800/0?e=1530298800&v=beta&t=u0DgMKy3LAc57YKgdx864JB6fAc17ZZM2AdR-5BiSTY" alt="" />
+          <img src="https://www.shareicon.net/data/256x256/2016/09/01/822742_user_512x512.png" alt="" />
         </div>
         <div className="entity-summary-info">
           <h3>Email</h3>
