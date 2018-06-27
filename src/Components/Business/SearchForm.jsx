@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './css/SearchForm.css';
-import { search } from '../../helpers/request';
 
 /**
  * SearchForm
@@ -17,30 +17,12 @@ class SearchForm extends Component {
       fireRedirect: false
     };
 
-    this.logChange = this.logChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
-  /**
-   * takes
-   * @param {object} e as event submit
-   * sends post request to API server
-   * @returns {object} new state
-   * then redirect
-   */
-  handleClick(e) {
-    e.preventDefault();
-    const { query } = this.state;
-    const url = "/api/v2/businesses/?query=";
-
-    search(url, query).then((res) => {
-      console.log(res);
-    });
-  }
-
-  logChange(e) {
+  redirect() {
     this.setState({
-      [e.target.name]: e.target.value
+      fireRedirect: true
     });
   }
 
@@ -48,6 +30,7 @@ class SearchForm extends Component {
    * @return {jsx} html to be rendered
    */
   render() {
+    const { fireRedirect } = this.state;
     return (
       <form>
         <div className="input-group">
@@ -55,13 +38,15 @@ class SearchForm extends Component {
             type="text"
             className="form-control"
             name="query" size="60"
-            onChange={this.logChange}
+            onClick={this.redirect}
             value={this.state.query}
+            autoComplete="off"
             placeholder="Business Name, location or category"/>
           <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this.handleClick} />
+            <button className="btn btn-default" onClick={this.redirect} />
           </span>
         </div>
+        { fireRedirect && (<Redirect to="/search" />) }
       </form>
     );
   }

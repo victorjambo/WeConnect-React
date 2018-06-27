@@ -3,19 +3,13 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
-import BASE_URL from '../../helpers/url';
 import notify from '../../helpers/notify';
 import Warning from '../../common/ElementComponents/Warning';
 import Textarea from '../../common/ElementComponents/Textarea';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import DropzoneContainer from '../../common/ElementComponents/DropzoneContainer';
 import Input from '../../common/ElementComponents/Input';
-import {
-  getRequest,
-  uploadImage,
-  putRequest,
-  post
-} from '../../helpers/request';
+import { uploadImage } from '../../helpers/request';
 import requestAgent from '../../helpers/superagent';
 
 
