@@ -88,16 +88,17 @@ class Business extends Component {
     const token = window.sessionStorage.getItem('token');
 
     if (window.confirm('Are you sure you wish to delete this business?')) {
-      requestAgent.del(url + this.paramId)
+      requestAgent.del(process.env.REACT_APP_BASE_URL + url + this.paramId)
         .type('application/json')
         .set({ 'x-access-token': token })
-        .end((err, res) => {
+        .then((res) => {
           if (res.status === 200) {
             this.setState({ fireRedirect: true });
             notify('success', res.body.success);
-          } else {
-            this.setState({ errors: err.response.body, isDeleting: false });
           }
+        })
+        .catch((err) => {
+          this.setState({ errors: { warning: err.response.body }, isDeleting: false });
         });
     }
   }

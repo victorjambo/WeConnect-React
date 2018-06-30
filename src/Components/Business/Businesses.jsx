@@ -33,9 +33,10 @@ class Businesses extends Component {
    */
   getBusinesses = async () => {
     this.setState({ isLoading: true });
-    const url = "/api/v2/businesses/?limit=30";
+    const url = "/api/v2/businesses/";
     requestAgent
       .get(url)
+      .query({ limit: '30' })
       .set('Content-Type', 'application/json')
       .then((response) => {
         if (response.status === 200 && this.refs.refBusiness) {
