@@ -50,6 +50,11 @@ describe('invalid path should redirect to 404', () => {
     );
   });
 
+  afterEach(() => {
+    randomWrapper.unmount();
+    landingWrapper.unmount();
+  });
+
   it('Renders Without crushing', () => {
     expect(randomWrapper.find(PageNotFound)).to.have.length(1);
     expect(randomWrapper.find(Landing)).to.have.length(0);

@@ -65,6 +65,7 @@ describe('<Business />', () => {
       isCurrentUser: true
     };
     wrapper = shallow(<Business match={match} location={location}/>);
+    wrapper.instance().refs = { refBusiness: true };
   });
 
   it('Renders Business without crashing', () => {

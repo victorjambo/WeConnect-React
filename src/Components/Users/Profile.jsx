@@ -21,6 +21,7 @@ class Profile extends React.Component {
       isLoading: false,
       errors: {}
     };
+    this.mounted = false;
     this.getUser = this.getUser.bind(this);
   }
 
@@ -28,7 +29,12 @@ class Profile extends React.Component {
    * @returns {func} getUser
    */
   componentDidMount() {
+    this.mounted = true;
     this.getUser();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   /**
@@ -44,7 +50,7 @@ class Profile extends React.Component {
     requestAgent.get(url + id)
       .set('Content-Type', 'application/json')
       .then((res) => {
-        if (res.status === 200 && this.refs.refUser) {
+        if (res.status === 200 && this.refs.refUser && this.mounted) {
           this.setState({
             user: res.body.user,
             isLoading: false
@@ -60,7 +66,7 @@ class Profile extends React.Component {
    * @return {jsx} html to be rendered
    */
   render() {
-    const { user, isLoading, activate } = this.state;
+    const { user, isLoading } = this.state;
     return (
       <div className="container push-profile">
         <div className="row bucket">
@@ -72,7 +78,7 @@ class Profile extends React.Component {
               isLoading ? (
                 <div className="spinners-loader"><SyncLoader color={'#123abc'} /></div>
               ) : (
-                <ProfileOverview user={user} activate={activate} />
+                <ProfileOverview user={user} />
               )
             }
           </div>

@@ -19,13 +19,19 @@ class Businesses extends Component {
       businesses: [],
       isLoading: false
     };
+    this.mounted = false;
   }
 
   /**
    * @returns {func} get business
    */
   componentDidMount() {
+    this.mounted = true;
     this.getBusinesses();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   /**
@@ -33,13 +39,15 @@ class Businesses extends Component {
    */
   getBusinesses = async () => {
     this.setState({ isLoading: true });
+
     const url = "/api/v2/businesses/";
+
     requestAgent
       .get(url)
       .query({ limit: '30' })
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if (response.status === 200 && this.refs.refBusiness) {
+        if (response.status === 200 && this.refs.refBusiness && this.mounted) {
           this.setState({
             businesses: response.body.businesses,
             isLoading: false

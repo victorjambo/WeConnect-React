@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Warning from './Warning';
 
-const ProfileOverview = ({ user, activate }) => (
+const ProfileOverview = ({ user }) => (
   <div >
     <h1>{user.fullname}'s profile</h1>
-    { !activate && <Warning warning="Check your email to activate your account!!!"/> }
+    { user.activate === "false" && <Warning warning="Check your email to activate your account!!!"/> }
     <ul className="section-info">
 
       <li className="overview-info-profile">
@@ -43,13 +43,11 @@ const ProfileOverview = ({ user, activate }) => (
 );
 
 ProfileOverview.propTypes = {
-  user: PropTypes.object.isRequired,
-  activate: PropTypes.bool
+  user: PropTypes.object.isRequired
 };
 
 ProfileOverview.defaultProps = {
   user: {},
-  activate: false
 };
 
 export default ProfileOverview;

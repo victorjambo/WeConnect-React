@@ -71,7 +71,6 @@ class Business extends Component {
         if (err.status === 404) {
           this.setState({ found: false });
         }
-        this.setState({ errors: err.response.body, isLoading: false });
       });
   }
 
@@ -150,7 +149,7 @@ class Business extends Component {
               <div className="col-md-8 col-sm-6 col-xs-12">
                 <Overview business={business}/>
                 <About business={business}/>
-                <Reviews businessId={match.params.id} path={location.pathname} />
+                {this.refs.refBusiness && <Reviews businessId={match.params.id} path={location.pathname} />}
               </div>
             </div>
           </div> { fireRedirect && (<Redirect to="/" />) }

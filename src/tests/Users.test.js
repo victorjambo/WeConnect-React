@@ -9,7 +9,7 @@ import Profile from '../Components/Users/Profile';
 
 configure({ adapter: new Adapter() });
 
-describe('<UserBusinesses />', () =>  {
+describe('<UserBusinesses />', () => {
   it('Test Render UserBusinesses Component', () => {
     const wrapper = shallow(<UserBusinesses />);
     expect(wrapper.contains(<Sidebar />)).to.be.true;
@@ -17,9 +17,9 @@ describe('<UserBusinesses />', () =>  {
   });
 });
 
-describe('<Profile />', () =>  {
-  let props;
-  beforeAll(() => {
+describe('<Profile />', () => {
+  let props, wrapper;
+  beforeEach(() => {
     window.sessionStorage = {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
       getItem() {
@@ -34,10 +34,13 @@ describe('<Profile />', () =>  {
       },
       isLoading: true
     };
+    wrapper = mount(<MemoryRouter><Profile /></MemoryRouter>);
+  });
+  afterEach(() => {
+    wrapper.unmount();
   });
 
   it('Test Render Profile Component', () => {
-    const wrapper = mount(<MemoryRouter><Profile /></MemoryRouter>);
     wrapper.setState(props);
     expect(wrapper.contains(<Sidebar />)).to.be.true;
   });
