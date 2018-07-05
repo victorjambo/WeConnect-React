@@ -14,7 +14,12 @@ class NavNotifications extends React.Component {
     this.state = {
       notifications: [],
       isLoading: false,
-      errors: {}
+      errors: {},
+      noData: [{
+        url: '/notifications',
+        act: 'No Notifications',
+        id: '1'
+      }]
     };
 
     this.getNotifications = this.getNotifications.bind(this);
@@ -33,24 +38,23 @@ class NavNotifications extends React.Component {
   getNotifications = () => {
     const url = "/api/v2/notifications";
     const token = window.sessionStorage.getItem('token');
+    const { noData } = this.state;
     requestAgent.get(url)
       .set({ 'x-access-token': token })
       .type('application/json')
       .then((response) => {
         this.setState({ isLoading: false });
-        if (response.status === 200 && this.refs.refNotification) {
+        if (response.body.notifications && this.refs.refNotification) {
           this.setState({
             notifications: response.body.notifications
           });
+        } else {
+          this.setState({ isLoading: false, notifications: noData });
         }
       })
       .catch((err) => {
         this.setState({
-          notifications: [{
-            url: '/notifications',
-            act: 'No Notifications',
-            id: '1'
-          }]
+          notifications: noData
         });
       });
   }

@@ -47,11 +47,13 @@ class Businesses extends Component {
       .query({ limit: '30' })
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if (response.status === 200 && this.refs.refBusiness && this.mounted) {
+        if (response.body.businesses && this.refs.refBusiness && this.mounted) {
           this.setState({
             businesses: response.body.businesses,
             isLoading: false
           });
+        } else {
+          this.setState({ isLoading: false });
         }
       })
       .catch((err) => {

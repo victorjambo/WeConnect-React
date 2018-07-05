@@ -66,11 +66,13 @@ class Reviews extends React.Component {
     requestAgent.get(url + this.props.businessId + suffixurl)
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if (response.status === 200 && this.refs.reviewRef) {
+        if (response.body.reviews && this.refs.reviewRef) {
           this.setState({
             reviews: response.body.reviews,
             isLoading: false
           });
+        } else {
+          this.setState({ isLoading: false });
         }
       })
       .catch((err) => {
