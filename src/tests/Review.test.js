@@ -50,14 +50,4 @@ describe('<Reviews />', () => {
   it('Renders Reviews without crushing', () => {
     expect(wrapper.find('.reviews')).to.have.lengthOf(1);
   });
-
-  it('fetches async reviews', () => {
-    const url = '/api/v2/businesses/1/reviews';
-    const result = [{ title: 1 }, { title: 2 }, { title: 3 }];
-    const promise = Promise.resolve(result);
-    sinon.stub(request, 'get').withArgs(url).returns(promise);
-    promise.then(() => {
-      expect(wrapper.state().reviews).to.equal(result);
-    });
-  });
 });
