@@ -18,13 +18,12 @@ describe('<NewReview />', () => {
       logChange={() => {}}
       handleSubmit={() => {}}
       errors={{}}
-      isLoading={true}/>);
+      isLoading/>);
   });
 
   it('renders NewReview', () => {
     expect(wrapper.find('.review-body')).to.have.lengthOf(1);
   });
-
 });
 
 describe('<Review />', () => {

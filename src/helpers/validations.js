@@ -6,7 +6,7 @@ const validateInput = (data) => {
   const response = 'This field is required';
 
   Object.keys(data).forEach((field) => {
-    if (field === 'password' && !Validator.matches(data[field].toString(), /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/i)) {
+    if (field === 'password' && !Validator.matches(data[field].toString(), /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/i)) {
       errors[field] = 'Provide strong password, should contain letters and numbers';
     }
 

@@ -25,7 +25,7 @@ describe('Validations', () => {
   });
 
   it('Validates it matches password', () => {
-    data.password = 'password';
+    data.password = 'yu';
     const output = validateInput(data);
     expect(output.errors.password).to.equal('Provide strong password, should contain letters and numbers');
   });

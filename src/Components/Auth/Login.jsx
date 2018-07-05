@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
@@ -113,5 +114,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  location: PropTypes.object
+};
 
 export default Login;
