@@ -5,28 +5,15 @@ import '../SearchResults/css/search.css';
 
 
 const NotificationItem = ({ notification }) => (
-  <li className="fade-in">
-    <div className="info">
-      <h3 className="name">
-        <Link to={notification.url} className="link-nostyle">
-          {notification.act}
-        </Link>
-      </h3>
-      <div className="desc trunc text-lowercase">
-        <Link to={notification.url} className="link-nostyle">
-          {notification.url}
-        </Link>
-      </div>
-      <ul>
-        <li style={{ width: '50%' }}>
-          <span className="fa fa-map-marker" /> {notification.read_at}
-        </li>
-        <li style={{ width: '50%' }}>
-          <span className="fa fa-th" /> {notification.created_at}
-        </li>
-      </ul>
-    </div>
-  </li>
+  <div className="stream-small">
+    <span className="label label-success">Review</span>
+    <Link to={notification.url} className="no-style">
+      &nbsp;&nbsp;
+      @{notification.act}.
+    </Link>
+    <span> / </span>
+    <span className="text-muted"> {notification.created_at} </span>
+  </div>
 );
 
 NotificationItem.propTypes = {

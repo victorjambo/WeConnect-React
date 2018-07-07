@@ -4,6 +4,7 @@ import Sidebar from '../../common/Sidebar';
 import requestAgent from '../../helpers/superagent';
 import NotificationItem from './NotificationItem';
 import '../SearchResults/css/search.css';
+import './stream.css';
 
 class Notifications extends React.Component {
   constructor(props) {
@@ -54,10 +55,19 @@ class Notifications extends React.Component {
           </div>
           <div className="col-lg-9">
             <ul className="item-list" ref="refNotification">
-              { (notifications.length === 0 && !isLoading) && <span className="text-center">
-                <p>No new notifications</p>
-              </span>}
-              {notification}
+              {
+                (notifications.length === 0 && !isLoading) && <span className="text-center">
+                  <p>No new notifications</p>
+                </span>
+              }
+              <div className="ibox ">
+                <div className="ibox-title">
+                  <h5>Activity Stream</h5>
+                </div>
+                <div className="ibox-content">
+                  {notification}
+                </div>
+              </div>
             </ul>
 
             {

@@ -11,6 +11,12 @@ configure({ adapter: new Adapter() });
 
 describe('<UserBusinesses />', () => {
   it('Test Render UserBusinesses Component', () => {
+    window.sessionStorage = {
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
+      getItem() {
+        return this.token;
+      }
+    };
     const wrapper = shallow(<UserBusinesses />);
     expect(wrapper.contains(<Sidebar />)).to.be.true;
     expect(wrapper.find('.container')).to.have.length(1);
