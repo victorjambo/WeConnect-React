@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
+import { confirmAlert } from 'react-confirm-alert';
 import { DotLoader } from 'react-spinners';
 import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
@@ -13,6 +14,7 @@ import Reviews from '../Reviews/Reviews';
 import { Buttons, Overview, About } from '../../common/ElementComponents/Business';
 import requestAgent from '../../helpers/superagent';
 import Auth from '../../helpers/Auth';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 class Business extends Component {
@@ -33,6 +35,7 @@ class Business extends Component {
 
     this.deleteBusiness = this.deleteBusiness.bind(this);
     this.paramId = this.props.match.params.id;
+    this.submit = this.submit.bind(this);
     this.createBackgroundImage = this.createBackgroundImage.bind(this);
   }
 
@@ -78,29 +81,43 @@ class Business extends Component {
    * @param {object} e as event
    * @returns {del} deleted business
    */
-  deleteBusiness(e) {
-    e.preventDefault();
-
+  deleteBusiness() {
     this.setState({ isDeleting: true });
 
     const url = "/api/v2/businesses/";
     const token = window.sessionStorage.getItem('token');
 
-    if (window.confirm('Are you sure you wish to delete this business?')) {
-      requestAgent.del(process.env.REACT_APP_BASE_URL + url + this.paramId)
-        .type('application/json')
-        .set({ 'x-access-token': token })
-        .then((res) => {
-          if (res.status === 200) {
-            this.setState({ fireRedirect: true });
-            notify('success', res.body.success);
-          }
-        })
-        .catch((err) => {
-          this.setState({ errors: { warning: err.response.body }, isDeleting: false });
-        });
-    }
+    requestAgent.del(process.env.REACT_APP_BASE_URL + url + this.paramId)
+      .type('application/json')
+      .set({ 'x-access-token': token })
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState({ fireRedirect: true });
+          notify('success', res.body.success);
+        }
+      })
+      .catch((err) => {
+        this.setState({ errors: { warning: err.response.body }, isDeleting: false });
+      });
   }
+
+  submit = (e) => {
+    e.preventDefault();
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.deleteBusiness()
+        },
+        {
+          label: 'No',
+          onClick: this.setState({ isDeleting: false })
+        }
+      ]
+    });
+  };
 
   /**
    * @returns {object} current user
@@ -142,7 +159,7 @@ class Business extends Component {
                 </div>
                 <Buttons paramId={this.paramId}
                   isDeleting={isDeleting}
-                  deleteBusiness={this.deleteBusiness}
+                  deleteBusiness={this.submit}
                   error={errors.warning}
                   isCurrentUser={isCurrentUser}/>
               </div>
