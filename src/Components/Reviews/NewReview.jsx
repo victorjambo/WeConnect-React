@@ -4,6 +4,11 @@ import Textarea from '../../common/ElementComponents/Textarea';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Input from '../../common/ElementComponents/Input';
 
+/**
+ * create new review form
+ * @param {*} props
+ * @return {*} input form and btn
+ */
 const NewReview = ({
   title, desc, logChange, errors, isLoading, handleSubmit
 }) => (

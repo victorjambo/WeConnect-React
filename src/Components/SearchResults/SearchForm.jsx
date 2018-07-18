@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import './css/SearchForm.css';
 
 /**
- * SearchForm
+ * SearchForm shown at the hero
  */
 class SearchForm extends Component {
   /**

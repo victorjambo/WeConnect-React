@@ -3,6 +3,10 @@ import './css/Businesses.css';
 import Form from './Form';
 import Sidebar from '../../common/Sidebar';
 
+/**
+ * stateless component to create new business
+ * @return {*} html template
+ */
 const NewBusiness = () => (
   <div className="container push-profile">
     <div className="row bucket">

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import './PageNotFound.css';
 
@@ -11,6 +12,15 @@ const Status = ({ code, children }) => (
   }}/>
 );
 
+Status.propTypes = {
+  code: PropTypes.number,
+  children: PropTypes.object
+};
+
+/**
+ * stateles component if route doesn't exist
+ * @return {*} <Status />
+ */
 const PageNotFound = () => (
   <Status code={404}>
     <div className="NotFoundPage text-center push">

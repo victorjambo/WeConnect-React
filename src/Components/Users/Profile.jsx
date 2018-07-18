@@ -7,7 +7,7 @@ import './Profile.css';
 import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
 
 /**
- * register new user
+ * dashboard for single user
  */
 class Profile extends React.Component {
   /**
@@ -38,6 +38,7 @@ class Profile extends React.Component {
   }
 
   /**
+   * makes api request to fetch user info
    * @returns {obj} user details
    */
   getUser = async () => {

@@ -16,11 +16,11 @@ import requestAgent from '../../helpers/superagent';
 import Auth from '../../helpers/Auth';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-
+/**
+ * This component handles a single busines
+ * renders that single business
+ */
 class Business extends Component {
-  /**
-   * @param {object} props
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +40,7 @@ class Business extends Component {
   }
 
   /**
+   * calls fetch single business method
    * @returns {func} get single business
    */
   componentDidMount() {
@@ -49,6 +50,7 @@ class Business extends Component {
   createBackgroundImage = (publicId) => cloudinaryCore.url(publicId)
 
   /**
+   * makes API request to fetch a single business
    * @returns {obj} single business
    */
   getBusiness = async () => {
@@ -78,6 +80,9 @@ class Business extends Component {
   }
 
   /**
+   * Given a business ID
+   * this method makes api request to delete that business
+   * this methos is called on click delete button
    * @param {object} e as event
    * @returns {del} deleted business
    */
@@ -101,6 +106,9 @@ class Business extends Component {
       });
   }
 
+  /**
+   * this is a dialog box before delete of a business 
+   */
   submit = (e) => {
     e.preventDefault();
     confirmAlert({
@@ -121,6 +129,7 @@ class Business extends Component {
 
   /**
    * @returns {object} current user
+   * checks if the business belongs to the user
    */
   currentUser = async () => {
     if (Auth.isAuthenticated) {
@@ -138,7 +147,7 @@ class Business extends Component {
   }
 
   /**
-   * @return {string} jsx
+   * @return {string} jsx rendered templatex
    */
   render() {
     const {

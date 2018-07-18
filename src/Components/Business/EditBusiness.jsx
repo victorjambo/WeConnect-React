@@ -4,7 +4,7 @@ import Form from './Form';
 import Sidebar from '../../common/Sidebar';
 
 /**
- * Edit Business
+ * Edit single Business
  */
 class EditBusiness extends Component {
   /**

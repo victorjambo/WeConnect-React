@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
 import notify from '../../helpers/notify';
@@ -13,9 +14,6 @@ import requestAgent from '../../helpers/superagent';
  * Resets Password and sends new password
  */
 class ForgotPassword extends Component {
-  /**
-   * @param {object} props
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +29,7 @@ class ForgotPassword extends Component {
 
   /**
    * @returns {bool} true
+   * validates data login form
    */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -43,8 +42,9 @@ class ForgotPassword extends Component {
   }
 
   /**
-   * @param {object} e
+   * @param {object} e(event)
    * @returns {object} setState
+   * makes post request to /forgot-password endpoint
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -74,19 +74,12 @@ class ForgotPassword extends Component {
     }
   }
 
-  /**
-   * @param {object} e event
-   * @returns {object} setState
-   */
   logChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  /**
-   * @return {string} jsx
-   */
   render() {
     const { from } = this.props.location.state || '/auth/login';
     const { fireRedirect } = this.state;
@@ -116,5 +109,9 @@ class ForgotPassword extends Component {
     );
   }
 }
+
+ForgotPassword.propTypes = {
+  location: PropTypes.object
+};
 
 export default ForgotPassword;

@@ -7,10 +7,11 @@ import Sidebar from '../common/Sidebar';
 import UserBusinesses from '../Components/Users/UserBusinesses';
 import Profile from '../Components/Users/Profile';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
 describe('<UserBusinesses />', () => {
-  it('Test Render UserBusinesses Component', () => {
+  it('Test Render UserBusinesses Component & contains the html elements & components', () => {
     window.sessionStorage = {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
       getItem() {
@@ -46,7 +47,7 @@ describe('<Profile />', () => {
     wrapper.unmount();
   });
 
-  it('Test Render Profile Component', () => {
+  it('Test Render Profile Component & contains Sidebar component', () => {
     wrapper.setState(props);
     expect(wrapper.contains(<Sidebar />)).to.be.true;
   });

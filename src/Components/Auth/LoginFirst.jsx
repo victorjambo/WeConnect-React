@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+/**
+ * Stateless component that takes businessId as prop
+ * @param {integer} businessId
+ * This is rendered below reviews to prompt users to
+ * leave login first before leaving a review
+ */
 const LoginFirst = ({ businessId }) => (
   <div className="login-first bucket">
     <h2>Login First To Drop a Review</h2>

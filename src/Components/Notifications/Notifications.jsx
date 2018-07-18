@@ -6,6 +6,9 @@ import NotificationItem from './NotificationItem';
 import '../SearchResults/css/search.css';
 import './stream.css';
 
+/**
+ * fetch all notifications for current users
+ */
 class Notifications extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +23,10 @@ class Notifications extends React.Component {
     this.getNotifications();
   }
 
+  /**
+   * fetch notifications from api
+   * @returns {*} notfications
+   */
   getNotifications() {
     this.setState({ isLoading: true });
     const url = "/api/v2/notifications/all";

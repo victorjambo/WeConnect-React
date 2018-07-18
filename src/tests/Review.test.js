@@ -6,6 +6,7 @@ import NewReview from '../Components/Reviews/NewReview';
 import Review from '../Components/Reviews/Review';
 import Reviews from '../Components/Reviews/Reviews';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
 describe('<NewReview />', () => {
@@ -19,7 +20,7 @@ describe('<NewReview />', () => {
       isLoading/>);
   });
 
-  it('renders NewReview', () => {
+  it('renders NewReview and contains required elements', () => {
     expect(wrapper.find('.review-body')).to.have.lengthOf(1);
   });
 });
@@ -30,11 +31,11 @@ describe('<Review />', () => {
     wrapper = shallow(<Review review={{ title: "title" }}
       deleteReview={() => {}} currentUser={() => {}} />);
   });
-  it('renders Review without crushing', () => {
+  it('renders Review without crushing and contains required elements', () => {
     expect(wrapper.find('.review')).to.have.lengthOf(1);
   });
 
-  it('passes all props to wrapper', () => {
+  it('test review passes all props to wrapper', () => {
     expect(wrapper.find('.title').text()).to.equal('title');
   });
 });
@@ -45,7 +46,7 @@ describe('<Reviews />', () => {
     wrapper = shallow(<Reviews businessId="1" />);
   });
 
-  it('Renders Reviews without crushing', () => {
+  it('Renders Reviews without crushing and contains required elements', () => {
     expect(wrapper.find('.reviews')).to.have.lengthOf(1);
   });
 });

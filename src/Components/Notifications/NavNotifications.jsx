@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import requestAgent from '../../helpers/superagent';
 
 /**
- * Class NavNotifications
+ * New Notifications on navbar
  */
 class NavNotifications extends React.Component {
   /**
@@ -26,14 +26,15 @@ class NavNotifications extends React.Component {
   }
 
   /**
-   * @returns {func} get single business
+   * @returns {func} did mount
    */
   componentWillMount() {
     this.getNotifications();
   }
 
   /**
-   * @returns {obj} single business
+   * fetch notification for current user
+   * @returns {obj} notifications
    */
   getNotifications = () => {
     const url = "/api/v2/notifications";
@@ -60,7 +61,7 @@ class NavNotifications extends React.Component {
   }
 
   /**
-   * @return {string} jsx
+   * @return {string} jsx render html
    */
   render() {
     const { notifications } = this.state;

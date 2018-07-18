@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import decode from 'jwt-decode';
 import { Link } from "react-router-dom";
 import { SyncLoader } from 'react-spinners';
@@ -7,8 +7,10 @@ import requestAgent from '../../helpers/superagent';
 import Item from '../SearchResults/Item';
 import '../SearchResults/css/search.css';
 
-
-class UserBusinesses extends React.Component {
+/**
+ * Businesses for current user
+ */
+class UserBusinesses extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +25,10 @@ class UserBusinesses extends React.Component {
     this.getBusinesses();
   }
 
+  /**
+   * api fetch all businesses for current user
+   * @returns {*} businesses
+   */
   getBusinesses() {
     this.setState({ isLoading: true });
 

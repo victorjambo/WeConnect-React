@@ -6,6 +6,7 @@ import Sidebar from '../common/Sidebar';
 import NavNotifications from '../Components/Notifications/NavNotifications';
 import Notifications from '../Components/Notifications/Notifications';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
 describe('<Notifications />', () => {

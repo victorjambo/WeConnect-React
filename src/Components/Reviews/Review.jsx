@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders single review item
+ * @param {*} props
+ * @return {*} html elements
+ */
 const Review = ({ review, deleteReview, currentUser }) => (
   <div className="fade-in" id={`review-${review.id}`}>
     { currentUser(review.reviewer) &&

@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Image, Transformation } from 'cloudinary-react';
 import '../Reviews/Reviews.css';
 
-
+/**
+ * single business item
+ * @param {object} business
+ * @return {*} search results
+ */
 const Item = ({ business }) => (
   <li className="fade-in">
     <Link to={`/business/${business.id}`}>

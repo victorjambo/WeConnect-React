@@ -7,7 +7,9 @@ import FormField from './FormField';
 import requestAgent from '../../helpers/superagent';
 import notify from '../../helpers/notify';
 
-
+/**
+ * perform search request to api
+ */
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,13 @@ class Search extends React.Component {
     this.searchQuery(nameQuery, locationQuery, categoryQuery);
   }
 
+  /**
+   * search query api request
+   * @param {string} nameQuery
+   * @param {string} locationQuery
+   * @param {string} categoryQuery
+   * @return {array} businesses
+   */
   searchQuery(nameQuery, locationQuery, categoryQuery) {
     this.setState({ isLoading: true, items: [] });
     const url = "/api/v2/businesses/";
@@ -64,7 +73,6 @@ class Search extends React.Component {
       items, nameQuery, isLoading, locationQuery, categoryQuery
     } = this.state;
     const item = items.map((_business) => <Item business={_business} key={_business.id}/>);
-    console.log(this.props.location.state.nameQuery);
 
     return (
       <div className="push-search">

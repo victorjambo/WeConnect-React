@@ -14,16 +14,17 @@ import Form from '../Components/Business/Form';
 import Reviews from '../Components/Reviews/Reviews';
 import PageNotFound from '../Components/PageNotFound/PageNotFound';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
 describe('<Businesses />', () => {
-  it('renders Businesses', () => {
+  it('Shallow renders Businesses component without crashing', () => {
     const businesses = shallow(<Businesses />);
     expect(businesses.find('.row.bucket')).to.have.lengthOf(1);
   });
 });
 
-describe('<ItemBusiness />', () => {
+describe('<ItemBusiness /> one business item', () => {
   let business, wrapper;
   beforeEach(() => {
     business = {
@@ -36,16 +37,17 @@ describe('<ItemBusiness />', () => {
     };
     wrapper = shallow(<ItemBusiness business={business} key={business.id} />);
   });
-  it('Renders without crushing', () => {
+
+  it('test ItemBusiness has element with class .my-box', () => {
     expect(wrapper.find('.my-box')).to.have.lengthOf(1);
   });
 
-  it('Renders Business name', () => {
+  it('test h2 element in ItemBusiness has a link child', () => {
     expect(wrapper.find('h2').text()).to.be.equal('<Link />');
   });
 });
 
-describe('<Business />', () => {
+describe('<Business /> single business component', () => {
   let match, location, initialState, wrapper;
   beforeEach(() => {
     match = { params: { id: '23' } };
@@ -68,7 +70,7 @@ describe('<Business />', () => {
     wrapper.instance().refs = { refBusiness: true };
   });
 
-  it('Renders Business without crashing', () => {
+  it('Renders Business, should have element with class .business & Review component', () => {
     wrapper.setState(initialState);
     expect(wrapper.find('.business').length).to.equal(1);
     expect(wrapper.contains(<Reviews businessId="23" path="/" />)).to.be.true;
@@ -79,12 +81,12 @@ describe('<Business />', () => {
     expect(wrapper.contains(<PageNotFound />)).to.be.true;
   });
 
-  it('isLoading', () => {
+  it('Rendering Business while isLoading=false shouldnt have .business', () => {
     expect(wrapper.find('.business')).to.have.lengthOf(0);
   });
 });
 
-describe('<EditBusiness />', () => {
+describe('Test <EditBusiness />', () => {
   let match;
   beforeEach(() => {
     match = {
@@ -92,15 +94,15 @@ describe('<EditBusiness />', () => {
     };
   });
 
-  it('Renders EditBusiness without crashing', () => {
+  it('Renders EditBusiness, should have .container element & Form component', () => {
     const wrapper = shallow(<EditBusiness match={match}/>);
     expect(wrapper.find('.container').length).to.equal(1);
     expect(wrapper.contains(<Form paramId={'23'} />)).to.be.true;
   });
 });
 
-describe('<NewBusiness />', () => {
-  it('Test Render NewBusiness without crashing', () => {
+describe('Test <NewBusiness />', () => {
+  it('Test Render NewBusiness, should have .container element & Form component', () => {
     const wrapper = shallow(<NewBusiness />);
     expect(wrapper.find('.container').length).to.equal(1);
     expect(wrapper.contains(<Form />)).to.be.true;

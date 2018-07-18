@@ -14,6 +14,11 @@ import './Reviews.css';
 import requestAgent from '../../helpers/superagent';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
+/**
+ * fetch all reviews
+ * @param {*} id
+ * @returns {*} reviews
+ */
 class Reviews extends React.Component {
   /**
    * constructor that takes
@@ -36,14 +41,15 @@ class Reviews extends React.Component {
   }
 
   /**
-   * @returns {func} get business
+   * @returns {func} get reviews function
    */
   componentDidMount() {
     this.getReviews();
   }
 
   /**
-   * @returns {bool} true
+   * validate new review inputs
+   * @returns {bool} true or false
    */
   isValid() {
     const { title, desc } = this.state;
@@ -57,7 +63,8 @@ class Reviews extends React.Component {
   }
 
   /**
-   * @returns {obj} all businesses
+   * fetch all reviews from api
+   * @returns {obj} reviews
    */
   getReviews = () => {
     this.setState({ isLoading: true });
@@ -81,8 +88,9 @@ class Reviews extends React.Component {
   }
 
   /**
-   * @param {object} e
-   * @returns {object} setState
+   * creates new review item on click
+   * @param {object} e as event
+   * @returns {object} setState new review
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -90,7 +98,6 @@ class Reviews extends React.Component {
       this.setState({ isLoading: true });
       const { title, desc, reviews } = this.state;
       const token = window.sessionStorage.getItem('token');
-      // const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
       const url = "/api/v2/businesses/";
       const suffixurl = "/reviews";
       requestAgent.post(url + this.props.businessId + suffixurl)
@@ -128,6 +135,7 @@ class Reviews extends React.Component {
   }
 
   /**
+   * checks if current user owns the review
    * @param {string} currentname
    * @returns {bool} current user
    */
@@ -144,6 +152,7 @@ class Reviews extends React.Component {
   }
 
   /**
+   * make api request to delete review item
    * @param {number} reviewId
    * @returns {state} deleted
   */
@@ -172,6 +181,11 @@ class Reviews extends React.Component {
       });
   }
 
+  /**
+   * Shows dialog box before delete
+   * @param {number} id
+   * @returns {*} dialog box
+   */
   submit = (id) => {
     confirmAlert({
       title: 'Confirm to submit',

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import '../SearchResults/css/search.css';
 
-
+/**
+ * render single notification
+ * @param {object} notification
+ * @return {*} html
+ */
 const NotificationItem = ({ notification }) => (
   <div className="stream-small">
     <span className="label label-success">Review</span>

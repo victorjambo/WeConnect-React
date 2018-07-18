@@ -6,7 +6,7 @@ import ItemBusiness from './ItemBusiness';
 import requestAgent from '../../helpers/superagent';
 
 /**
- * All businesses
+ * Renders All businesses
  */
 class Businesses extends Component {
   /**
@@ -35,6 +35,7 @@ class Businesses extends Component {
   }
 
   /**
+   * Makes api response to API to fetch all businesses
    * @returns {obj} all businesses
    */
   getBusinesses = async () => {
