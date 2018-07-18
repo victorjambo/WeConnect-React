@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { SyncLoader } from 'react-spinners';
 import './css/search.css';
 import Item from './Item';
@@ -22,10 +23,13 @@ class Search extends React.Component {
     this.logChange = this.logChange.bind(this);
   }
 
-  searchQuery(e) {
-    e.preventDefault();
-    const { nameQuery, locationQuery, categoryQuery } = this.state;
-    this.setState({ isLoading: true });
+  componentDidMount() {
+    const { nameQuery, locationQuery, categoryQuery } = this.props.location.state;
+    this.searchQuery(nameQuery, locationQuery, categoryQuery);
+  }
+
+  searchQuery(nameQuery, locationQuery, categoryQuery) {
+    this.setState({ isLoading: true, items: [] });
     const url = "/api/v2/businesses/";
 
     requestAgent
@@ -60,6 +64,7 @@ class Search extends React.Component {
       items, nameQuery, isLoading, locationQuery, categoryQuery
     } = this.state;
     const item = items.map((_business) => <Item business={_business} key={_business.id}/>);
+    console.log(this.props.location.state.nameQuery);
 
     return (
       <div className="push-search">
@@ -68,7 +73,10 @@ class Search extends React.Component {
             nameQuery={nameQuery}
             locationQuery={locationQuery}
             categoryQuery={categoryQuery}
-            searchQuery={this.searchQuery}
+            searchQuery={(e) => {
+              e.preventDefault();
+              this.searchQuery(nameQuery, locationQuery, categoryQuery);
+            }}
             logChange={this.logChange}/>
         </div>
         <div className="push row">
@@ -95,5 +103,9 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  location: PropTypes.object
+};
 
 export default Search;
