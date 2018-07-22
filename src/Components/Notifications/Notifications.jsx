@@ -53,7 +53,9 @@ class Notifications extends React.Component {
 
   render() {
     const { notifications, isLoading } = this.state;
-    const notification = notifications.map((_notification) => <NotificationItem notification={_notification} key={_notification.id}/>);
+    const notification = notifications.map((_notification) => (<NotificationItem
+      notification={_notification}
+      key={_notification.id} />));
     return (
       <div className="container push-profile">
         <div className="row bucket">
