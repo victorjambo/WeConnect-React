@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 /**
  * Stateless component that takes businessId as prop
- * @param {integer} businessId
  * This is rendered below reviews to prompt users to
  * leave login first before leaving a review
+ * @param {integer} businessId
+ * @returns {*} jsx
  */
 const LoginFirst = ({ businessId }) => (
   <div className="login-first bucket">

@@ -44,7 +44,7 @@ class Form extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  /** 
+  /**
    * calls single given an id
    * @returns {func} get business
    */

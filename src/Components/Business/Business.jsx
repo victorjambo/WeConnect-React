@@ -107,7 +107,7 @@ class Business extends Component {
   }
 
   /**
-   * this is a dialog box before delete of a business 
+   * this is a dialog box before delete of a business
    */
   submit = (e) => {
     e.preventDefault();
