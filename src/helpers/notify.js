@@ -1,5 +1,11 @@
 import { toast } from 'react-toastify';
 
+/**
+ * notify toast definations
+ * @param {string} type
+ * @param {string} message
+ * @return {*} switch cases
+ */
 const notify = (type, message) => {
   switch (type) {
   case 'info':

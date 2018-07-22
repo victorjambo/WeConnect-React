@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Image, Transformation } from 'cloudinary-react';
 import '../Reviews/Reviews.css';
 
-
+/**
+ * stateless component to render a single business
+ * @param {object} business
+ * @return {*} html template of single business item
+ */
 const ItemBusiness = ({ business }) => (
   <div className="col-lg-4 col-md-4 col-sm-6 masonry fade-in">
     <div className="my-box bg-white">

@@ -13,10 +13,6 @@ import requestAgent from '../../helpers/superagent';
  * register new user
  */
 class Register extends Component {
-  /**
-   * constructor that takes
-   * @param {object} props
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +33,7 @@ class Register extends Component {
   /**
    * validates user inputs
    * @returns {bool} true or false
+   * true if its valid
    */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -49,11 +46,11 @@ class Register extends Component {
   }
 
   /**
-   * takes
+   * handleSubmit takes
    * @param {object} e as event submit
    * sends post request to API server
    * @returns {object} new state
-   * then redirect
+   * then redirects to login page
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -87,7 +84,7 @@ class Register extends Component {
   }
 
   /**
-   * takes
+   * logChange takes
    * @param {object} e as event
    * updates state on value change
    * @returns {object} new state

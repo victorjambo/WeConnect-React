@@ -1,5 +1,9 @@
 import decode from 'jwt-decode';
 
+/**
+ * checks validility and presence of token in storage
+ * @returns {bool} true or false
+ */
 const isTokenValid = () => {
   let token = null;
   let response = true;
@@ -23,6 +27,9 @@ const isTokenValid = () => {
   return response;
 };
 
+/**
+ * object to check auth status
+ */
 const Auth = {
   isAuthenticated: isTokenValid(),
   authenticate() {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import requestAgent from '../../helpers/superagent';
 
 /**
- * Class NavNotifications
+ * New Notifications on navbar
  */
 class NavNotifications extends React.Component {
   /**
@@ -14,49 +14,54 @@ class NavNotifications extends React.Component {
     this.state = {
       notifications: [],
       isLoading: false,
-      errors: {}
+      errors: {},
+      noData: [{
+        url: '/notifications',
+        act: 'No Notifications',
+        id: '1'
+      }]
     };
 
     this.getNotifications = this.getNotifications.bind(this);
   }
 
   /**
-   * @returns {func} get single business
+   * @returns {func} did mount
    */
   componentWillMount() {
     this.getNotifications();
   }
 
   /**
-   * @returns {obj} single business
+   * fetch notification for current user
+   * @returns {obj} notifications
    */
   getNotifications = () => {
     const url = "/api/v2/notifications";
     const token = window.sessionStorage.getItem('token');
+    const { noData } = this.state;
     requestAgent.get(url)
       .set({ 'x-access-token': token })
       .type('application/json')
       .then((response) => {
         this.setState({ isLoading: false });
-        if (response.status === 200 && this.refs.refNotification) {
+        if (response.body.notifications && this.refs.refNotification) {
           this.setState({
             notifications: response.body.notifications
           });
+        } else {
+          this.setState({ isLoading: false, notifications: noData });
         }
       })
       .catch((err) => {
         this.setState({
-          notifications: [{
-            url: '/notifications',
-            act: 'No Notifications',
-            id: '1'
-          }]
+          notifications: noData
         });
       });
   }
 
   /**
-   * @return {string} jsx
+   * @return {string} jsx render html
    */
   render() {
     const { notifications } = this.state;

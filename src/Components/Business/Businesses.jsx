@@ -6,7 +6,7 @@ import ItemBusiness from './ItemBusiness';
 import requestAgent from '../../helpers/superagent';
 
 /**
- * All businesses
+ * Renders All businesses
  */
 class Businesses extends Component {
   /**
@@ -19,30 +19,42 @@ class Businesses extends Component {
       businesses: [],
       isLoading: false
     };
+    this.mounted = false;
   }
 
   /**
    * @returns {func} get business
    */
   componentDidMount() {
+    this.mounted = true;
     this.getBusinesses();
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   /**
+   * Makes api response to API to fetch all businesses
    * @returns {obj} all businesses
    */
   getBusinesses = async () => {
     this.setState({ isLoading: true });
-    const url = "/api/v2/businesses/?limit=30";
+
+    const url = "/api/v2/businesses/";
+
     requestAgent
       .get(url)
+      .query({ limit: '30' })
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if (response.status === 200 && this.refs.refBusiness) {
+        if (response.body.businesses && this.refs.refBusiness && this.mounted) {
           this.setState({
             businesses: response.body.businesses,
             isLoading: false
           });
+        } else {
+          this.setState({ isLoading: false });
         }
       })
       .catch((err) => {

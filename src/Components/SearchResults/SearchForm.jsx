@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import './css/SearchForm.css';
 
 /**
- * SearchForm
+ * SearchForm shown at the hero
  */
 class SearchForm extends Component {
   /**
@@ -13,11 +13,14 @@ class SearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      nameQuery: '',
+      locationQuery: '',
+      categoryQuery: '',
       fireRedirect: false
     };
 
     this.redirect = this.redirect.bind(this);
+    this.logChange = this.logChange.bind(this);
   }
 
   redirect() {
@@ -26,27 +29,57 @@ class SearchForm extends Component {
     });
   }
 
+  logChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   /**
    * @return {jsx} html to be rendered
    */
   render() {
-    const { fireRedirect } = this.state;
+    const {
+      fireRedirect, nameQuery, locationQuery, categoryQuery
+    } = this.state;
     return (
       <form>
         <div className="input-group">
           <input
-            type="text"
-            className="form-control"
-            name="query" size="60"
-            onClick={this.redirect}
-            value={this.state.query}
+            className="form-control "
+            name="nameQuery"
+            value={nameQuery}
+            onChange={this.logChange}
             autoComplete="off"
-            placeholder="Business Name, location or category"/>
+            placeholder="Business Name"
+            style={{ width: '33.33%' }} />
+
+          <input
+            className="form-control"
+            name="locationQuery"
+            value={locationQuery}
+            onChange={this.logChange}
+            autoComplete="off"
+            placeholder="Location"
+            style={{ width: '33.33%' }} />
+
+          <input
+            className="form-control"
+            name="categoryQuery"
+            value={categoryQuery}
+            onChange={this.logChange}
+            autoComplete="off"
+            placeholder="Category"
+            style={{ width: '33.33%' }} />
+
           <span className="input-group-btn">
             <button className="btn btn-default" onClick={this.redirect} />
           </span>
         </div>
-        { fireRedirect && (<Redirect to="/search" />) }
+        {fireRedirect && (<Redirect to={{
+          pathname: '/search',
+          state: { nameQuery, locationQuery, categoryQuery }
+        }} />)}
       </form>
     );
   }

@@ -21,7 +21,7 @@ const Hero = () => (
                 <div className="col-md-6">
                   {
                     Auth.isAuthenticated ? (
-                      <Link className="link-bucket" to="/">
+                      <Link className="link-bucket" to="/profile/businesses">
                         View your businesses
                       </Link>
                     ) : (

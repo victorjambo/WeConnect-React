@@ -1,33 +1,64 @@
 [![Build Status](https://travis-ci.org/victorjambo/WeConnect-React.svg?branch=master)](https://travis-ci.org/victorjambo/WeConnect-React)
-[![Coverage Status](https://coveralls.io/repos/github/victorjambo/WeConnect-React/badge.svg?branch=ft-reviews)](https://coveralls.io/github/victorjambo/WeConnect-React?branch=ft-reviews)
-
+[![Coverage Status](https://coveralls.io/repos/github/victorjambo/WeConnect-React/badge.svg?branch=development)](https://coveralls.io/github/victorjambo/WeConnect-React?branch=development)
 
 # WeConnect
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with. 
 
+## Prerequisites
 
-## Available Scripts
+Make sure you have the followings installed.
 
-In the project directory, you can run:
+* Nodejs
+* npm, npx or yarn
 
-### `npm start`
+## Tools used
 
+This front end application used:
+
+* React 
+* create-react-app to bootstrap react application
+
+## Set up the environment
+
+Assuming that you have any NodeJS and any package manager(among yarn, npm or npx) installed:
+
+**Clone the repository**
+
+```sh
+git clone git@github.com:victorjambo/WeConnect-React.git
+```
+
+```sh
+cd WeConnect-React
+```
+
+**Install the packages**
+
+```sh
+npm install
+```
+
+## Run the application
+
+```sh
+npm start
+```
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Test the application
+```sh
+npm test
+```
 
-### `CI=true npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](#running-tests) for more information.
+## Author
 
-### `npm run build`
+Victor Mutai
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+
+## License
+
+MIT License

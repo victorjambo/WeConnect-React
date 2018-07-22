@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import PropTypes from 'prop-types';
+import { confirmAlert } from 'react-confirm-alert';
 import decode from 'jwt-decode';
 import notify from '../../helpers/notify';
 import BASE_URL from '../../helpers/url';
@@ -11,9 +12,12 @@ import LoginFirst from '../Auth/LoginFirst';
 import Auth from '../../helpers/Auth';
 import './Reviews.css';
 import requestAgent from '../../helpers/superagent';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 /**
- * register new user
+ * fetch all reviews
+ * @param {*} id
+ * @returns {*} reviews
  */
 class Reviews extends React.Component {
   /**
@@ -33,17 +37,19 @@ class Reviews extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.logChange = this.logChange.bind(this);
     this.currentUser = this.currentUser.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   /**
-   * @returns {func} get business
+   * @returns {func} get reviews function
    */
   componentDidMount() {
     this.getReviews();
   }
 
   /**
-   * @returns {bool} true
+   * validate new review inputs
+   * @returns {bool} true or false
    */
   isValid() {
     const { title, desc } = this.state;
@@ -57,7 +63,8 @@ class Reviews extends React.Component {
   }
 
   /**
-   * @returns {obj} all businesses
+   * fetch all reviews from api
+   * @returns {obj} reviews
    */
   getReviews = () => {
     this.setState({ isLoading: true });
@@ -66,11 +73,13 @@ class Reviews extends React.Component {
     requestAgent.get(url + this.props.businessId + suffixurl)
       .set('Content-Type', 'application/json')
       .then((response) => {
-        if (response.status === 200 && this.refs.reviewRef) {
+        if (response.body.reviews && this.refs.reviewRef) {
           this.setState({
             reviews: response.body.reviews,
             isLoading: false
           });
+        } else {
+          this.setState({ isLoading: false });
         }
       })
       .catch((err) => {
@@ -79,8 +88,9 @@ class Reviews extends React.Component {
   }
 
   /**
-   * @param {object} e
-   * @returns {object} setState
+   * creates new review item on click
+   * @param {object} e as event
+   * @returns {object} setState new review
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -88,7 +98,6 @@ class Reviews extends React.Component {
       this.setState({ isLoading: true });
       const { title, desc, reviews } = this.state;
       const token = window.sessionStorage.getItem('token');
-      // const url = `${BASE_URL}/api/v2/businesses/${this.props.businessId}/reviews`;
       const url = "/api/v2/businesses/";
       const suffixurl = "/reviews";
       requestAgent.post(url + this.props.businessId + suffixurl)
@@ -126,6 +135,7 @@ class Reviews extends React.Component {
   }
 
   /**
+   * checks if current user owns the review
    * @param {string} currentname
    * @returns {bool} current user
    */
@@ -142,6 +152,7 @@ class Reviews extends React.Component {
   }
 
   /**
+   * make api request to delete review item
    * @param {number} reviewId
    * @returns {state} deleted
   */
@@ -154,23 +165,42 @@ class Reviews extends React.Component {
 
     const found = reviews.find((element) => element.id === reviewId);
 
-    if (window.confirm('Confirm to delete review')) {
-      request
-        .del(url)
-        .type('application/json')
-        .set({ 'x-access-token': token })
-        .end((err, res) => {
-          if (res.status === 200) {
-            const index = reviews.indexOf(found);
-            reviews.splice(index, 1);
-            this.setState({ reviews: reviews });
-            notify('success', res.body.success);
-          } else {
-            this.setState({ errors: err.response.body });
-          }
-        });
-    }
+    request
+      .del(url)
+      .type('application/json')
+      .set({ 'x-access-token': token })
+      .end((err, res) => {
+        if (res.status === 200) {
+          const index = reviews.indexOf(found);
+          reviews.splice(index, 1);
+          this.setState({ reviews: reviews });
+          notify('success', res.body.success);
+        } else {
+          this.setState({ errors: err.response.body });
+        }
+      });
   }
+
+  /**
+   * Shows dialog box before delete
+   * @param {number} id
+   * @returns {*} dialog box
+   */
+  submit = (id) => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.deleteReview(id)
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
+  };
 
   /**
    * @return {jsx} html to be rendered
@@ -183,7 +213,7 @@ class Reviews extends React.Component {
     const review = reviews.map((_review) => (
       <Review review={_review}
         key={_review.id}
-        deleteReview={this.deleteReview}
+        deleteReview={this.submit}
         currentUser={this.currentUser} />
     ));
     return (

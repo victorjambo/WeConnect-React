@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { SyncLoader } from 'react-spinners';
 import './css/search.css';
 import Item from './Item';
@@ -6,7 +7,9 @@ import FormField from './FormField';
 import requestAgent from '../../helpers/superagent';
 import notify from '../../helpers/notify';
 
-
+/**
+ * perform search request to api
+ */
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +25,20 @@ class Search extends React.Component {
     this.logChange = this.logChange.bind(this);
   }
 
-  searchQuery(e) {
-    e.preventDefault();
-    const { nameQuery, locationQuery, categoryQuery } = this.state;
-    this.setState({ isLoading: true });
+  componentDidMount() {
+    const { nameQuery, locationQuery, categoryQuery } = this.props.location.state;
+    this.searchQuery(nameQuery, locationQuery, categoryQuery);
+  }
+
+  /**
+   * search query api request
+   * @param {string} nameQuery
+   * @param {string} locationQuery
+   * @param {string} categoryQuery
+   * @return {array} businesses
+   */
+  searchQuery(nameQuery, locationQuery, categoryQuery) {
+    this.setState({ isLoading: true, items: [] });
     const url = "/api/v2/businesses/";
 
     requestAgent
@@ -68,7 +81,10 @@ class Search extends React.Component {
             nameQuery={nameQuery}
             locationQuery={locationQuery}
             categoryQuery={categoryQuery}
-            searchQuery={this.searchQuery}
+            searchQuery={(e) => {
+              e.preventDefault();
+              this.searchQuery(nameQuery, locationQuery, categoryQuery);
+            }}
             logChange={this.logChange}/>
         </div>
         <div className="push row">
@@ -95,5 +111,9 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  location: PropTypes.object
+};
 
 export default Search;

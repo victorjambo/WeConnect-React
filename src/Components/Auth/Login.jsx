@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import './Forms.css';
 import validateInput from '../../helpers/validations';
@@ -10,13 +11,9 @@ import Warning from '../../common/ElementComponents/Warning';
 import requestAgent from '../../helpers/superagent';
 
 /**
- * Login user
+ * Login user component
  */
 class Login extends Component {
-  /**
-   * constructor that takes
-   * @param {object} props
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -33,10 +30,11 @@ class Login extends Component {
 
   /**
    * takes
-   * @param {object} e as event submit
+   * @param {object} e as submit event
    * sends post request to API server
+   * makes authentication and returns token
    * @returns {object} new state
-   * then redirect
+   * if auth is valid user is then redirected
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -70,10 +68,11 @@ class Login extends Component {
   }
 
   /**
-   * takes
+   * this method takes
    * @param {object} e as event
    * updates state on value change
-   * @returns {object} new state
+   * then
+   * @returns {object} with new state
    */
   logChange(e) {
     this.setState({
@@ -83,6 +82,7 @@ class Login extends Component {
 
   /**
    * @return {jsx} html to be rendered
+   * renders input forms and submit buttons
    */
   render() {
     const { from } = this.props.location.state || '/';
@@ -113,5 +113,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  location: PropTypes.object
+};
 
 export default Login;

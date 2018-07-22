@@ -11,6 +11,7 @@ import PrivateRoute from '../Components/Auth/PrivateRoute';
 import LoginFirst from '../Components/Auth/LoginFirst';
 import ResetPassword from '../Components/Auth/ResetPassword';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
 describe('<Login />', () => {
@@ -19,18 +20,18 @@ describe('<Login />', () => {
     location = { state: '/' };
   });
 
-  it('Contains form', () => {
+  it('test Login container renders without crushing', () => {
     const div = document.createElement('login');
     ReactDOM.render(<MemoryRouter><Login location={location} /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('Contains form', () => {
+  it('test Login Contains form element', () => {
     const form = shallow(<Login location={location} />);
     expect(form.find('form').length).to.equal(1);
   });
 
-  it('handles Submit', () => {
+  it('Simulates handlesSubmit function', () => {
     let handleSubmit = sinon.stub(Login.prototype, 'handleSubmit').returns(true);
 
     let wrapper = mount(
@@ -48,7 +49,7 @@ describe('<Login />', () => {
     handleSubmit.restore();
   });
 
-  it('logChange function', () => {
+  it('test simulation of logChange function', () => {
     let logChange = sinon.stub(Login.prototype, 'logChange').returns(true);
     let wrapper = mount(
       <MemoryRouter>
@@ -63,7 +64,7 @@ describe('<Login />', () => {
     logChange.restore();
   });
 
-  it('logChange', () => {
+  it('test logChange function', () => {
     let event = {
       target: {
         name: 'name',
@@ -75,7 +76,7 @@ describe('<Login />', () => {
     expect(wrapper.state().name).to.equal('victor');
   });
 
-  it('handleSubmit', () => {
+  it('Simulates handlesSubmit function', () => {
     const preventDefault = sinon.spy();
     let event = {
       preventDefault
@@ -136,7 +137,7 @@ describe('<Register />', () => {
     logChange.restore();
   });
 
-  it('logChange', () => {
+  it('test logChange function', () => {
     let event = {
       target: {
         name: 'name',
@@ -148,7 +149,7 @@ describe('<Register />', () => {
     expect(wrapper.state().name).to.equal('victor');
   });
 
-  it('handleSubmit', () => {
+  it('simulates handleSubmit function', () => {
     const preventDefault = sinon.spy();
     let event = {
       preventDefault
@@ -166,7 +167,7 @@ describe('<Register />', () => {
 
 
 describe('PrivateRoute', () => {
-  it('PrivateRoute', () => {
+  it('test PrivateRoute', () => {
     let mockObject = { component: Register, ...[] };
     let route = <Route />;
     expect(PrivateRoute(mockObject).type).to.equal(route.type);
@@ -174,20 +175,20 @@ describe('PrivateRoute', () => {
 });
 
 describe('<LoginFirst />', () => {
-  it('renders', () => {
+  it('Renders without crushing and contains .login-first-body class element', () => {
     const wrapper = shallow(<LoginFirst businessId="3" />);
     expect(wrapper.find('.login-first-body')).to.have.lengthOf(1);
   });
 });
 
 describe('<ResetPassword />', () => {
-  it('Renders', () => {
+  it('Renders without crushing', () => {
     const location = { state: '/' };
     const wrapper = shallow(<ResetPassword location={location}/>);
     expect(wrapper.find('form')).to.have.lengthOf(1);
   });
 
-  it('handleSubmit', () => {
+  it('test handleSubmit func works as it should', () => {
     const location = { state: '/' };
     window.sessionStorage = {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',

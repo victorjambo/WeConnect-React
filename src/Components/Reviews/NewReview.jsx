@@ -4,6 +4,11 @@ import Textarea from '../../common/ElementComponents/Textarea';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import Input from '../../common/ElementComponents/Input';
 
+/**
+ * create new review form
+ * @param {*} props
+ * @return {*} input form and btn
+ */
 const NewReview = ({
   title, desc, logChange, errors, isLoading, handleSubmit
 }) => (
@@ -16,7 +21,7 @@ const NewReview = ({
             value={title} onChange={logChange} placeholder="Review title"
             error={errors.title}/>
           <Textarea name="desc" value={desc} onChange={logChange}
-            placeholder="Add Review" classname="desc" error={errors.desc}/>
+            placeholder="Add Review" classname="description" error={errors.desc}/>
         </div>
         <div className="form-group">
           <ButtonAuth disabled={isLoading} label="Submit" classname="btn btn-primary"/>

@@ -14,8 +14,7 @@ import requestAgent from '../../helpers/superagent';
 
 
 /**
- * Component to handle Forgotten Password
- * Resets Password and sends new password
+ * This component handles update and create new business
  */
 class Form extends Component {
   /**
@@ -45,7 +44,10 @@ class Form extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  /** @returns {func} get business */
+  /**
+   * calls single given an id
+   * @returns {func} get business
+   */
   componentDidMount() {
     const { paramId } = this.props;
     if (paramId) {
@@ -53,7 +55,9 @@ class Form extends Component {
     }
   }
 
-  /** @param {string} paramId
+  /**
+   * fetch contents of a single business
+   * @param {string} paramId
    * @returns {obj} state
    */
   getBusiness(paramId) {
@@ -80,7 +84,8 @@ class Form extends Component {
   }
 
   /**
-   * @returns {bool} true
+   * validates user input
+   * @returns {bool} true or false
    */
   isValid() {
     const { name, bio, location } = this.state;
@@ -94,7 +99,8 @@ class Form extends Component {
   }
 
   /**
-   * @param {object} e
+   * called on ocClick submit button
+   * @param {object} e as event
    * @returns {object} setState
    */
   async handleSubmit(e) {
@@ -134,6 +140,8 @@ class Form extends Component {
   }
 
   /**
+   * this method makes a post request to api endpoint
+   * that is, creating a new business
    * @param {string} url
    * @param {string} token
    * @param {string} data
@@ -159,6 +167,7 @@ class Form extends Component {
   }
 
   /**
+   * makes a put request to api and update contents of a business
    * @param {string} url
    * @param {string} token
    * @param {string} data
@@ -188,6 +197,7 @@ class Form extends Component {
   }
 
   /**
+   * this method handles the dropzone effect of an image
    * @param {string} files
    * @returns {obj} state
    */
@@ -197,7 +207,7 @@ class Form extends Component {
   }
 
   /**
-   * @param {object} e event
+   * @param {object} e as event
    * @returns {object} setState
    */
   logChange(e) {
@@ -207,7 +217,7 @@ class Form extends Component {
   }
 
   /**
-   * @return {string} jsx
+   * @return {string} jsx html template with business inputs
    */
   render() {
     const { fireRedirect } = this.state;

@@ -10,13 +10,9 @@ import requestAgent from '../../helpers/superagent';
 import Warning from '../../common/ElementComponents/Warning';
 
 /**
- * ResetPassword
+ * Reset user Password
  */
 class ResetPassword extends React.Component {
-  /**
-   * constructor that takes
-   * @param {object} props
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +32,7 @@ class ResetPassword extends React.Component {
   /**
    * validates user inputs
    * @returns {bool} true or false
+   * true if valid
    */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -48,11 +45,11 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * takes
+   * handleSubmit takes
    * @param {object} e as event submit
    * sends post request to API server
    * @returns {object} new state
-   * then redirect
+   * then redirect to dashboard
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -85,7 +82,7 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * takes
+   * logChange takes
    * @param {object} e as event
    * updates state on value change
    * @returns {object} new state

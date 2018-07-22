@@ -14,9 +14,10 @@ import Auth from '../helpers/Auth';
 import Dropdown from '../common/ElementComponents/Dropdown';
 import Sidebar from '../common/Sidebar';
 
+// configure enzyme adapter
 configure({ adapter: new Adapter() });
 
-describe('<Landing />', () => {
+describe('Test <Landing />', () => {
   it('Test Render Landing Components', () => {
     const app = shallow(<Landing />);
     expect(app.contains(<Hero />)).to.be.true;
@@ -24,8 +25,8 @@ describe('<Landing />', () => {
   });
 });
 
-describe('<SearchForm />', () => {
-  it('Test Render Search Bar', () => {
+describe('Test <SearchForm />', () => {
+  it('Test Render Search Bar, should contain form element', () => {
     const form = shallow(<SearchForm />);
     expect(form.find('form').length).to.equal(1);
   });
@@ -36,17 +37,20 @@ describe('<SearchForm />', () => {
   });
 });
 
-describe('<Hero />', () => {
+/**
+ * Hero component contains search form and image bg
+ */
+describe('Test <Hero />', () => {
   const hero = shallow(<Hero />);
-  it('Test Render Hero', () => {
+  it('Test Render Hero should have .intro-header class', () => {
     expect(hero.find('.intro-header')).to.have.length(1);
   });
 
-  it('Test if Hero can Render <SearchForm />', () => {
+  it('Test if Hero contains Render <SearchForm />', () => {
     expect(hero.contains(<SearchForm />)).to.be.true;
   });
 
-  it('Test after auth', () => {
+  it('Test mount Hero after authentication', () => {
     Auth.authenticate();
     expect(hero.find('.link-bucket')).to.have.length(2);
     const wrapper = mount(<MemoryRouter><Hero /></MemoryRouter>);
@@ -54,8 +58,8 @@ describe('<Hero />', () => {
   });
 });
 
-describe('<NavigationBar />', () => {
-  beforeAll(() => {
+describe('Test <NavigationBar />', () => {
+  beforeEach(() => {
     window.sessionStorage = {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjQ1MDc2NDQsImlkIjo1NH0.Suqe5DBSWyAOQC7dRHUcn30ZYc8Idhz1OMm8SAE9g6Q',
       removeItem() {
@@ -66,13 +70,13 @@ describe('<NavigationBar />', () => {
       }
     };
   });
-  it('Renders without crashing', () => {
+  it('NavigationBar Renders without crashing', () => {
     const div = document.createElement('root');
     ReactDOM.render(<MemoryRouter><NavigationBar /></MemoryRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('simulates logout', () => {
+  it('Simulates logout on NavigationBar', () => {
     Auth.authenticate();
     const onButtonClick = sinon.spy();
     const wrapper = shallow(<Dropdown logout={onButtonClick}/>);
@@ -80,7 +84,7 @@ describe('<NavigationBar />', () => {
     expect(onButtonClick).to.have.property('callCount', 1);
   });
 
-  it('test logout function', () => {
+  it('Test logout function when called, should set redirect to true', () => {
     const wrapper = shallow(<NavigationBar />);
     expect(wrapper.state().fireRedirect).to.be.false;
     wrapper.instance().logout();
@@ -88,7 +92,12 @@ describe('<NavigationBar />', () => {
   });
 });
 
-describe('<Dropdown />', () => {
+/**
+ * Test correct element are rendered when authenticated or unauthenticated
+ * Authenticated should have notifications dropdown
+ * un-Authenticated should have login button
+ */
+describe('Test <Dropdown />', () => {
   it('Contains Authenticated links', () => {
     Auth.authenticate();
     const wrapper = shallow(<Dropdown />);
@@ -104,8 +113,8 @@ describe('<Dropdown />', () => {
   });
 });
 
-describe('<Sidebar />', () => {
-  it('renders without crashing', () => {
+describe('Test <Sidebar />', () => {
+  it('Sidebar Render contains .list-group class element', () => {
     const wrapper = shallow(<Sidebar />);
     expect(wrapper.find('.list-group')).to.have.length(1);
   });
