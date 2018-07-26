@@ -39,7 +39,7 @@ class Search extends React.Component {
    */
   searchQuery(nameQuery, locationQuery, categoryQuery) {
     this.setState({ isLoading: true, items: [] });
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
 
     requestAgent
       .get(url)

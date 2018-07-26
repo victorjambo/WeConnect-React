@@ -60,7 +60,7 @@ class Register extends Component {
         username, fullname, email, password
       } = this.state;
 
-      var url = "/api/v2/auth/register";
+      var url = "/auth/register";
 
       requestAgent.post(url)
         .set('Content-Type', 'application/json')

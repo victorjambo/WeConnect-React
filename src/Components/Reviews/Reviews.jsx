@@ -68,7 +68,7 @@ class Reviews extends React.Component {
    */
   getReviews = () => {
     this.setState({ isLoading: true });
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
     const suffixurl = "/reviews";
     requestAgent.get(url + this.props.businessId + suffixurl)
       .set('Content-Type', 'application/json')
@@ -98,7 +98,7 @@ class Reviews extends React.Component {
       this.setState({ isLoading: true });
       const { title, desc, reviews } = this.state;
       const token = window.sessionStorage.getItem('token');
-      const url = "/api/v2/businesses/";
+      const url = "/businesses/";
       const suffixurl = "/reviews";
       requestAgent.post(url + this.props.businessId + suffixurl)
         .set({ 'x-access-token': token })
@@ -160,7 +160,7 @@ class Reviews extends React.Component {
     const { businessId } = this.props;
     const { reviews } = this.state;
 
-    const url = `${BASE_URL}/api/v2/businesses/${businessId}/reviews/${reviewId}`;
+    const url = `${BASE_URL}/businesses/${businessId}/reviews/${reviewId}`;
     const token = window.sessionStorage.getItem('token');
 
     const found = reviews.find((element) => element.id === reviewId);

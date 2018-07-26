@@ -61,7 +61,7 @@ class Form extends Component {
    * @returns {obj} state
    */
   getBusiness(paramId) {
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
 
     requestAgent.get(url + paramId)
       .set('Content-Type', 'application/json')
@@ -132,9 +132,9 @@ class Form extends Component {
       };
 
       if (paramId) {
-        this.putForm("/api/v2/businesses/", token, data);
+        this.putForm("/businesses/", token, data);
       } else {
-        this.postForm("/api/v2/businesses/", token, data);
+        this.postForm("/businesses/", token, data);
       }
     }
   }

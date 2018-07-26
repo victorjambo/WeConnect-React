@@ -56,7 +56,7 @@ class Business extends Component {
   getBusiness = async () => {
     this.setState({ isLoading: true });
     const paramId = this.props.match.params.id;
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
     requestAgent.get(url + paramId)
       .set('Content-Type', 'application/json')
       .then((response) => {
@@ -89,7 +89,7 @@ class Business extends Component {
   deleteBusiness() {
     this.setState({ isDeleting: true });
 
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
     const token = window.sessionStorage.getItem('token');
 
     requestAgent.del(process.env.REACT_APP_BASE_URL + url + this.paramId)
@@ -135,7 +135,7 @@ class Business extends Component {
     if (Auth.isAuthenticated) {
       const token = window.sessionStorage.getItem('token');
       const { id } = decode(token);
-      const url = "/api/v2/users/";
+      const url = "/users/";
       const { business } = this.state;
       requestAgent.get(url + id)
         .then((res) => {

@@ -29,7 +29,7 @@ class Notifications extends React.Component {
    */
   getNotifications() {
     this.setState({ isLoading: true });
-    const url = "/api/v2/notifications/all";
+    const url = "/notifications/all";
     const token = window.sessionStorage.getItem('token');
 
     requestAgent

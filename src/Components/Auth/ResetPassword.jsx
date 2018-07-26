@@ -59,7 +59,7 @@ class ResetPassword extends React.Component {
 
       const { oldPassword, password } = this.state;
 
-      const url = "/api/v2/auth/reset-password";
+      const url = "/auth/reset-password";
 
       requestAgent.put(url)
         .type('application/json')

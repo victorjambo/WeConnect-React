@@ -37,7 +37,7 @@ class NavNotifications extends React.Component {
    * @returns {obj} notifications
    */
   getNotifications = () => {
-    const url = "/api/v2/notifications";
+    const url = "/notifications";
     const token = window.sessionStorage.getItem('token');
     const { noData } = this.state;
     requestAgent.get(url)

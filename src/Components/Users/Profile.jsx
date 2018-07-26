@@ -46,7 +46,7 @@ class Profile extends React.Component {
 
     const token = window.sessionStorage.getItem('token');
     const { id } = decode(token);
-    const url = "/api/v2/users/";
+    const url = "/users/";
 
     requestAgent.get(url + id)
       .set('Content-Type', 'application/json')

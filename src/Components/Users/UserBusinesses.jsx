@@ -35,7 +35,7 @@ class UserBusinesses extends Component {
     const token = window.sessionStorage.getItem('token');
     const { id } = decode(token);
 
-    const url = "/api/v2/users/";
+    const url = "/users/";
     const suffix = "/businesses";
 
     requestAgent
