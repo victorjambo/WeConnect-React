@@ -92,7 +92,7 @@ class Business extends Component {
     const url = "/businesses/";
     const token = window.sessionStorage.getItem('token');
 
-    requestAgent.del(process.env.REACT_APP_BASE_URL + url + this.paramId)
+    requestAgent.del(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API_VERSION + url + this.paramId)
       .type('application/json')
       .set({ 'x-access-token': token })
       .then((res) => {
@@ -155,7 +155,7 @@ class Business extends Component {
     } = this.state;
     if (isLoading) { return (<DotLoader color={'#123abc'} />); }
     if (!found) { return (<PageNotFound />); }
-    const { match, location } = this.props;
+    const { match, location, history } = this.props;
     return (
       <div className="business">
         <div className="business-header" style={{ backgroundImage: `url(${cloudinaryCore.url(business.logo)})` }} />
@@ -171,11 +171,12 @@ class Business extends Component {
                   deleteBusiness={this.submit}
                   error={errors.warning}
                   isCurrentUser={isCurrentUser}/>
+                <a className="back-btn" onClick={() => history.goBack()}><i className="fa fa-arrow-circle-o-left" /></a>
               </div>
               <div className="col-md-8 col-sm-6 col-xs-12">
                 <Overview business={business}/>
                 <About business={business}/>
-                {this.refs.refBusiness && <Reviews businessId={match.params.id} path={location.pathname} />}
+                {this.refs.refBusiness && <Reviews businessId={match.params.id} path={location.pathname} isCurrentUser={isCurrentUser} />}
               </div>
             </div>
           </div> { fireRedirect && (<Redirect to="/" />) }

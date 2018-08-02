@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './css/Businesses.css';
 import Form from './Form';
 import Sidebar from '../../common/Sidebar';
+import Breadcrumb from '../../common/Breadcrumb';
 
 /**
  * Edit single Business
@@ -19,6 +20,7 @@ class EditBusiness extends Component {
             <Sidebar />
           </div>
           <div className="col-lg-9">
+            <Breadcrumb routename="Edit Business" />
             <h1>Update business</h1>
             <Form paramId={paramId} />
           </div>

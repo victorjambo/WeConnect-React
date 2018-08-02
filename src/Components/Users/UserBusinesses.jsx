@@ -6,6 +6,7 @@ import Sidebar from '../../common/Sidebar';
 import requestAgent from '../../helpers/superagent';
 import Item from '../SearchResults/Item';
 import '../SearchResults/css/search.css';
+import Breadcrumb from '../../common/Breadcrumb';
 
 /**
  * Businesses for current user
@@ -66,6 +67,7 @@ class UserBusinesses extends Component {
             <Sidebar />
           </div>
           <div className="col-lg-9">
+            <Breadcrumb routename="My Businesses" />
             <h1>My Business</h1>
             {
               (items.length === 0 && !isLoading) && <span className="text-center">
@@ -87,6 +89,7 @@ class UserBusinesses extends Component {
 
           </div>
         </div>
+        <a className="back-btn" onClick={() => this.props.history.goBack()}><i className="fa fa-arrow-circle-o-left" /></a>
       </div>
     );
   }

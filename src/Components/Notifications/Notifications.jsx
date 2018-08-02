@@ -5,6 +5,7 @@ import requestAgent from '../../helpers/superagent';
 import NotificationItem from './NotificationItem';
 import '../SearchResults/css/search.css';
 import './stream.css';
+import Breadcrumb from '../../common/Breadcrumb';
 
 /**
  * fetch all notifications for current users
@@ -63,6 +64,7 @@ class Notifications extends React.Component {
             <Sidebar />
           </div>
           <div className="col-lg-9">
+            <Breadcrumb routename="Notifications" />
             <ul className="item-list" ref="refNotification">
               {
                 (notifications.length === 0 && !isLoading) && <span className="text-center">

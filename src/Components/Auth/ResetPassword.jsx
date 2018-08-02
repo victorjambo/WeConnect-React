@@ -8,6 +8,7 @@ import Input from '../../common/ElementComponents/Input';
 import ButtonAuth from '../../common/ElementComponents/ButtonAuth';
 import requestAgent from '../../helpers/superagent';
 import Warning from '../../common/ElementComponents/Warning';
+import Breadcrumb from '../../common/Breadcrumb';
 
 /**
  * Reset user Password
@@ -103,6 +104,7 @@ class ResetPassword extends React.Component {
         <div className="row bucket">
           <div className="col-lg-3 hidden-sm"><Sidebar /></div>
           <div className="col-lg-9">
+            <Breadcrumb routename="Reset Password" />
             <form onSubmit={this.handleSubmit}>
               <h1>Reset Password</h1>
               <Warning classname="pass-reset" warning={this.state.serverErrors.warning}/>

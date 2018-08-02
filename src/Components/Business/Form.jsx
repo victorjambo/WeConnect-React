@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
@@ -263,7 +263,7 @@ class Form extends Component {
         </div>
 
         <DropzoneContainer onDrop={this.onDrop} preview={this.state.preview} logo={this.state.logo} />
-
+        { this.props.paramId && <Link className="back-btn" to={`/business/${this.props.paramId}`}><i className="fa fa-arrow-circle-o-left" /></Link> }
       </div>
 
     );

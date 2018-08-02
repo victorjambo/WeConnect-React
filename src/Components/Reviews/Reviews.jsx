@@ -209,7 +209,7 @@ class Reviews extends React.Component {
     const {
       reviews, title, desc, errors, isLoading
     } = this.state;
-    const { businessId } = this.props;
+    const { businessId, isCurrentUser } = this.props;
     const review = reviews.map((_review) => (
       <Review review={_review}
         key={_review.id}
@@ -229,7 +229,7 @@ class Reviews extends React.Component {
               logChange={this.logChange}
               handleSubmit={this.handleSubmit}
               title={title} desc={desc}
-              errors={errors} isLoading={isLoading} />
+              errors={errors} isLoading={isLoading} isCurrentUser={isCurrentUser} />
           ) : (<LoginFirst businessId={businessId} />)
         }
       </div>
@@ -238,7 +238,8 @@ class Reviews extends React.Component {
 }
 
 Reviews.propTypes = {
-  businessId: PropTypes.string
+  businessId: PropTypes.string,
+  isCurrentUser: PropTypes.bool
 };
 
 export default Reviews;
