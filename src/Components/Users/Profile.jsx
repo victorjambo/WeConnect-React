@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import decode from 'jwt-decode';
 import { SyncLoader } from 'react-spinners';
 import Sidebar from '../../common/Sidebar';
 import requestAgent from '../../helpers/superagent';
 import './Profile.css';
 import ProfileOverview from '../../common/ElementComponents/ProfileOverview';
+import Breadcrumb from '../../common/Breadcrumb';
 
 /**
  * dashboard for single user
@@ -46,7 +48,7 @@ class Profile extends React.Component {
 
     const token = window.sessionStorage.getItem('token');
     const { id } = decode(token);
-    const url = "/api/v2/users/";
+    const url = "/users/";
 
     requestAgent.get(url + id)
       .set('Content-Type', 'application/json')
@@ -68,6 +70,7 @@ class Profile extends React.Component {
    */
   render() {
     const { user, isLoading } = this.state;
+    const { history } = this.props;
     return (
       <div className="container push-profile">
         <div className="row bucket">
@@ -75,6 +78,7 @@ class Profile extends React.Component {
             <Sidebar />
           </div>
           <div className="col-lg-9" ref="refUser">
+            <Breadcrumb routename="Profile"/>
             {
               isLoading ? (
                 <div className="spinners-loader"><SyncLoader color={'#123abc'} /></div>
@@ -84,9 +88,14 @@ class Profile extends React.Component {
             }
           </div>
         </div>
+        <a className="back-btn" onClick={() => history.goBack()}><i className="fa fa-arrow-circle-o-left" /></a>
       </div>
     );
   }
 }
+
+Profile.propTypes = {
+  history: PropTypes.object
+};
 
 export default Profile;

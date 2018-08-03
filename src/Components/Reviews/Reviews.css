@@ -19,3 +19,12 @@
 .closebtn:hover {
   color: #AC2500;
 }
+
+.disable-reviews {
+  pointer-events: none;
+}
+
+.disable-reviews * {
+  color: #c2c2c2;
+  border-color: #c2c2c2;
+}

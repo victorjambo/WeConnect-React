@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import validateInput from '../../helpers/validations';
@@ -61,7 +61,7 @@ class Form extends Component {
    * @returns {obj} state
    */
   getBusiness(paramId) {
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
 
     requestAgent.get(url + paramId)
       .set('Content-Type', 'application/json')
@@ -132,9 +132,9 @@ class Form extends Component {
       };
 
       if (paramId) {
-        this.putForm("/api/v2/businesses/", token, data);
+        this.putForm("/businesses/", token, data);
       } else {
-        this.postForm("/api/v2/businesses/", token, data);
+        this.postForm("/businesses/", token, data);
       }
     }
   }
@@ -263,7 +263,12 @@ class Form extends Component {
         </div>
 
         <DropzoneContainer onDrop={this.onDrop} preview={this.state.preview} logo={this.state.logo} />
-
+        {
+          this.props.paramId &&
+          <Link className="back-btn" to={`/business/${this.props.paramId}`}>
+            <i className="fa fa-arrow-circle-o-left" />
+          </Link>
+        }
       </div>
 
     );

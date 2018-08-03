@@ -33,3 +33,15 @@
   background: #dd4b39;
   color: white;
 }
+
+.back-btn {
+  color: #0000007d;
+  font-size: 80px;
+  position: fixed;
+  left: 30px;
+  top: 65px;
+}
+
+.back-btn:hover {
+  color: #000000;
+}

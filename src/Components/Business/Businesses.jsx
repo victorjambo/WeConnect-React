@@ -41,7 +41,7 @@ class Businesses extends Component {
   getBusinesses = async () => {
     this.setState({ isLoading: true });
 
-    const url = "/api/v2/businesses/";
+    const url = "/businesses/";
 
     requestAgent
       .get(url)

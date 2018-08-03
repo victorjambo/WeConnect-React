@@ -10,9 +10,9 @@ import Input from '../../common/ElementComponents/Input';
  * @return {*} input form and btn
  */
 const NewReview = ({
-  title, desc, logChange, errors, isLoading, handleSubmit
+  title, desc, logChange, errors, isLoading, handleSubmit, isCurrentUser
 }) => (
-  <div className="add-review bucket" id="new-review">
+  <div className={`add-review bucket ${isCurrentUser ? "disable-reviews" : ''}`} id="new-review">
     <h2>Give us feedback</h2>
     <div className="review-body">
       <form onSubmit={handleSubmit}>
@@ -37,7 +37,8 @@ NewReview.propTypes = {
   logChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   errors: PropTypes.object,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isCurrentUser: PropTypes.bool
 };
 
 NewReview.defaultProps = {

@@ -45,7 +45,7 @@ class Login extends Component {
 
     const { username, password } = this.state;
 
-    const url = "/api/v2/auth/login";
+    const url = "/auth/login";
 
     requestAgent.post(url)
       .set('Content-Type', 'application/json')

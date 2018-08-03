@@ -73,7 +73,7 @@ describe('<Business /> single business component', () => {
   it('Renders Business, should have element with class .business & Review component', () => {
     wrapper.setState(initialState);
     expect(wrapper.find('.business').length).to.equal(1);
-    expect(wrapper.contains(<Reviews businessId="23" path="/" />)).to.be.true;
+    expect(wrapper.contains(<Reviews businessId="23" path="/" isCurrentUser />)).to.be.true;
   });
 
   it('Redirect to <PageNotFound />', () => {
