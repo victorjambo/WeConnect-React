@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './css/Businesses.css';
 import Form from './Form';
 import Sidebar from '../../common/Sidebar';
@@ -12,7 +13,7 @@ class EditBusiness extends Component {
    * @return {jsx} html to be rendered
    */
   render() {
-    const paramId = this.props.match.params.id;
+    const { match: { params: { id } } } = this.props;
     return (
       <div className="container push-profile">
         <div className="row bucket">
@@ -22,7 +23,7 @@ class EditBusiness extends Component {
           <div className="col-lg-9">
             <Breadcrumb routename="Edit Business" />
             <h1>Update business</h1>
-            <Form paramId={paramId} />
+            <Form paramId={id} />
           </div>
         </div>
       </div>
@@ -30,5 +31,9 @@ class EditBusiness extends Component {
     );
   }
 }
+
+EditBusiness.propTypes = {
+  match: PropTypes.object
+};
 
 export default EditBusiness;

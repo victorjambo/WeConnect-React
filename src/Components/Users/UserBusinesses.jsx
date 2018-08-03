@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import decode from 'jwt-decode';
 import { Link } from "react-router-dom";
 import { SyncLoader } from 'react-spinners';
@@ -89,10 +90,16 @@ class UserBusinesses extends Component {
 
           </div>
         </div>
-        <a className="back-btn" onClick={() => this.props.history.goBack()}><i className="fa fa-arrow-circle-o-left" /></a>
+        <a className="back-btn" onClick={() => this.props.history.goBack()}>
+          <i className="fa fa-arrow-circle-o-left" />
+        </a>
       </div>
     );
   }
 }
+
+UserBusinesses.propTypes = {
+  history: PropTypes.object
+};
 
 export default UserBusinesses;

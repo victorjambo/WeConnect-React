@@ -263,7 +263,12 @@ class Form extends Component {
         </div>
 
         <DropzoneContainer onDrop={this.onDrop} preview={this.state.preview} logo={this.state.logo} />
-        { this.props.paramId && <Link className="back-btn" to={`/business/${this.props.paramId}`}><i className="fa fa-arrow-circle-o-left" /></Link> }
+        {
+          this.props.paramId &&
+          <Link className="back-btn" to={`/business/${this.props.paramId}`}>
+            <i className="fa fa-arrow-circle-o-left" />
+          </Link>
+        }
       </div>
 
     );

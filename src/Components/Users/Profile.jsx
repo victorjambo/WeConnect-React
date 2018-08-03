@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import decode from 'jwt-decode';
 import { SyncLoader } from 'react-spinners';
 import Sidebar from '../../common/Sidebar';
@@ -92,5 +93,9 @@ class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  history: PropTypes.object
+};
 
 export default Profile;

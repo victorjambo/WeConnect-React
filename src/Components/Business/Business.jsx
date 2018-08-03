@@ -19,6 +19,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 /**
  * This component handles a single busines
  * renders that single business
+ * @param {props} publicId
+ * @returns {obj} single business
  */
 class Business extends Component {
   constructor(props) {
@@ -108,6 +110,8 @@ class Business extends Component {
 
   /**
    * this is a dialog box before delete of a business
+   * @param {event} e
+   * @returns {*} action
    */
   submit = (e) => {
     e.preventDefault();
@@ -170,35 +174,38 @@ class Business extends Component {
                   isDeleting={isDeleting}
                   deleteBusiness={this.submit}
                   error={errors.warning}
-                  isCurrentUser={isCurrentUser}/>
+                  isCurrentUser={isCurrentUser} />
                 <a className="back-btn" onClick={() => history.goBack()}><i className="fa fa-arrow-circle-o-left" /></a>
               </div>
               <div className="col-md-8 col-sm-6 col-xs-12">
-                <Overview business={business}/>
-                <About business={business}/>
-                {this.refs.refBusiness && <Reviews businessId={match.params.id} path={location.pathname} isCurrentUser={isCurrentUser} />}
+                <Overview business={business} />
+                <About business={business} />
+                {
+                  this.refs.refBusiness &&
+                  <Reviews businessId={match.params.id} path={location.pathname} isCurrentUser={isCurrentUser} />
+                }
               </div>
             </div>
-          </div> { fireRedirect && (<Redirect to="/" />) }
+          </div> {fireRedirect && (<Redirect to="/" />)}
         </div>
         <div className="social-buttons">
           <a
             target="_blank"
             href={`http://www.facebook.com/sharer/sharer.php?u=https://weconnect-react.herokuapp.com/business/${business.id}`}
             className="fai fa fa-facebook">
-            <span style={{display:'none'}}/>
+            <span style={{ display: 'none' }} />
           </a>
           <a
             target="_blank"
             href={`https://twitter.com/intent/tweet?text=Read%20more%20about${business.name}%20at%20https://weconnect-react.herokuapp.com/business/${business.id}`}
             className="fai fa fa-twitter">
-            <span style={{display:'none'}}/>
+            <span style={{ display: 'none' }} />
           </a>
           <a
             target="_blank"
             href={`https://plus.google.com/share?url=https://weconnect-react.herokuapp.com/business/${business.id}`}
             className="fai fa fa-google">
-            <span style={{display:'none'}}/>
+            <span style={{ display: 'none' }} />
           </a>
         </div>
       </div>);
@@ -207,7 +214,8 @@ class Business extends Component {
 
 Business.propTypes = {
   match: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default Business;

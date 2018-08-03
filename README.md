@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/victorjambo/WeConnect-React.svg?branch=master)](https://travis-ci.org/victorjambo/WeConnect-React)
 [![Coverage Status](https://coveralls.io/repos/github/victorjambo/WeConnect-React/badge.svg?branch=development)](https://coveralls.io/github/victorjambo/WeConnect-React?branch=development)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bf5b3e820f444c84a921aea468d0e614)](https://www.codacy.com/project/victorjambo/WeConnect-React/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=victorjambo/WeConnect-React&amp;utm_campaign=Badge_Grade_Dashboard)
 
 # WeConnect
 
