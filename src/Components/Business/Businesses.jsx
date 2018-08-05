@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { SyncLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
+import isEqual from 'lodash.isequal';
 import ItemBusiness from './ItemBusiness';
 import requestAgent from '../../helpers/superagent';
+import notify from '../../helpers/notify';
 
 /**
  * Renders All businesses
@@ -17,6 +20,9 @@ class Businesses extends Component {
     super(props);
     this.state = {
       businesses: [],
+      nameQuery: '',
+      locationQuery: '',
+      categoryQuery: '',
       isLoading: false
     };
     this.mounted = false;
@@ -30,22 +36,38 @@ class Businesses extends Component {
     this.getBusinesses();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.query, nextProps.query)) {
+      this.getBusinesses(nextProps.query);
+    }
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
 
   /**
    * Makes api response to API to fetch all businesses
+   * @param {obj} query
    * @returns {obj} all businesses
    */
-  getBusinesses = async () => {
+  getBusinesses = async (query = {
+    nameQuery: '',
+    locationQuery: '',
+    categoryQuery: ''
+  }) => {
     this.setState({ isLoading: true });
+    const { nameQuery, locationQuery, categoryQuery } = query;
+    const initialBusinessState = this.state.businesses;
 
     const url = "/businesses/";
 
     requestAgent
       .get(url)
       .query({ limit: '30' })
+      .query({ q: nameQuery })
+      .query({ location: locationQuery })
+      .query({ category: categoryQuery })
       .set('Content-Type', 'application/json')
       .then((response) => {
         if (response.body.businesses && this.refs.refBusiness && this.mounted) {
@@ -54,7 +76,8 @@ class Businesses extends Component {
             isLoading: false
           });
         } else {
-          this.setState({ isLoading: false });
+          notify('info', 'No business exists within search criteria');
+          this.setState({ isLoading: false, businesses: initialBusinessState });
         }
       })
       .catch((err) => {
@@ -67,15 +90,15 @@ class Businesses extends Component {
    */
   render() {
     const { businesses, isLoading } = this.state;
-    const business = businesses.map((_business) => <ItemBusiness business={_business} key={_business.id}/>);
+    const business = businesses.map((_business) => <ItemBusiness business={_business} key={_business.id} />);
     return (
       <div className="container">
         <div className="row bucket" ref="refBusiness">
           <h2>Registered Businesses</h2>
-          <hr className="my-4"/>
+          <hr className="my-4" />
 
           <Masonry >
-            { business }
+            {business}
           </Masonry>
 
           {
@@ -100,5 +123,9 @@ class Businesses extends Component {
     );
   }
 }
+
+Businesses.propTypes = {
+  query: PropTypes.object
+};
 
 export default Businesses;
