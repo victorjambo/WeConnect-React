@@ -10,6 +10,7 @@ import Login from '../Components/Auth/Login';
 import PrivateRoute from '../Components/Auth/PrivateRoute';
 import LoginFirst from '../Components/Auth/LoginFirst';
 import ResetPassword from '../Components/Auth/ResetPassword';
+import ConfirmReset from '../Components/Auth/ConfirmReset';
 
 // configure enzyme adapter
 configure({ adapter: new Adapter() });
@@ -218,5 +219,13 @@ describe('<ResetPassword />', () => {
     });
 
     expect(wrapper.state().confirmPassword).to.equal('passwords');
+  });
+});
+
+describe('<ConfirmReset />', () => {
+  it('renders without failing', () => {
+    const wrapper = shallow(<ConfirmReset location={{ state: '/' }}/>);
+    expect(wrapper.find('form')).to.have.lengthOf(1);
+    expect(wrapper.find('h1').first().text()).to.equal('Reset Password');
   });
 });

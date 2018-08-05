@@ -16,7 +16,7 @@ import ResetPassword from './Components/Auth/ResetPassword';
 import Notifications from './Components/Notifications/Notifications';
 import UserBusinesses from './Components/Users/UserBusinesses';
 import 'react-toastify/dist/ReactToastify.css';
-import Search from './Components/SearchResults/Search';
+import ConfirmReset from './Components/Auth/ConfirmReset';
 
 /**
  * App. Main Component
@@ -36,7 +36,7 @@ class App extends Component {
           <Route path="/auth/login" component={Login} />
           <Route path="/auth/forgot-password" component={ForgotPassword} />
           <Route path="/auth/reset-password" component={ResetPassword} />
-          <Route path="/search" exact component={Search} />
+          <Route path="/auth/confirm-reset-password" component={ConfirmReset} />
           <PrivateRoute path="/auth/reset-password" exact component={NewBusiness} />
           <PrivateRoute path="/profile" exact component={Profile} />
           <PrivateRoute path="/notifications" exact component={Notifications} />

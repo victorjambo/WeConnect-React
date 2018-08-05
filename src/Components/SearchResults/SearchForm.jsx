@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './css/SearchForm.css';
 
 /**
@@ -15,18 +15,10 @@ class SearchForm extends Component {
     this.state = {
       nameQuery: '',
       locationQuery: '',
-      categoryQuery: '',
-      fireRedirect: false
+      categoryQuery: ''
     };
 
-    this.redirect = this.redirect.bind(this);
     this.logChange = this.logChange.bind(this);
-  }
-
-  redirect() {
-    this.setState({
-      fireRedirect: true
-    });
   }
 
   logChange(e) {
@@ -39,9 +31,7 @@ class SearchForm extends Component {
    * @return {jsx} html to be rendered
    */
   render() {
-    const {
-      fireRedirect, nameQuery, locationQuery, categoryQuery
-    } = this.state;
+    const { nameQuery, locationQuery, categoryQuery } = this.state;
     return (
       <form>
         <div className="input-group">
@@ -73,16 +63,19 @@ class SearchForm extends Component {
             style={{ width: '33.33%' }} />
 
           <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this.redirect} />
+            <button className="btn btn-default" onClick={(e) => {
+              e.preventDefault();
+              this.props.pass({ nameQuery, locationQuery, categoryQuery });
+            }} />
           </span>
         </div>
-        {fireRedirect && (<Redirect to={{
-          pathname: '/search',
-          state: { nameQuery, locationQuery, categoryQuery }
-        }} />)}
       </form>
     );
   }
 }
+
+SearchForm.propTypes = {
+  pass: PropTypes.func
+};
 
 export default SearchForm;
