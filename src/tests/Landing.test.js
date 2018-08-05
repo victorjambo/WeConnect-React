@@ -7,7 +7,6 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Hero from '../common/Hero';
 import Landing from '../common/Landing';
-import Businesses from '../Components/Business/Businesses';
 import SearchForm from '../Components/SearchResults/SearchForm';
 import NavigationBar from '../common/NavigationBar';
 import Auth from '../helpers/Auth';
@@ -20,8 +19,8 @@ configure({ adapter: new Adapter() });
 describe('Test <Landing />', () => {
   it('Test Render Landing Components', () => {
     const app = shallow(<Landing />);
-    expect(app.contains(<Hero />)).to.be.true;
-    expect(app.contains(<Businesses />)).to.be.true;
+    expect(app.find('Hero').length).to.equal(1);
+    expect(app.find('Businesses').length).to.equal(1);
   });
 });
 

@@ -4,6 +4,7 @@ import { SyncLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
 import isEqual from 'lodash.isequal';
+import JwPagination from 'jw-react-pagination';
 import ItemBusiness from './ItemBusiness';
 import requestAgent from '../../helpers/superagent';
 import notify from '../../helpers/notify';
@@ -23,9 +24,11 @@ class Businesses extends Component {
       nameQuery: '',
       locationQuery: '',
       categoryQuery: '',
-      isLoading: false
+      isLoading: false,
+      pageOfItems: []
     };
     this.mounted = false;
+    this.onChangePage = this.onChangePage.bind(this);
   }
 
   /**
@@ -86,11 +89,20 @@ class Businesses extends Component {
   }
 
   /**
+   * update local state with new page of items
+   * @param {*} pageOfItems
+   * @returns {*} pageOfItems
+   */
+  onChangePage(pageOfItems) {
+    this.setState({ pageOfItems });
+  }
+
+  /**
    * @return {jsx} html to be rendered
    */
   render() {
-    const { businesses, isLoading } = this.state;
-    const business = businesses.map((_business) => <ItemBusiness business={_business} key={_business.id} />);
+    const { businesses, isLoading, pageOfItems } = this.state;
+    const business = pageOfItems.map((_business) => <ItemBusiness business={_business} key={_business.id} />);
     return (
       <div className="container">
         <div className="row bucket" ref="refBusiness">
@@ -100,6 +112,7 @@ class Businesses extends Component {
           <Masonry >
             {business}
           </Masonry>
+          <JwPagination items={businesses} onChangePage={this.onChangePage} />
 
           {
             <div className="spinners-loader">
