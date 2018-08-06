@@ -1,0 +1,188 @@
+.item-list {
+  list-style: none;
+  font-family: 'Lato', sans-serif;
+  margin: 0px;
+  padding-left: 10px;
+}
+
+.item-list > li {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 5px rgb(51, 51, 51);
+  box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+  padding: 0px;
+  margin: 0px 0px 20px;
+  padding: 10px;
+}
+
+.item-list > li > a > img {
+  width: 100%;
+}
+.item-list > li > .info {
+  padding-top: 5px;
+  padding: 10px;
+  text-align: center;
+}
+.item-list > li > .info > .title {
+  font-size: 17pt;
+  font-weight: 700;
+  margin: 0px;
+}
+.item-list > li > .info > .desc {
+  font-size: 13pt;
+  font-weight: 300;
+  margin: 0px;
+}
+.item-list > li > .info > ul,
+.item-list > li > .social > ul {
+  display: table;
+  list-style: none;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  width: 100%;
+  text-align: center;
+}
+.item-list > li > .social > ul {
+  margin: 0px;
+}
+.item-list > li > .info > ul > li,
+.item-list > li > .social > ul > li {
+  display: table-cell;
+  cursor: pointer;
+  color: rgb(30, 30, 30);
+  font-size: 11pt;
+  font-weight: 300;
+  padding: 3px 0px;
+}
+
+.item-list > li > .info > ul > li > a {
+  display: block;
+  width: 100%;
+  color: rgb(30, 30, 30);
+  text-decoration: none;
+}
+
+.item-list > li > .social > ul > li {    
+  padding: 0px;
+}
+
+.item-list > li > .social > ul > li > a {
+  padding: 3px 0px;
+}
+
+.item-list > li > .info > ul > li:hover,
+.item-list > li > .social > ul > li:hover {
+  color: rgb(30, 30, 30);
+  background-color: rgb(200, 200, 200);
+}
+
+.facebook a,
+.twitter a,
+.google-plus a {
+  display: block;
+  width: 100%;
+  color: rgb(75, 110, 168) !important;
+}
+
+.twitter a {
+color: rgb(79, 213, 248) !important;
+}
+
+.google-plus a {
+  color: rgb(221, 75, 57) !important;
+}
+
+.facebook:hover a {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(75, 110, 168) !important;
+}
+
+.twitter:hover a {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(79, 213, 248) !important;
+}
+
+.google-plus:hover a {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(221, 75, 57) !important;
+}
+
+@media (min-width: 768px) {
+  .item-list > li {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding: 0px;
+  }
+  .item-list > li:hover {
+    box-shadow: inset 0 0 0 2px #205bbc, 0 0 4px 1px rgba(0,0,0,0.4);
+  }
+  .item-list > li > a > img  {
+    display: inline-block;
+  }
+  .item-list > li > a > img {
+    width: 120px;
+    float: left;
+  }
+  .item-list > li > .info {
+    background-color: rgb(245, 245, 245);
+    overflow: hidden;
+    padding: 10px;
+  }
+  .item-list > li > a > img {
+    width: 120px;
+    height: 120px;
+    padding: 0px;
+    margin: 0px;
+  }
+  .item-list > li > .info {
+    position: relative;
+    height: 120px;
+    text-align: left;
+    padding-right: 40px;
+  }	
+
+  .item-list > li > .info > ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
+  .item-list > li > .social {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    width: 40px;
+  }
+  .item-list > li > .social > ul {
+      border-left: 1px solid rgb(230, 230, 230);
+  }
+  .item-list > li > .social > ul > li {			
+    display: block;
+          padding: 0px;
+  }
+  .item-list > li > .social > ul > li > a {
+    display: block;
+    width: 40px;
+    padding: 10px 0px 9px;
+  }
+}
+
+.push-search {
+  margin-top: 100px;
+}
+
+.search-bar {
+  margin-bottom: 10px;
+}
+
+.trunc {
+  width:250px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
+.desc {
+  color: #a7a3a3;
+}
