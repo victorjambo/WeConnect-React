@@ -13,6 +13,20 @@ Make sure you have the followings installed.
 * Nodejs
 * npm, npx or yarn
 
+## Technologies used
+- React
+- Python 3.6.5, Flask REST API
+
+### Backend API
+Create python virtual environment and clone the API from link above following instruction in it's documentation.
+```
+python3 -m venv env
+source ./env/bin/activate 
+git clone https://github.com/victorjambo/WeConnect.git  
+```
+set global environments and to run the application locally use ```flask run```
+
+
 ## Tools used
 
 This front end application used:
