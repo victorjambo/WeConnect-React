@@ -53,7 +53,7 @@ class ForgotPassword extends Component {
 
       const { email } = this.state;
 
-      const url = "auth/forgot-password";
+      const url = "/auth/forgot-password";
 
       requestAgent.post(url)
         .set('Content-Type', 'application/json')
